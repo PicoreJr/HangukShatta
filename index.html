@@ -2954,6 +2954,126 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 }
 </style>
 
+
+<style id="restaurant-module">
+.restaurant-panel{overflow:hidden}
+.restaurant-hero{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 250px;
+  gap:18px;
+  align-items:stretch;
+  margin-bottom:16px;
+}
+.restaurant-kicker{
+  color:#be185d;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+.restaurant-tip{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+  padding:16px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#fff7ed,#fff1f2);
+  border:1px solid #fed7aa;
+  color:#7c2d12;
+}
+.restaurant-tip strong{font-size:.82rem}
+.restaurant-tip span{font-size:1.05rem;font-weight:900;color:#9d174d}
+.restaurant-tip small{font-size:.72rem;color:#92400e}
+.restaurant-warning{
+  padding:13px 15px;
+  margin-bottom:22px;
+  border:1px solid #fbcfe8;
+  border-radius:14px;
+  background:#fff8fb;
+  color:#475569;
+  font-size:.82rem;
+  line-height:1.55;
+}
+.restaurant-warning strong{color:#9d174d}
+.restaurant-section{margin-top:22px}
+.restaurant-section-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#334155;
+  font-weight:900;
+  font-size:.92rem;
+  margin-bottom:11px;
+}
+.restaurant-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:11px;
+}
+.restaurant-card{
+  position:relative;
+  padding:15px;
+  border:1px solid #e2e8f0;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:0 3px 10px rgba(15,23,42,.035);
+  transition:.18s ease;
+}
+.restaurant-card:hover{
+  transform:translateY(-2px);
+  border-color:#f9a8d4;
+  box-shadow:0 8px 18px rgba(236,72,153,.09);
+}
+.restaurant-kr{
+  font-family:'Noto Sans KR',sans-serif;
+  color:#9d174d;
+  font-weight:900;
+  font-size:1.05rem;
+  line-height:1.35;
+}
+.restaurant-rom{
+  margin-top:4px;
+  color:#d97706;
+  font-size:.73rem;
+  font-weight:800;
+}
+.restaurant-fr{
+  margin-top:6px;
+  color:#475569;
+  font-size:.78rem;
+  line-height:1.4;
+  min-height:34px;
+}
+.restaurant-card .mini-action{
+  margin-top:9px;
+}
+.restaurant-cheat{
+  margin-top:22px;
+  display:grid;
+  gap:6px;
+  padding:15px 17px;
+  border-radius:15px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  color:#475569;
+  font-size:.8rem;
+  line-height:1.5;
+}
+.restaurant-cheat strong{color:#9d174d}
+.restaurant-cheat span{color:#64748b}
+.restaurant-cheat b{color:#be185d}
+@media(max-width:900px){
+  .restaurant-hero{grid-template-columns:1fr}
+  .restaurant-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  .restaurant-grid{grid-template-columns:1fr}
+  .restaurant-card{padding:14px}
+}
+</style>
+
 </head>
 <body>
 
@@ -3018,6 +3138,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
     <button class="nav-btn" data-tab="pronouns" onclick="showTab('pronouns')">👤 Pronoms</button>
     <button class="nav-btn" data-tab="grammar" onclick="showTab('grammar')">🧠 Grammaire</button>
     <button class="nav-btn" data-tab="practical" onclick="showTab('practical')">🇰🇷 Pratique</button>
+    <button class="nav-btn" data-tab="restaurant" onclick="showTab('restaurant')">🍜 Commander au restaurant</button>
     <button class="nav-btn" data-tab="phrases" onclick="showTab('phrases')">💬 Phrases</button>
     <button class="nav-btn" data-tab="numbers" onclick="showTab('numbers')">🔢 Nombres</button>
   </nav>
@@ -3418,6 +3539,182 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
   </div>
 
   <!-- ONGLET NOMBRES -->
+
+  <!-- ONGLET : COMMANDER AU RESTAURANT -->
+  <div id="panel-restaurant" class="tab-panel">
+    <div class="app-card restaurant-panel">
+      <div class="restaurant-hero">
+        <div>
+          <div class="restaurant-kicker">🍜 SURVIE AU RESTAURANT</div>
+          <div class="setup-title section-title-accent">Commander au restaurant</div>
+          <div class="setup-desc">
+            Les phrases essentielles pour commander, demander une modification,
+            signaler une allergie et payer sans stress en Corée.
+          </div>
+        </div>
+        <div class="restaurant-tip">
+          <strong>💡 Mot magique</strong>
+          <span><b>주세요</b> · juseyo</span>
+          <small>« s'il vous plaît / donnez-moi… »</small>
+        </div>
+      </div>
+
+      <div class="restaurant-warning">
+        ⚠️ <strong>Astuce :</strong> pour commander, tu peux simplement dire
+        <strong>nom du plat + 주세요</strong>. Exemple :
+        <strong>김치찌개 주세요</strong> · <em>gimchi-jjigae juseyo</em> · « Un kimchi jjigae, s'il vous plaît. »
+      </div>
+
+      <div class="restaurant-section">
+        <div class="restaurant-section-title">🗣️ Les phrases indispensables</div>
+        <div class="restaurant-grid">
+          <article class="restaurant-card">
+            <div class="restaurant-kr">메뉴판 주세요</div>
+            <div class="restaurant-rom">menyupan juseyo</div>
+            <div class="restaurant-fr">Le menu, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('메뉴판 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">이거 주세요</div>
+            <div class="restaurant-rom">igeo juseyo</div>
+            <div class="restaurant-fr">Je voudrais ça, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('이거 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">이거 하나 주세요</div>
+            <div class="restaurant-rom">igeo hana juseyo</div>
+            <div class="restaurant-fr">Un de ceci, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('이거 하나 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">이거 두 개 주세요</div>
+            <div class="restaurant-rom">igeo du gae juseyo</div>
+            <div class="restaurant-fr">Deux de ceci, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('이거 두 개 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">뭐가 맛있어요?</div>
+            <div class="restaurant-rom">mwoga masisseoyo?</div>
+            <div class="restaurant-fr">Qu'est-ce qui est bon ? / Vous conseillez quoi ?</div>
+            <button class="mini-action" type="button" onclick="speakKorean('뭐가 맛있어요?')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">물 좀 주세요</div>
+            <div class="restaurant-rom">mul jom juseyo</div>
+            <div class="restaurant-fr">De l'eau, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('물 좀 주세요')">🔊 Écouter</button>
+          </article>
+        </div>
+      </div>
+
+      <div class="restaurant-section">
+        <div class="restaurant-section-title">🌶️ Modifier sa commande</div>
+        <div class="restaurant-grid">
+          <article class="restaurant-card">
+            <div class="restaurant-kr">안 맵게 해 주세요</div>
+            <div class="restaurant-rom">an maepge hae juseyo</div>
+            <div class="restaurant-fr">Pas épicé, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('안 맵게 해 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">조금만 맵게 해 주세요</div>
+            <div class="restaurant-rom">jogeumman maepge hae juseyo</div>
+            <div class="restaurant-fr">Un peu épicé seulement, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('조금만 맵게 해 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">빼 주세요</div>
+            <div class="restaurant-rom">ppae juseyo</div>
+            <div class="restaurant-fr">Sans ça, s'il vous plaît. / Enlevez-le, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('빼 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">알레르기가 있어요</div>
+            <div class="restaurant-rom">allereugiga isseoyo</div>
+            <div class="restaurant-fr">J'ai une allergie.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('알레르기가 있어요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">채식 메뉴가 있어요?</div>
+            <div class="restaurant-rom">chaesik menyuga isseoyo?</div>
+            <div class="restaurant-fr">Vous avez des plats végétariens ?</div>
+            <button class="mini-action" type="button" onclick="speakKorean('채식 메뉴가 있어요?')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">포장해 주세요</div>
+            <div class="restaurant-rom">pojanghae juseyo</div>
+            <div class="restaurant-fr">À emporter, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('포장해 주세요')">🔊 Écouter</button>
+          </article>
+        </div>
+      </div>
+
+      <div class="restaurant-section">
+        <div class="restaurant-section-title">💳 Payer et terminer</div>
+        <div class="restaurant-grid">
+          <article class="restaurant-card">
+            <div class="restaurant-kr">계산해 주세요</div>
+            <div class="restaurant-rom">gyesanhae juseyo</div>
+            <div class="restaurant-fr">L'addition, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('계산해 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">카드로 결제할게요</div>
+            <div class="restaurant-rom">kadeuro gyeoljehalgeyo</div>
+            <div class="restaurant-fr">Je vais payer par carte.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('카드로 결제할게요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">영수증 주세요</div>
+            <div class="restaurant-rom">yeongsujeung juseyo</div>
+            <div class="restaurant-fr">Le reçu, s'il vous plaît.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('영수증 주세요')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">맛있어요!</div>
+            <div class="restaurant-rom">masisseoyo!</div>
+            <div class="restaurant-fr">C'est délicieux !</div>
+            <button class="mini-action" type="button" onclick="speakKorean('맛있어요!')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">감사합니다</div>
+            <div class="restaurant-rom">gamsahamnida</div>
+            <div class="restaurant-fr">Merci.</div>
+            <button class="mini-action" type="button" onclick="speakKorean('감사합니다')">🔊 Écouter</button>
+          </article>
+
+          <article class="restaurant-card">
+            <div class="restaurant-kr">화장실이 어디예요?</div>
+            <div class="restaurant-rom">hwajangsiri eodiyeyo?</div>
+            <div class="restaurant-fr">Où sont les toilettes ?</div>
+            <button class="mini-action" type="button" onclick="speakKorean('화장실이 어디예요?')">🔊 Écouter</button>
+          </article>
+        </div>
+      </div>
+
+      <div class="restaurant-cheat">
+        <div><strong>🧠 Formule express</strong></div>
+        <div><span>Plat</span> + <b>주세요</b> = « Je voudrais le plat, s'il vous plaît. »</div>
+        <div><span>Plat</span> + <b>안 맵게 해 주세요</b> = « Pas épicé, s'il vous plaît. »</div>
+        <div><span>계산해 주세요</span> = « L'addition, s'il vous plaît. »</div>
+      </div>
+    </div>
+  </div>
+
   <div id="panel-phrases" class="tab-panel">
     <div class="app-card">
       <div class="setup-title section-title-accent">💬 Phrases utiles</div>
