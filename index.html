@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ec4899">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.json">
   <title>Hanguk'Shatta — 한국어 학습</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3248,6 +3252,70 @@ body{
 }
 </style>
 
+
+<style id="questions-lesson-v1">
+.question-lesson{overflow:hidden}
+.question-hero{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:16px;
+  align-items:center;
+  margin:20px 0;
+  padding:20px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#fff2f7,#fff);
+  border:1px solid #f2dbe5;
+}
+.question-hero-icon{
+  width:52px;height:52px;display:grid;place-items:center;
+  border-radius:15px;background:#ffe5ef;font-size:1.5rem;
+}
+.question-pattern{font-size:1.45rem;font-weight:800;margin-top:4px}
+.question-pattern span{font-size:.9rem;color:#c84f7b;font-weight:600;margin-left:8px}
+.question-meaning{color:#737b88;margin-top:3px}
+.lesson-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.lesson-card{
+  padding:18px;border:1px solid #eadfe5;border-radius:18px;
+  background:#fff;box-shadow:0 7px 20px rgba(54,35,45,.05);
+}
+.lesson-label{
+  color:#c83f70;text-transform:uppercase;font-size:.72rem;
+  font-weight:800;letter-spacing:.05em;margin-bottom:8px;
+}
+.lesson-card h3{margin:0 0 12px;font-size:1rem}
+.lesson-kr{font-size:1.45rem;font-weight:800}
+.lesson-rom{color:#c84f7b;font-size:.85rem;margin:5px 0}
+.lesson-fr{color:#707986;margin-bottom:12px}
+.lesson-explain{
+  margin-top:18px;padding:20px;border-radius:18px;
+  background:#faf8fa;border:1px solid #eee5e9;
+}
+.lesson-explain h3{margin-top:0}
+.formula-box{
+  padding:14px;border-radius:14px;background:#fff;
+  border-left:4px solid #e85b8a;margin:12px 0;
+}
+.formula-box span{display:block;font-weight:800}
+.formula-box small{color:#7a8390}
+.mini-table{display:grid;gap:8px}
+.mini-table div{
+  display:grid;grid-template-columns:90px 1fr 1.5fr;gap:10px;
+  padding:10px 12px;border-radius:10px;background:#fff;
+}
+.mini-table span{color:#7a8390}
+.lesson-tip{
+  margin-top:16px;padding:15px;border-radius:14px;
+  background:#fff6e8;border:1px solid #f5dfb5;color:#7b5720;
+}
+@media(max-width:850px){.lesson-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){
+  .question-hero{grid-template-columns:auto 1fr}
+  .question-hero .mini-action{grid-column:1/-1;width:100%}
+  .lesson-grid{grid-template-columns:1fr}
+  .mini-table div{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body>
 
@@ -3301,6 +3369,7 @@ body{
     <button class="nav-btn" onclick="showTab('dashboard')">📊 Progression</button>
     <button class="nav-btn" onclick="showTab('phrases')">💬 Phrases</button>
     <button class="nav-btn" onclick="showTab('numbers')">🔢 Nombres</button>
+    <button class="nav-btn" onclick="showTab('questions')">❓ Poser une question</button>
 
   </nav>
 
@@ -3784,6 +3853,109 @@ body{
 </div>
 
 <!-- SÉLECTEUR DE FONDS -->
+
+  <!-- ONGLET : LEÇON — POSER DES QUESTIONS -->
+  <div id="panel-questions" class="tab-panel">
+    <div class="app-card question-lesson">
+      <div class="setup-title section-title-accent">❓ Poser des questions en coréen</div>
+      <div class="setup-desc">
+        Une mini-leçon pratique pour demander son chemin, trouver les toilettes,
+        commander et obtenir une information simplement.
+      </div>
+
+      <div class="question-hero">
+        <div class="question-hero-icon">🗣️</div>
+        <div>
+          <strong>La formule à retenir</strong>
+          <div class="question-pattern">어디예요? <span>eo-di-ye-yo?</span></div>
+          <div class="question-meaning">« Où est-ce ? / Où se trouve… ? »</div>
+        </div>
+        <button class="mini-action" onclick="speakKorean('어디예요?')">🔊 Écouter</button>
+      </div>
+
+      <div class="lesson-grid">
+        <article class="lesson-card">
+          <div class="lesson-label">🚻 Situation 1</div>
+          <h3>Où sont les toilettes ?</h3>
+          <div class="lesson-kr">화장실이 어디예요?</div>
+          <div class="lesson-rom">hwa-jang-si-ri eo-di-ye-yo?</div>
+          <div class="lesson-fr">Où sont les toilettes ?</div>
+          <button class="mini-action" onclick="speakKorean('화장실이 어디예요?')">🔊 Écouter</button>
+        </article>
+
+        <article class="lesson-card">
+          <div class="lesson-label">📍 Situation 2</div>
+          <h3>Où est la station ?</h3>
+          <div class="lesson-kr">역이 어디예요?</div>
+          <div class="lesson-rom">yeo-gi eo-di-ye-yo?</div>
+          <div class="lesson-fr">Où est la station ?</div>
+          <button class="mini-action" onclick="speakKorean('역이 어디예요?')">🔊 Écouter</button>
+        </article>
+
+        <article class="lesson-card">
+          <div class="lesson-label">🍽️ Situation 3</div>
+          <h3>Où est le restaurant ?</h3>
+          <div class="lesson-kr">식당이 어디예요?</div>
+          <div class="lesson-rom">sik-ttang-i eo-di-ye-yo?</div>
+          <div class="lesson-fr">Où est le restaurant ?</div>
+          <button class="mini-action" onclick="speakKorean('식당이 어디예요?')">🔊 Écouter</button>
+        </article>
+
+        <article class="lesson-card">
+          <div class="lesson-label">🛒 Situation 4</div>
+          <h3>Combien ça coûte ?</h3>
+          <div class="lesson-kr">얼마예요?</div>
+          <div class="lesson-rom">eol-ma-ye-yo?</div>
+          <div class="lesson-fr">Combien ça coûte ?</div>
+          <button class="mini-action" onclick="speakKorean('얼마예요?')">🔊 Écouter</button>
+        </article>
+
+        <article class="lesson-card">
+          <div class="lesson-label">🙏 Situation 5</div>
+          <h3>Comment dit-on ça en coréen ?</h3>
+          <div class="lesson-kr">한국어로 뭐예요?</div>
+          <div class="lesson-rom">han-gu-geo-ro mwo-ye-yo?</div>
+          <div class="lesson-fr">Comment dit-on ça en coréen ?</div>
+          <button class="mini-action" onclick="speakKorean('한국어로 뭐예요?')">🔊 Écouter</button>
+        </article>
+
+        <article class="lesson-card">
+          <div class="lesson-label">🧭 Situation 6</div>
+          <h3>Comment aller à… ?</h3>
+          <div class="lesson-kr">어떻게 가요?</div>
+          <div class="lesson-rom">eo-tteo-ke ga-yo?</div>
+          <div class="lesson-fr">Comment y aller ?</div>
+          <button class="mini-action" onclick="speakKorean('어떻게 가요?')">🔊 Écouter</button>
+        </article>
+      </div>
+
+      <div class="lesson-explain">
+        <h3>🧩 Construire ta propre question</h3>
+        <p>
+          Pour demander où se trouve quelque chose, place le nom avant
+          <strong>이/가 어디예요?</strong>.
+        </p>
+        <div class="formula-box">
+          <span>［Lieu / objet］ + 이/가 + 어디예요?</span>
+          <small>« Où est ［lieu / objet］ ? »</small>
+        </div>
+
+        <div class="mini-table">
+          <div><strong>화장실</strong><span>toilettes</span><b>화장실이 어디예요?</b></div>
+          <div><strong>은행</strong><span>banque</span><b>은행이 어디예요?</b></div>
+          <div><strong>호텔</strong><span>hôtel</span><b>호텔이 어디예요?</b></div>
+          <div><strong>역</strong><span>station</span><b>역이 어디예요?</b></div>
+        </div>
+      </div>
+
+      <div class="lesson-tip">
+        💡 <strong>Astuce :</strong> en voyage, retiens d'abord
+        <strong>화장실이 어디예요?</strong>, <strong>얼마예요?</strong> et
+        <strong>어디예요?</strong>. Avec seulement ces quelques structures,
+        tu peux déjà poser beaucoup de questions.
+      </div>
+    </div>
+  </div>
 
   <!-- ONGLET : NOMBRES CORÉENS -->
   <div id="panel-numbers" class="tab-panel">
@@ -5560,7 +5732,8 @@ function showTab(id) {
       (id === 'grammar' && i === 6) ||
       (id === 'dashboard' && i === 7) ||
       (id === 'phrases' && i === 8) ||
-      (id === 'numbers' && i === 9)
+      (id === 'numbers' && i === 9) ||
+      (id === 'questions' && i === 10)
     );
   });
 
@@ -6553,6 +6726,15 @@ document.addEventListener("DOMContentLoaded", () => {
   refreshDashboardStats();
   setInterval(refreshDashboardStats, 1200);
 });
+</script>
+
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(console.warn);
+  });
+}
 </script>
 
 </body>
