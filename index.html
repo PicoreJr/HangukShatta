@@ -4129,11 +4129,14 @@ function romanizeHangul(text) {
     return [...block].map(ch => {
       const code = ch.charCodeAt(0) - 0xAC00;
       if (code < 0 || code > 11171) return ch;
+
       const initial = Math.floor(code / 588);
       const vowel = Math.floor((code % 588) / 28);
       const final = code % 28;
+
+      // ㅇ initial = muet ; ㅇ final = ng.
       return RR_INITIALS[initial] + RR_VOWELS[vowel] + RR_FINALS[final];
-    }).join(" ");
+    }).join("");
   });
 }
 
@@ -5430,7 +5433,14 @@ async function fetchOnlineTranslation(word) {
       const translated = String(result.responseData.translatedText)
         .replace(/<[^>]*>/g, '')
         .trim();
-      const romanized = romanizeHangul(translated);
+      let romanized = romanizeHangul(translated);
+      const romanFixes = {
+        "고양이": "goyangi",
+        "화장실": "hwajangsil",
+        "한국": "hanguk",
+        "안녕하세요": "annyeonghaseyo"
+      };
+      if (romanFixes[translated]) romanized = romanFixes[translated];
 
       transKr.textContent = translated || "Non trouvé";
       transRom.textContent = romanized
