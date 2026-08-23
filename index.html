@@ -3972,7 +3972,7 @@ const data = {
   ],
   "A2 - Chapitre 13 : Les talents et les capacités": [
     { kr: "음악", rom: "eum-ak", fr: "musique", expl: "Domaine artistique." },
-    { kr: "(으)ㄹ 수 있어요", rom: "(eu)l su is-seo-yo", fr: "pouvoir / être capable de", expl: "Exprimer ses capacités." }
+    { kr: "(으)ㄹ 수 있어요", rom: "(eu)l su isseoyo", fr: "pouvoir / être capable de", expl: "Exprimer ses capacités." }
   ]
 };
 
@@ -4238,7 +4238,27 @@ const VERIFIED_ROMANIZATION = {
   "별내":"Byeollae",
   "신라":"Silla",
   "학여울":"Hangnyeoul",
-  "알약":"allyak"
+  "알약":"allyak",
+  "있어요":"isseoyo",
+  "있어":"isseo",
+  "있습니다":"itseumnida",
+  "있다":"itda",
+  "없어요":"eopseoyo",
+  "없어":"eopseo",
+  "없습니다":"eopseumnida",
+  "있어요?":"isseoyo?",
+  "있어?":"isseo?",
+  "없어요?":"eopseoyo?",
+  "없어?":"eopseo?"
+,
+  "많다":"manta",
+  "좋다":"jota",
+  "재미있다":"jaemiitda",
+  "잘 부탁드립니다":"jal butakdeurimnida",
+  "저는 톰이에요":"jeoneun tomieyo",
+  "나이가 어떻게 되세요?":"naiga eotteoke doeseyo?",
+  "성함이 어떻게 되세요?":"seonghami eotteoke doeseyo?",
+  "직업이 어떻게 되세요?":"jigeobi eotteoke doeseyo?"
 };
 
 function romanizeHangul(text) {
@@ -4264,14 +4284,33 @@ function romanizeHangul(text) {
   });
 }
 
+function normalizeStoredRomanization(rom) {
+  if (!rom) return "";
+  return String(rom)
+    .replace(/\s*-\s*/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function getRom(item) {
-  // Pour les mots/phrases en Hangeul, on utilise TOUJOURS le moteur RR
-  // (et ses exceptions vérifiées) afin qu'une ancienne valeur `rom` erronée
-  // ne puisse plus écraser la romanisation affichée.
-  if (/[\uAC00-\uD7A3]/.test(String(item.kr || ""))) {
-    return romanizeHangul(item.kr);
+  if (!item || !item.kr) return "";
+  const kr = String(item.kr);
+
+  // 1) Formes vérifiées en priorité.
+  if (Object.prototype.hasOwnProperty.call(VERIFIED_ROMANIZATION, kr)) {
+    return VERIFIED_ROMANIZATION[kr];
   }
-  return item.rom || romanizeHangul(item.kr);
+
+  // 2) Les anciennes entrées du site étaient parfois écrites syllabe par
+  // syllabe ("is-seo-yo", "ma sit ge deu se yo"). On les normalise au lieu
+  // de les laisser afficher avec de faux séparateurs.
+  if (/[\uAC00-\uD7A3]/.test(kr) && item.rom) {
+    const stored = normalizeStoredRomanization(item.rom);
+    if (stored) return stored;
+  }
+
+  // 3) Sinon, moteur automatique.
+  return romanizeHangul(kr);
 }
 
 function addRomanizationToKoreanText(text) {
