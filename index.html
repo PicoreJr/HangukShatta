@@ -5089,6 +5089,8 @@ function buildVocabAccordion() {
       const rom = getRom(item);
       const expl = addRomanizationToKoreanText(item.expl || "");
       const safeKr = item.kr.replace(/'/g, "\\'");
+      const fav = window.isDictionaryFavorite ? window.isDictionaryFavorite(item.kr) : false;
+      const favLabel = fav ? '★ Favori' : '☆ Favori';
       return `
       <tr class="v-row">
         <td class="kr">
@@ -5098,7 +5100,10 @@ function buildVocabAccordion() {
         </td>
         <td class="rom">${rom}</td>
         <td class="pron-cell">
-          <button class="btn-speaker" type="button" onclick="speakKorean('${safeKr}')">🔊 Écouter</button>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;">
+            <button class="btn-speaker" type="button" onclick="speakKorean('${safeKr}')">🔊 Écouter</button>
+            <button class="fav-word-btn ${fav ? 'is-fav' : ''}" type="button" data-dictionary-favorite="${item.kr.replace(/"/g,'&quot;')}" onclick="toggleDictionaryFavorite('${safeKr}', '${String(rom).replace(/'/g,"\\'")}', '${String(item.fr).replace(/'/g,"\\'")}')">${favLabel}</button>
+          </div>
         </td>
         <td><strong>${item.fr}</strong></td>
         <td style="color:#64748b; font-size:0.82rem;">${expl}</td>
@@ -5549,6 +5554,15 @@ async function fetchOnlineTranslation(word) {
       transBtn.disabled = !translated;
       transBtn.onclick = () => speakKorean(translated);
 
+      const transActions = transBtn.parentElement;
+      if (transActions && !transActions.querySelector('[data-auto-favorite]')) {
+        const fav = document.createElement('button');
+        fav.type = 'button'; fav.className = 'fav-word-btn'; fav.dataset.autoFavorite = '1';
+        fav.textContent = (window.isDictionaryFavorite && isDictionaryFavorite(translated)) ? '★ Favori' : '☆ Favori';
+        fav.onclick = () => { toggleDictionaryFavorite(translated, romanized, word); fav.textContent = isDictionaryFavorite(translated) ? '★ Favori' : '☆ Favori'; };
+        transActions.appendChild(fav);
+      }
+
       // Cliquer sur la romanisation permet aussi d'entendre immédiatement le mot.
       transRom.style.cursor = translated ? "pointer" : "default";
       transRom.title = translated
@@ -5810,6 +5824,30 @@ body.quiz-mode .k-expl-box{
 </style>
 
 
+<script id="picore-dictionary-favorites-api">
+(function(){
+  const KEY="hangukshatta-dictionary-favorites";
+  function get(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
+  function save(a){localStorage.setItem(KEY,JSON.stringify(a))}
+  window.isDictionaryFavorite=function(k){return get().some(x=>x.korean===k)};
+  window.toggleDictionaryFavorite=function(korean,roman,french){
+    let a=get(),i=a.findIndex(x=>x.korean===korean);
+    if(i>=0)a.splice(i,1);else a.push({korean,roman,french,pronunciation:korean});
+    save(a);
+    document.querySelectorAll('[data-dictionary-favorite]').forEach(btn=>{
+      if(btn.dataset.dictionaryFavorite!==korean)return;
+      const yes=isDictionaryFavorite(korean);btn.classList.toggle('is-fav',yes);btn.textContent=yes?'★ Favori':'☆ Favori';
+    });
+    if(typeof window.renderDictionaryFavorites==='function')window.renderDictionaryFavorites();
+  };
+  window.renderDictionaryFavorites=function(){
+    const box=document.getElementById('favorites-content');if(!box)return;
+    const a=get();
+    if(!a.length){box.innerHTML='<div class="fav-empty">⭐ Aucun mot du dictionnaire dans tes favoris.<br><small>Utilise « ☆ Favori » dans le dictionnaire pour en ajouter.</small></div>';return;}
+    box.innerHTML='<div class="fav-list">'+a.map(x=>`<article class="fav-item"><div class="fav-korean">${escapeHTML(x.korean)}</div><div class="fav-roman">${escapeHTML(x.roman)}</div><div class="fav-fr">${escapeHTML(x.french)}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="fav-word-btn is-fav" onclick="toggleDictionaryFavorite(${JSON.stringify(x.korean)},${JSON.stringify(x.roman)},${JSON.stringify(x.french)})">★ Retirer</button><button class="fav-word-btn" onclick="speakKorean(${JSON.stringify(x.korean)})">🔊 Écouter</button></div></article>`).join('')+'</div>';
+  };
+})();
+</script>
 <script id="picore-favorites-v2">
 (function(){
  const KEY="hangukshatta-favorites";
@@ -5857,9 +5895,9 @@ body.quiz-mode .k-expl-box{
  const oldShow=window.showTab;
  window.showTab=function(name){
    if(typeof oldShow==="function")oldShow.apply(this,arguments);
-   if(name==="favorites")setTimeout(()=>{document.querySelectorAll(".tab-panel").forEach(x=>{if(x.id!=="panel-favorites")x.style.display="none"});const p=document.getElementById("panel-favorites");if(p)p.style.display="";renderFavorites()},30);
+   if(name==="favorites")setTimeout(()=>{document.querySelectorAll(".tab-panel").forEach(x=>{if(x.id!=="panel-favorites")x.style.display="none"});const p=document.getElementById("panel-favorites");if(p)p.style.display="";renderFavorites(); if(typeof renderDictionaryFavorites==='function') renderDictionaryFavorites()},30);
  };
- document.addEventListener("DOMContentLoaded",()=>{addPanel();addTab();renderFavorites()});
+ document.addEventListener("DOMContentLoaded",()=>{addPanel();addTab();renderFavorites(); if(typeof renderDictionaryFavorites==='function') renderDictionaryFavorites(); if(typeof buildVocabAccordion==='function') buildVocabAccordion();});
 })();
 </script>
 
