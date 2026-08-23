@@ -2857,8 +2857,56 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 .casual-section-title{color:#9d174d;font-size:1rem;font-weight:900;margin:22px 0 10px}
 </style>
 
+
+<style id="global-volume-style">
+.global-volume-control{
+  position:fixed;
+  top:14px;
+  right:18px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 11px;
+  border:1px solid rgba(226,232,240,.95);
+  border-radius:999px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 5px 18px rgba(15,23,42,.10);
+  backdrop-filter:blur(8px);
+}
+.global-volume-control .volume-icon{font-size:17px;line-height:1}
+#globalVolume{
+  width:105px;
+  accent-color:#e11d72;
+  cursor:pointer;
+}
+#globalVolumeValue{
+  min-width:36px;
+  text-align:right;
+  font-size:12px;
+  font-weight:800;
+  color:#475569;
+}
+@media(max-width:700px){
+  .global-volume-control{
+    top:9px;
+    right:9px;
+    padding:6px 8px;
+  }
+  #globalVolume{width:78px}
+}
+</style>
+
 </head>
 <body>
+
+<div id="global-volume-control" class="global-volume-control" aria-label="Réglage du volume">
+  <span class="volume-icon" aria-hidden="true">🔊</span>
+  <input id="globalVolume" type="range" min="0" max="100" value="80" step="1"
+         aria-label="Volume de la voix" title="Volume de la voix">
+  <span id="globalVolumeValue">80%</span>
+</div>
+
 
 <div class="app-container">
   
@@ -5883,6 +5931,65 @@ body.quiz-mode .k-expl-box{
 
 
 
+
+
+<script id="global-volume-script">
+(function(){
+  const KEY = "picore_voice_volume";
+  const slider = document.getElementById("globalVolume");
+  const label = document.getElementById("globalVolumeValue");
+
+  function getVolume(){
+    const n = Number(slider ? slider.value : 80);
+    return Math.max(0, Math.min(1, (Number.isFinite(n) ? n : 80) / 100));
+  }
+
+  function updateVolume(){
+    const v = getVolume();
+    if(label) label.textContent = Math.round(v * 100) + "%";
+    try { localStorage.setItem(KEY, String(Math.round(v * 100))); } catch(e){}
+  }
+
+  if(slider){
+    try{
+      const saved = Number(localStorage.getItem(KEY));
+      if(Number.isFinite(saved)) slider.value = Math.max(0, Math.min(100, saved));
+    }catch(e){}
+    slider.addEventListener("input", updateVolume);
+    updateVolume();
+  }
+
+  window.picoreVoiceVolume = getVolume;
+
+  // Wrapper used by every existing speech call.
+  const originalSpeak = window.speakKorean;
+  window.speakKorean = function(text){
+    if(typeof originalSpeak === "function"){
+      return originalSpeak(text);
+    }
+    if("speechSynthesis" in window){
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.lang = "ko-KR";
+      u.volume = getVolume();
+      window.speechSynthesis.speak(u);
+    }
+  };
+
+  // If the site's speak function creates an utterance itself, intercept
+  // SpeechSynthesisUtterance so its volume follows the slider automatically.
+  const NativeUtterance = window.SpeechSynthesisUtterance;
+  if(NativeUtterance && !window.__picoreVolumePatched){
+    window.SpeechSynthesisUtterance = function(text){
+      const u = new NativeUtterance(text);
+      u.volume = getVolume();
+      return u;
+    };
+    window.SpeechSynthesisUtterance.prototype = NativeUtterance.prototype;
+    window.__picoreVolumePatched = true;
+  }
+})();
+</script>
 
 </body>
 </html>
