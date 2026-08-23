@@ -5482,9 +5482,57 @@ function submitAnswer(e) {
 }
 
 function skipQuestion() {
-  if (waitingNext || sessionPool.length === 0) return;
-  answerInput.value = "";
-  submitAnswer(new Event('submit'));
+  if (waitingNext || sessionPool.length === 0 || !currentItem) return;
+
+  // "Passer" révèle volontairement la réponse sans la compter comme une erreur.
+  // La question est validée comme réussie afin qu'un trou de mémoire
+  // n'empêche pas de terminer/réussir la session.
+  answered++;
+  score++;
+  streak++;
+
+  if (currentAudioMode === 'sound') {
+    playTone(true);
+  } else {
+    speakKorean(currentItem.kr);
+  }
+
+  const cleanKr = currentItem.kr.replace(/'/g, "\\'");
+
+  resultBox.style.display = "block";
+  resultBox.className = "result-sheet success";
+  resultBox.innerHTML = `
+    <div class="result-header">💡 Réponse affichée !</div>
+    <div class="result-data">
+      <span class="k-tag">Hangeul :</span>
+      <div class="k-val-kr">
+        ${currentItem.kr}
+        <button type="button" class="btn-speaker" onclick="speakKorean('${cleanKr}')">🔊 Écouter</button>
+      </div>
+      <span class="k-tag">Alphabet latin :</span>
+      <span class="k-val-rom">${getRom(currentItem)}</span>
+      <span class="k-tag">Signification :</span>
+      <span>${currentItem.fr}</span>
+      <div class="k-expl-box">💡 <strong>Astuce :</strong> ${addRomanizationToKoreanText(currentItem.expl || "Aucune note.")}</div>
+    </div>
+  `;
+
+  // La question est retirée de la session après affichage de la réponse.
+  sessionPool = sessionPool.filter(i => i !== currentItem);
+
+  waitingNext = true;
+  answerInput.disabled = true;
+  btnValidate.textContent = "Suivant ➔";
+  updateStatsDisplay();
+
+  requestAnimationFrame(() => {
+    resultBox.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+  });
+
+  btnValidate.focus({ preventScroll: true });
 }
 
 function updateStatsDisplay() {
