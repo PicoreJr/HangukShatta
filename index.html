@@ -3087,7 +3087,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
         <div class="translator-body">
           <div>
             <div id="trans-kr" class="translator-kr">...</div>
-            <div id="trans-rom" class="translator-rom">Romanisation : ...</div>
+            <div id="trans-rom" class="translator-rom">Écriture romaine : ...</div>
             <div id="trans-fr" class="translator-fr">...</div>
           </div>
           <button type="button" id="trans-audio-btn" class="btn-speaker" title="Écouter la prononciation coréenne">🔊 Prononciation</button>
@@ -3095,7 +3095,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
       </div>
 
       <div class="vocab-learning-tip">
-        💡 <strong>Astuce :</strong> la romanisation est affichée sous le Hangeul pour faciliter les débuts.
+        💡 <strong>Astuce :</strong> l’écriture romaine (romanisation) est affichée sous le Hangeul pour faciliter les débuts.
         Essaie progressivement de lire le Hangeul directement, puis utilise la romanisation seulement comme aide.
       </div>
       <div id="vocab-accordion"></div>
@@ -5529,8 +5529,8 @@ async function fetchOnlineTranslation(word) {
 
       transKr.textContent = translated || "Non trouvé";
       transRom.textContent = romanized
-        ? `Romanisation : ${romanized}`
-        : "Romanisation : indisponible";
+        ? `Écriture romaine : ${romanized}`
+        : "Écriture romaine : indisponible";
       transFr.textContent = `Traduction de « ${word} »`;
 
       // Le bouton lit le coréen natif : la romanisation reste une aide visuelle.
@@ -5545,14 +5545,14 @@ async function fetchOnlineTranslation(word) {
       transRom.onclick = translated ? () => speakKorean(translated) : null;
     } else {
       transKr.textContent = "Mot non trouvé";
-      transRom.textContent = "Romanisation : indisponible";
+      transRom.textContent = "Écriture romaine : indisponible";
       transFr.textContent = `Impossible de traduire « ${word} » pour le moment.`;
       transBtn.disabled = true;
       transRom.onclick = null;
     }
   } catch (err) {
     transKr.textContent = "Traduction indisponible";
-    transRom.textContent = "Romanisation : indisponible";
+    transRom.textContent = "Écriture romaine : indisponible";
     transFr.textContent = "Vérifie ta connexion puis réessaie.";
     transBtn.disabled = true;
     transRom.onclick = null;
