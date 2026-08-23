@@ -2902,7 +2902,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 
 <div id="global-volume-control" class="global-volume-control" aria-label="Réglage du volume">
   <span class="volume-icon" aria-hidden="true">🔊</span>
-  <input id="globalVolume" type="range" min="0" max="100" value="80" step="1"
+  <input id="globalVolume" type="range" min="0" max="100" value="50" step="1"
          aria-label="Volume de la voix" title="Volume de la voix">
   <span id="globalVolumeValue">80%</span>
 </div>
@@ -5951,10 +5951,8 @@ body.quiz-mode .k-expl-box{
   }
 
   if(slider){
-    try{
-      const saved = Number(localStorage.getItem(KEY));
-      if(Number.isFinite(saved)) slider.value = Math.max(0, Math.min(100, saved));
-    }catch(e){}
+    // Volume par défaut à l'ouverture : 50 %.
+    slider.value = 50;
     slider.addEventListener("input", updateVolume);
     updateVolume();
   }
