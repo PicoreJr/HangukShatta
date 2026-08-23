@@ -3722,7 +3722,7 @@ const data = {
     { kr: "사다", rom: "sa da", fr: "acheter", expl: "Présent poli : 사요." },
     { kr: "마시다", rom: "ma si da", fr: "boire", expl: "Présent poli : 마셔요." },
     { kr: "만나다", rom: "man na da", fr: "rencontrer / voir un ami", expl: "Présent poli : 만나요." },
-    { kr: "공부하다", rom: "gong bu hae yo", fr: "étudier", expl: "Composé de 공부 (étude) + 하다 (faire)." },
+    { kr: "공부하다", rom: "gong bu ha da", fr: "étudier", expl: "Composé de 공부 (étude) + 하다 (faire)." },
     { kr: "좋아하다", rom: "jo a ha da", fr: "aimer / apprécier", expl: "Présent poli : 좋아해요 (ex: 한국을 좋아해요 = J'aime la Corée)." },
     { kr: "싫어하다", rom: "si reo ha da", fr: "détester / ne pas aimer", expl: "Présent poli : 싫어해요." },
     { kr: "기다리다", rom: "gi da ri da", fr: "attendre", expl: "Présent poli : 기다려요 (기다려 주세요 = Attendez s'il vous plaît)." },
@@ -4360,6 +4360,12 @@ const VERIFIED_ROMANIZATION = {
   "나이가 어떻게 되세요?":"naiga eotteoke doeseyo?",
   "성함이 어떻게 되세요?":"seonghami eotteoke doeseyo?",
   "직업이 어떻게 되세요?":"jigeobi eotteoke doeseyo?"
+,
+  "공부하다":"gongbuhada",
+  "좋아하다":"joahada",
+  "싫어하다":"sileohada",
+  "기다리다":"gidarida",
+  "도와주세요":"dowajuseyo"
 };
 
 function romanizeHangul(text) {
@@ -5099,11 +5105,41 @@ function submitAnswer(e) {
   }
 
   const rawVal = answerInput.value;
-  const user = clean(rawVal);
-  const rom = clean(currentItem.rom);
-  const kr = clean(currentItem.kr);
 
-  const isMatch = (user === rom) || (user === kr);
+  // Validation tolérante : espaces, tirets et apostrophes ne doivent pas
+  // transformer une bonne romanisation en mauvaise réponse.
+  // On compare aussi avec la romanisation canonique vérifiée du site.
+  function normalizeAnswer(value) {
+    return String(value ?? "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[\s\-_'’·.]/g, "")
+      .trim();
+  }
+
+  const user = normalizeAnswer(rawVal);
+  const kr = normalizeAnswer(currentItem.kr);
+  const canonicalRom = normalizeAnswer(getRom(currentItem));
+
+  const accepted = new Set([canonicalRom, kr]);
+
+  // L'ancienne base contient parfois une romanisation différente.
+  // On la garde comme variante acceptable afin qu'une mise à jour de la
+  // romanisation ne transforme jamais une réponse historiquement valide
+  // en erreur.
+  if (currentItem.rom) accepted.add(normalizeAnswer(currentItem.rom));
+
+  // Pour les verbes en -하다, le présent poli est également accepté :
+  // 공부하다 → 공부해요 (gongbuhaeyo).
+  if (currentItem.kr && currentItem.kr.endsWith("하다")) {
+    const stem = currentItem.kr.slice(0, -2);
+    const presentKr = stem + "해요";
+    accepted.add(normalizeAnswer(presentKr));
+    accepted.add(normalizeAnswer(romanizeHangul(presentKr)));
+  }
+
+  const isMatch = user.length > 0 && accepted.has(user);
   answered++;
 
   // Audio après chaque réponse : le mot/phrase coréen est toujours lu à voix haute.
