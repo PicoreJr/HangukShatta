@@ -2897,6 +2897,20 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 }
 </style>
 
+
+<style id="vk-hangul-composition-style">
+.vk-hint{
+  margin-bottom:9px;
+  padding:8px 10px;
+  border-radius:9px;
+  background:#fff7fb;
+  border:1px solid #fbcfe8;
+  color:#9d174d;
+  font-size:.76rem;
+  font-weight:700;
+}
+</style>
+
 </head>
 <body>
 
@@ -3054,6 +3068,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
         </button>
 
         <!-- CLAVIER VIRTUEL HANGEUL INTÉGRÉ -->
+        <div class="vk-hint">💡 Les consonnes et voyelles se combinent automatiquement en blocs : ㄱ + ㅏ + ㄴ → <strong>간</strong>.</div>
         <div id="virtual-keyboard" class="virtual-keyboard">
           <div class="vk-row" id="vk-row-1"></div>
           <div class="vk-row" id="vk-row-2"></div>
@@ -5294,7 +5309,93 @@ function toggleShiftVk() {
   buildVirtualKeyboard();
 }
 
+// Compose automatiquement les jamo en blocs de syllabes coréennes.
+// Exemple : ㄱ + ㅏ + ㅁ -> 감, puis ㅏ + ㄴ -> 안.
+// Les caractères restent de vrais blocs Hangul, pas des jamo côte à côte.
+const VK_INITIALS = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const VK_MEDIALS = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+const VK_FINALS = ['', 'ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const VK_FINAL_INDEX = Object.fromEntries(VK_FINALS.map((x,i) => [x,i]));
+
+function vkIsInitial(c){ return VK_INITIALS.includes(c); }
+function vkIsMedial(c){ return VK_MEDIALS.includes(c); }
+function vkIsFinal(c){ return c !== '' && Object.prototype.hasOwnProperty.call(VK_FINAL_INDEX,c); }
+
+function vkComposeSyllable(initial, medial, final='') {
+  const l = VK_INITIALS.indexOf(initial);
+  const v = VK_MEDIALS.indexOf(medial);
+  const t = VK_FINAL_INDEX[final] ?? 0;
+  if(l < 0 || v < 0) return initial + medial + final;
+  return String.fromCharCode(0xAC00 + ((l * 21 + v) * 28) + t);
+}
+
+function vkLastCharInfo(value) {
+  const chars = Array.from(value);
+  if(!chars.length) return null;
+  const ch = chars[chars.length - 1];
+  const code = ch.charCodeAt(0);
+  if(code < 0xAC00 || code > 0xD7A3) return null;
+  const n = code - 0xAC00;
+  return {
+    index: chars.length - 1,
+    char: ch,
+    l: Math.floor(n / 588),
+    v: Math.floor((n % 588) / 28),
+    t: n % 28
+  };
+}
+
 function insertVkChar(char) {
+  if(char === ' '){
+    answerInput.value += ' ';
+    answerInput.focus();
+    return;
+  }
+
+  const value = answerInput.value;
+  const info = vkLastCharInfo(value);
+
+  // Voyelle après une consonne seule : crée une syllabe.
+  if(vkIsMedial(char)){
+    if(info === null){
+      // Si le dernier caractère est un jamo consonne, le transformer en initial.
+      const chars = Array.from(value);
+      const last = chars[chars.length - 1];
+      if(vkIsInitial(last)){
+        chars.pop();
+        answerInput.value = chars.join('') + vkComposeSyllable(last, char);
+      } else {
+        answerInput.value += char;
+      }
+    } else {
+      // Une syllabe complète suivie d'une voyelle commence une nouvelle syllabe
+      // dans le cas courant du clavier virtuel.
+      answerInput.value += char;
+    }
+    answerInput.focus();
+    return;
+  }
+
+  if(vkIsInitial(char)){
+    // Après une syllabe avec voyelle sans finale : la consonne devient la finale.
+    if(info && info.t === 0){
+      const initial = VK_INITIALS[info.l];
+      const medial = VK_MEDIALS[info.v];
+      if(vkIsFinal(char)){
+        const syllable = vkComposeSyllable(initial, medial, char);
+        answerInput.value = value.slice(0, info.index) + syllable;
+        answerInput.focus();
+        return;
+      }
+    }
+
+    // Deux consonnes consécutives : on les garde comme jamo jusqu'à ce qu'une
+    // voyelle permette de former la syllabe suivante.
+    answerInput.value += char;
+    answerInput.focus();
+    return;
+  }
+
   answerInput.value += char;
   answerInput.focus();
 }
