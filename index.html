@@ -2945,6 +2945,15 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 }
 </style>
 
+
+<style id="solid-backgrounds-style">
+.bg-option.solid-bg{
+  background-image:none !important;
+  background-size:cover;
+  min-height:48px;
+}
+</style>
+
 </head>
 <body>
 
@@ -3533,6 +3542,14 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
     <button class="bg-option" data-bg="hanok" onclick="setKoreaBackground('hanok')" style="background-image:linear-gradient(rgba(45,25,15,.12),rgba(45,25,15,.48)),url('https://images.unsplash.com/photo-1593179449458-e0d43d512551?auto=format&fit=crop&w=900&q=80');"><span>🏯 Hanok traditionnel</span></button>
     <button class="bg-option" data-bg="spring" onclick="setKoreaBackground('spring')" style="background-image:linear-gradient(rgba(90,25,55,.1),rgba(90,25,55,.44)),url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=900&q=80');"><span>🌸 Printemps en Corée</span></button>
     <button class="bg-option" data-bg="minimal" onclick="setKoreaBackground('minimal')" style="background-image:linear-gradient(135deg,#fff1f2,#fce7f3,#ede9fe);"><span style="color:#9d174d;text-shadow:none;">☁️ Minimal K-style</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-pink" onclick="setKoreaBackground('solid-pink')" style="background:#fce7f3;"><span style="color:#9d174d;text-shadow:none;">🌸 Rose poudré</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-blue" onclick="setKoreaBackground('solid-blue')" style="background:#dbeafe;"><span style="color:#1e3a8a;text-shadow:none;">💙 Bleu ciel</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-lavender" onclick="setKoreaBackground('solid-lavender')" style="background:#ede9fe;"><span style="color:#5b21b6;text-shadow:none;">💜 Lavande</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-green" onclick="setKoreaBackground('solid-green')" style="background:#dcfce7;"><span style="color:#166534;text-shadow:none;">🌿 Vert doux</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-cream" onclick="setKoreaBackground('solid-cream')" style="background:#fef3c7;"><span style="color:#92400e;text-shadow:none;">🍦 Crème</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-white" onclick="setKoreaBackground('solid-white')" style="background:#ffffff;"><span style="color:#334155;text-shadow:none;">⚪ Blanc</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-gray" onclick="setKoreaBackground('solid-gray')" style="background:#e2e8f0;"><span style="color:#334155;text-shadow:none;">🩶 Gris clair</span></button>
+    <button class="bg-option solid-bg" data-bg="solid-dark" onclick="setKoreaBackground('solid-dark')" style="background:#1e293b;"><span style="color:#fff;text-shadow:none;">🌙 Bleu nuit</span></button>
   </div>
 </div>
 
@@ -4727,6 +4744,38 @@ const koreaBackgrounds = {
   minimal: {
     name: 'Minimal K-style',
     value: "linear-gradient(135deg,#fff1f2 0%,#fce7f3 48%,#ede9fe 100%)"
+  },
+  'solid-pink': {
+    name: 'Rose poudré',
+    value: "#fce7f3"
+  },
+  'solid-blue': {
+    name: 'Bleu ciel',
+    value: "#dbeafe"
+  },
+  'solid-lavender': {
+    name: 'Lavande',
+    value: "#ede9fe"
+  },
+  'solid-green': {
+    name: 'Vert doux',
+    value: "#dcfce7"
+  },
+  'solid-cream': {
+    name: 'Crème',
+    value: "#fef3c7"
+  },
+  'solid-white': {
+    name: 'Blanc',
+    value: "#ffffff"
+  },
+  'solid-gray': {
+    name: 'Gris clair',
+    value: "#e2e8f0"
+  },
+  'solid-dark': {
+    name: 'Bleu nuit',
+    value: "#1e293b"
   }
 };
 
