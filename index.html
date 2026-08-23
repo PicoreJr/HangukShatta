@@ -2836,6 +2836,27 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 @media(max-width:600px){.kr-practical-grid{grid-template-columns:1fr}}
 </style>
 
+
+<style id="casual-tab-v1">
+.casual-intro{background:linear-gradient(135deg,#fff1f7,#fff7ed);border:1px solid #fbcfe8;border-radius:18px;padding:16px 18px;margin-bottom:18px;color:#475569;line-height:1.55}
+.casual-tip{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:7px 10px;border-radius:10px;background:#fff;border:1px solid #fed7aa;color:#9a3412;font-size:.78rem;font-weight:800}
+.casual-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:18px;background:#fff}
+.casual-table{width:100%;border-collapse:collapse;min-width:680px}
+.casual-table th,.casual-table td{padding:14px 15px;border-bottom:1px solid #f1f5f9;text-align:left;vertical-align:middle}
+.casual-table th{background:#f8fafc;color:#64748b;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;font-weight:900}
+.casual-table tr:last-child td{border-bottom:0}
+.casual-meaning{font-weight:800;color:#334155}
+.casual-level{display:inline-block;margin-top:4px;padding:3px 7px;border-radius:7px;font-size:.65rem;font-weight:900}
+.casual-level.normal{background:#fdf2f8;color:#be185d}
+.casual-level.familiar{background:#fff7ed;color:#c2410c}
+.casual-kr{font-family:'Noto Sans KR',sans-serif;color:#9d174d;font-size:1.2rem;font-weight:900}
+.casual-rom{color:#d97706;font-size:.78rem;font-weight:700;margin-top:3px}
+.casual-cell{display:flex;align-items:center;gap:10px}
+.casual-speak{flex:none;border:1px solid #e2e8f0;background:#fff;color:#334155;border-radius:9px;padding:7px 9px;cursor:pointer;font-size:.75rem;font-weight:800;transition:.18s ease}
+.casual-speak:hover{background:var(--primary-light);border-color:var(--primary);color:#9d174d;transform:translateY(-1px)}
+.casual-section-title{color:#9d174d;font-size:1rem;font-weight:900;margin:22px 0 10px}
+</style>
+
 </head>
 <body>
 
@@ -2879,6 +2900,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
   <div class="korean-decoration"><span class="motif"><i>✦</i> Made by Picore <i>✦</i></span></div>
 
   <nav>
+    <button class="nav-btn" data-tab="casual" onclick="showTab('casual')">😎 Casual</button>
     <button class="nav-btn active" data-tab="quiz" onclick="showTab('quiz')">🎯 Mode Quiz</button>
     <button class="nav-btn" data-tab="map" onclick="showTab('map')">🗺️ Carte de Corée</button>
     <button class="nav-btn" data-tab="alphabet" onclick="showTab('alphabet')">🔤 Alphabet</button>
@@ -3101,7 +3123,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
         <div class="translator-body">
           <div>
             <div id="trans-kr" class="translator-kr">...</div>
-            <div id="trans-rom" class="translator-rom">Romanisation : ...</div>
+            <div id="trans-rom" class="translator-rom">Romanisation RR : ...</div>
             <div id="trans-fr" class="translator-fr">...</div>
           </div>
           <button type="button" id="trans-audio-btn" class="btn-speaker" title="Écouter la prononciation coréenne">🔊 Prononciation</button>
@@ -3109,7 +3131,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
       </div>
 
       <div class="vocab-learning-tip">
-        💡 <strong>Astuce :</strong> la romanisation est affichée sous le Hangeul pour faciliter les débuts.
+        💡 <strong>Astuce :</strong> la romanisation RR est affichée sous le Hangeul pour faciliter les débuts.
         Essaie progressivement de lire le Hangeul directement, puis utilise la romanisation seulement comme aide.
       </div>
       <div id="vocab-accordion"></div>
@@ -3269,7 +3291,23 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
   </div>
 
 
-  <!-- ONGLET 8 : PROGRESSION -->
+  <!-- ONGLET CASUAL -->
+  <div id="panel-casual" class="tab-panel">
+    <div class="app-card">
+      <div class="setup-title section-title-accent">😎 Coréen Casual — normal vs familier</div>
+      <div class="setup-desc">Compare les expressions polies utilisées avec des inconnus ou dans un contexte respectueux avec les formes naturelles entre amis et proches.</div>
+      <div class="casual-intro"><strong>💡 À retenir :</strong> le choix dépend de la relation avec la personne. <div class="casual-tip">🛡️ En cas de doute → utilise la forme normale</div></div>
+      <div class="casual-section-title">💬 Les expressions du quotidien</div>
+      <div class="casual-table-wrap">
+        <table class="casual-table"><thead><tr><th>Français</th><th>Normal / poli</th><th>Familier / entre proches</th></tr></thead><tbody>
+<tr><td class="casual-meaning">Bonjour / Salut</td><td><div class="casual-cell"><div><div class="casual-kr">안녕하세요</div><div class="casual-rom">annyeonghaseyo</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('안녕하세요')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">안녕</div><div class="casual-rom">annyeong</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('안녕')">🔊</button></div></td></tr><tr><td class="casual-meaning">Merci</td><td><div class="casual-cell"><div><div class="casual-kr">감사합니다</div><div class="casual-rom">gamsahamnida</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('감사합니다')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">고마워</div><div class="casual-rom">gomawo</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('고마워')">🔊</button></div></td></tr><tr><td class="casual-meaning">Désolé</td><td><div class="casual-cell"><div><div class="casual-kr">죄송합니다</div><div class="casual-rom">joesonghamnida</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('죄송합니다')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">미안해</div><div class="casual-rom">mianhae</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('미안해')">🔊</button></div></td></tr><tr><td class="casual-meaning">Ça va ?</td><td><div class="casual-cell"><div><div class="casual-kr">괜찮아요?</div><div class="casual-rom">gwaenchanayo?</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('괜찮아요?')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">괜찮아?</div><div class="casual-rom">gwaenchana?</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('괜찮아?')">🔊</button></div></td></tr><tr><td class="casual-meaning">Tu vas bien ?</td><td><div class="casual-cell"><div><div class="casual-kr">잘 지내요?</div><div class="casual-rom">jal jinaeyo?</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('잘 지내요?')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">잘 지내?</div><div class="casual-rom">jal jinae?</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('잘 지내?')">🔊</button></div></td></tr><tr><td class="casual-meaning">Qu'est-ce que tu fais ?</td><td><div class="casual-cell"><div><div class="casual-kr">뭐 해요?</div><div class="casual-rom">mwo haeyo?</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('뭐 해요?')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">뭐 해?</div><div class="casual-rom">mwo hae?</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('뭐 해?')">🔊</button></div></td></tr><tr><td class="casual-meaning">Où es-tu ?</td><td><div class="casual-cell"><div><div class="casual-kr">어디예요?</div><div class="casual-rom">eodiyeyo?</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('어디예요?')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">어디야?</div><div class="casual-rom">eodiya?</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('어디야?')">🔊</button></div></td></tr><tr><td class="casual-meaning">Donne-moi / s'il te plaît</td><td><div class="casual-cell"><div><div class="casual-kr">주세요</div><div class="casual-rom">juseyo</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('주세요')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">줘</div><div class="casual-rom">jwo</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('줘')">🔊</button></div></td></tr><tr><td class="casual-meaning">Tu manges ?</td><td><div class="casual-cell"><div><div class="casual-kr">먹어요?</div><div class="casual-rom">meogeoyo?</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('먹어요?')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">먹어?</div><div class="casual-rom">meogeo?</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('먹어?')">🔊</button></div></td></tr><tr><td class="casual-meaning">Tu vas où ?</td><td><div class="casual-cell"><div><div class="casual-kr">어디 가요?</div><div class="casual-rom">eodi gayo?</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('어디 가요?')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">어디 가?</div><div class="casual-rom">eodi ga?</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('어디 가?')">🔊</button></div></td></tr><tr><td class="casual-meaning">Vraiment ?</td><td><div class="casual-cell"><div><div class="casual-kr">진짜예요?</div><div class="casual-rom">jinjjayeyo?</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('진짜예요?')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">진짜야?</div><div class="casual-rom">jinjjaya?</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('진짜야?')">🔊</button></div></td></tr><tr><td class="casual-meaning">Bonne nuit / dors bien</td><td><div class="casual-cell"><div><div class="casual-kr">잘 자요</div><div class="casual-rom">jal jayo</div><span class="casual-level normal">POLI</span></div><button class="casual-speak" onclick="speakKorean('잘 자요')">🔊</button></div></td><td><div class="casual-cell"><div><div class="casual-kr">잘 자</div><div class="casual-rom">jal ja</div><span class="casual-level familiar">FAMILIER</span></div><button class="casual-speak" onclick="speakKorean('잘 자')">🔊</button></div></td></tr>
+        </tbody></table>
+      </div>
+      <div class="casual-intro" style="margin-top:18px;margin-bottom:0;"><strong>🎯 Astuce :</strong> apprends d'abord la colonne « Normal / poli » pour voyager, puis la colonne « Familier » pour mieux comprendre les conversations entre proches et les dramas.</div>
+    </div>
+  </div>
+
+  <!-- ONGLET NOMBRES -->
   <div id="panel-numbers" class="tab-panel">
     <div class="app-card">
       <div class="setup-title section-title-accent">🔢 Nombres coréens — natifs & sino-coréens</div>
@@ -4124,8 +4162,94 @@ const RR_FINALS = [
   "m","p","ps","t","t","ng","t","ch","k","t","p","h"
 ];
 
+// Romanisations vérifiées pour les expressions fréquentes du site.
+// Elles suivent la Romanisation révisée du coréen et tiennent compte
+// des changements de prononciation indiqués par l'Institut national de la langue coréenne.
+const VERIFIED_ROMANIZATION = {
+  "고양이":"goyangi",
+  "화장실":"hwajangsil",
+  "한국":"hanguk",
+  "한국어":"hangugeo",
+  "안녕하세요":"annyeonghaseyo",
+  "안녕":"annyeong",
+  "감사합니다":"gamsahamnida",
+  "고마워":"gomawo",
+  "죄송합니다":"joesonghamnida",
+  "미안해":"mianhae",
+  "괜찮아요?":"gwaenchanayo?",
+  "괜찮아?":"gwaenchana?",
+  "잘 지내요?":"jal jinaeyo?",
+  "잘 지내?":"jal jinae?",
+  "뭐 해요?":"mwo haeyo?",
+  "뭐 해?":"mwo hae?",
+  "어디예요?":"eodiyeyo?",
+  "어디야?":"eodiya?",
+  "주세요":"juseyo",
+  "줘":"jwo",
+  "먹어요?":"meogeoyo?",
+  "먹어?":"meogeo?",
+  "어디 가요?":"eodi gayo?",
+  "어디 가?":"eodi ga?",
+  "진짜예요?":"jinjjayeyo?",
+  "진짜야?":"jinjjaya?",
+  "잘 자요":"jal jayo",
+  "잘 자":"jal ja",
+  "저기요!":"jeogiyo!",
+  "메뉴판 주세요":"menyupan juseyo",
+  "이거 주세요":"igeo juseyo",
+  "물 좀 주세요":"mul jom juseyo",
+  "주문할게요":"jumunhalgeyo",
+  "얼마나 걸려요?":"eolmana geollyeoyo?",
+  "매운 거예요?":"maeun geoyeyo?",
+  "안 맵게 해주세요":"an maepge haejuseyo",
+  "추천해 주세요":"chucheonhae juseyo",
+  "이거 빼주세요":"igeo ppaejuseyo",
+  "맛있게 드세요":"masitge deuseyo",
+  "맛있어요!":"masisseoyo!",
+  "계산해 주세요":"gyesanhae juseyo",
+  "카드로 돼요?":"kadeuro dwaeyo?",
+  "따로 계산해 주세요":"ttaro gyesanhae juseyo",
+  "포장해 주세요":"pojanghae juseyo",
+  "영수증 주세요":"yeongsujeung juseyo",
+  "화장실 어디예요?":"hwajangsil eodiyeyo?",
+  "지하철":"jihacheol",
+  "지하철역":"jihacheol-yeok",
+  "버스":"beoseu",
+  "택시":"taeksi",
+  "공항":"gonghang",
+  "기차":"gicha",
+  "기차역":"gichayeok",
+  "티머니 카드":"timeoni kadeu",
+  "충전해 주세요":"chungjeonhae juseyo",
+  "어디서 타요?":"eodiseo tayo?",
+  "내려 주세요":"naeryeo juseyo",
+  "맛있어요":"masisseoyo",
+  "같이":"gachi",
+  "해돋이":"haedoji",
+  "굳히다":"guchida",
+  "좋고":"joko",
+  "놓다":"nota",
+  "잡혀":"japyeo",
+  "낳지":"nachi",
+  "백마":"baengma",
+  "신문로":"sinmunno",
+  "종로":"Jongno",
+  "왕십리":"Wangsimni",
+  "별내":"Byeollae",
+  "신라":"Silla",
+  "학여울":"Hangnyeoul",
+  "알약":"allyak"
+};
+
 function romanizeHangul(text) {
-  return String(text).replace(/[\uAC00-\uD7A3]+/g, block => {
+  const source = String(text);
+  if (Object.prototype.hasOwnProperty.call(VERIFIED_ROMANIZATION, source)) {
+    return VERIFIED_ROMANIZATION[source];
+  }
+  return source.replace(/[\uAC00-\uD7A3]+/g, block => {
+    if (Object.prototype.hasOwnProperty.call(VERIFIED_ROMANIZATION, block)) {
+      return VERIFIED_ROMANIZATION[block];
+    }
     return [...block].map(ch => {
       const code = ch.charCodeAt(0) - 0xAC00;
       if (code < 0 || code > 11171) return ch;
@@ -4141,6 +4265,12 @@ function romanizeHangul(text) {
 }
 
 function getRom(item) {
+  // Pour les mots/phrases en Hangeul, on utilise TOUJOURS le moteur RR
+  // (et ses exceptions vérifiées) afin qu'une ancienne valeur `rom` erronée
+  // ne puisse plus écraser la romanisation affichée.
+  if (/[\uAC00-\uD7A3]/.test(String(item.kr || ""))) {
+    return romanizeHangul(item.kr);
+  }
   return item.rom || romanizeHangul(item.kr);
 }
 
@@ -5434,18 +5564,14 @@ async function fetchOnlineTranslation(word) {
         .replace(/<[^>]*>/g, '')
         .trim();
       let romanized = romanizeHangul(translated);
-      const romanFixes = {
-        "고양이": "goyangi",
-        "화장실": "hwajangsil",
-        "한국": "hanguk",
-        "안녕하세요": "annyeonghaseyo"
-      };
-      if (romanFixes[translated]) romanized = romanFixes[translated];
+      // Le traducteur utilise le même moteur centralisé que le dictionnaire.
+      // Cela évite les divergences entre les onglets.
+      romanized = romanizeHangul(translated);
 
       transKr.textContent = translated || "Non trouvé";
       transRom.textContent = romanized
-        ? `Romanisation : ${romanized}`
-        : "Romanisation : indisponible";
+        ? `Romanisation RR : ${romanized}`
+        : "Romanisation RR : indisponible";
       transFr.textContent = `Traduction de « ${word} »`;
 
       // Le bouton lit le coréen natif : la romanisation reste une aide visuelle.
@@ -5460,14 +5586,14 @@ async function fetchOnlineTranslation(word) {
       transRom.onclick = translated ? () => speakKorean(translated) : null;
     } else {
       transKr.textContent = "Mot non trouvé";
-      transRom.textContent = "Romanisation : indisponible";
+      transRom.textContent = "Romanisation RR : indisponible";
       transFr.textContent = `Impossible de traduire « ${word} » pour le moment.`;
       transBtn.disabled = true;
       transRom.onclick = null;
     }
   } catch (err) {
     transKr.textContent = "Traduction indisponible";
-    transRom.textContent = "Romanisation : indisponible";
+    transRom.textContent = "Romanisation RR : indisponible";
     transFr.textContent = "Vérifie ta connexion puis réessaie.";
     transBtn.disabled = true;
     transRom.onclick = null;
