@@ -4627,33 +4627,73 @@ function getOrderedCategories() {
 // Romanisation algorithmique basée sur la romanisation révisée.
 // Elle sert de filet de sécurité pour tout Hangeul sans champ "rom".
 const RR_INITIALS = [
-  "g","kk","n","d","tt","r","m","b","pp","s","ss","ng","j","jj","ch","k","t","p","h"
-];
-const RR_VOWELS = [
-  "a","ae","ya","yae","eo","e","yeo","ye","o","wa","wae","oe","yo",
-  "u","weo","we","wi","yu","eu","ui","i"
-];
-const RR_FINALS = [
-  "","k","k","ks","n","nj","nh","t","l","lk","lm","lp","ls","lt","lh",
-  "m","p","ps","t","t","ng","t","ch","k","t","p","h"
+  "g","kk","n","d","tt","r","m","b","pp","s","ss","",
+  "j","jj","ch","k","t","p","h"
 ];
 
+const RR_VOWELS = [
+  "a","ae","ya","yae","eo","e","yeo","ye","o","wa","wae","oe",
+  "yo","u","weo","we","wi","yu","eu","ui","i"
+];
+
+const RR_FINALS = [
+  "",   // 0
+  "k",  // ㄱ
+  "k",  // ㄲ
+  "ks", // ㄳ
+  "n",  // ㄴ
+  "nj", // ㄵ
+  "nh", // ㄶ
+  "t",  // ㄷ
+  "l",  // ㄹ
+  "lk", // ㄺ
+  "lm", // ㄻ
+  "lp", // ㄼ
+  "ls", // ㄽ
+  "lt", // ㄾ
+  "lp", // ㄿ
+  "lh", // ㅀ
+  "m",  // ㅁ
+  "p",  // ㅂ
+  "ps", // ㅄ
+  "t",  // ㅅ
+  "t",  // ㅆ
+  "ng", // ㅇ
+  "t",  // ㅈ
+  "t",  // ㅊ
+  "k",  // ㅋ
+  "t",  // ㅌ
+  "p",  // ㅍ
+  "h"   // ㅎ
+];
+
+/*
+ * Romanisation révisée (RR) :
+ * - ㅇ initial = muet : 오 -> o, 어 -> eo, 화 -> hwa
+ * - ㅇ final = ng : 장 -> jang, 공 -> gong
+ * - ㅈ initial = j : 장 -> jang
+ * - ㅊ initial = ch : 차 -> cha
+ * - ㄹ final = l : 실 -> sil
+ *
+ * On garde un espace entre les syllabes pour que l'écriture
+ * soit facile à lire : 화장실 -> hwa jang sil.
+ */
 function romanizeHangul(text) {
   return String(text).replace(/[\uAC00-\uD7A3]+/g, block => {
     return [...block].map(ch => {
       const code = ch.charCodeAt(0) - 0xAC00;
+
       if (code < 0 || code > 11171) return ch;
+
       const initial = Math.floor(code / 588);
       const vowel = Math.floor((code % 588) / 28);
       const final = code % 28;
 
-      // ㅇ est muet quand il est consonne initiale.
-      // Il devient "ng" uniquement lorsqu'il est consonne finale.
-      // Exemples : 오 = o, 어 = eo, 아이 = ai,
-      // mais 장 = jang et 공 = gong.
-      const initialRom = initial === 11 ? "" : RR_INITIALS[initial];
+      const initialRom = RR_INITIALS[initial];
+      const vowelRom = RR_VOWELS[vowel];
+      const finalRom = RR_FINALS[final];
 
-      return initialRom + RR_VOWELS[vowel] + RR_FINALS[final];
+      return initialRom + vowelRom + finalRom;
     }).join(" ");
   });
 }
