@@ -3,10 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ec4899">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="manifest" href="manifest.json">
   <title>Hanguk'Shatta — 한국어 학습</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2824,503 +2820,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 @media(max-width:900px){nav{grid-template-columns:repeat(5,minmax(0,1fr));}}
 @media(max-width:640px){nav{grid-template-columns:repeat(2,1fr);}}
 </style>
-
-<style id="hanguk-layout-refonte-v1">
-/* ===== REFONTE VISUELLE : plus aérée, plus claire, mobile-first ===== */
-:root{
-  --hs-pink:#e85b8a;
-  --hs-pink-dark:#c83f70;
-  --hs-pink-soft:#fff1f6;
-  --hs-ink:#243044;
-  --hs-muted:#718096;
-  --hs-border:#e9dfe5;
-  --hs-shadow:0 10px 30px rgba(54,35,45,.08);
-}
-
-body{
-  color:var(--hs-ink);
-}
-
-.app-container{
-  max-width:1220px !important;
-  margin:0 auto !important;
-}
-
-.app-card,
-.category-card,
-.quiz-card,
-.setup-card,
-.stat-card,
-.grammar-card,
-.phrase-card{
-  border-radius:20px !important;
-  box-shadow:var(--hs-shadow) !important;
-  border:1px solid rgba(233,223,229,.85) !important;
-}
-
-.hero-header{
-  border-radius:24px !important;
-  box-shadow:0 12px 35px rgba(54,35,45,.10) !important;
-}
-
-.search-box-wrapper{
-  position:sticky;
-  top:10px;
-  z-index:20;
-  padding:8px 0;
-  backdrop-filter:blur(10px);
-}
-
-.search-bar-input{
-  min-height:50px !important;
-  border-radius:16px !important;
-  padding:0 18px !important;
-  box-shadow:0 5px 18px rgba(54,35,45,.07);
-}
-
-.live-translator-card{
-  border-radius:20px !important;
-  margin:14px 0 20px !important;
-  box-shadow:var(--hs-shadow) !important;
-}
-
-.translator-body{
-  gap:16px !important;
-}
-
-.translator-kr{
-  font-size:clamp(2rem,5vw,3rem) !important;
-  font-weight:800 !important;
-  line-height:1.2;
-}
-
-.vocab-learning-tip{
-  border-radius:16px !important;
-  margin-bottom:18px !important;
-}
-
-.category-card{
-  overflow:hidden;
-  margin-bottom:12px !important;
-}
-
-.category-header{
-  min-height:58px;
-  padding:15px 18px !important;
-  cursor:pointer;
-  transition:.18s ease;
-}
-
-.category-header:hover{
-  background:var(--hs-pink-soft);
-}
-
-.term-table{
-  width:100%;
-}
-
-.term-table th{
-  position:sticky;
-  top:0;
-  z-index:5;
-}
-
-.v-row td{
-  padding:14px 12px !important;
-  vertical-align:middle;
-}
-
-.btn-speaker{
-  min-width:42px;
-  min-height:42px;
-  border-radius:12px !important;
-}
-
-.korean-with-rom{
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-}
-
-.roman-helper{
-  color:var(--hs-muted);
-  font-size:.82rem;
-  font-style:italic;
-}
-
-@media (max-width: 760px){
-  body{
-    padding-bottom:76px !important;
-  }
-
-  .app-container{
-    width:100% !important;
-    padding:8px 10px !important;
-  }
-
-  .hero-header{
-    border-radius:18px !important;
-    padding:14px !important;
-  }
-
-  .app-card{
-    padding:14px !important;
-    border-radius:18px !important;
-  }
-
-  .search-box-wrapper{
-    top:0;
-    padding:6px 0 10px;
-  }
-
-  .term-table thead{
-    display:none;
-  }
-
-  .term-table,
-  .term-table tbody,
-  .term-table tr,
-  .term-table td{
-    display:block;
-    width:100%;
-  }
-
-  .v-row{
-    padding:13px 0 !important;
-    border-bottom:1px solid var(--hs-border);
-  }
-
-  .v-row td{
-    padding:4px 10px !important;
-    border:0 !important;
-  }
-
-  .v-row td.kr{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    padding-bottom:8px !important;
-  }
-
-  .v-row td.rom{
-    display:none;
-  }
-
-  .v-row td:nth-child(3){
-    font-size:1rem;
-    font-weight:700;
-  }
-
-  .v-row td:nth-child(4){
-    font-size:.82rem !important;
-    color:var(--hs-muted) !important;
-  }
-
-  .category-header{
-    min-height:54px;
-  }
-
-  /* Navigation basse plus confortable sur téléphone */
-  .nav-btn{
-    min-height:50px !important;
-    border-radius:14px !important;
-  }
-
-  .translator-body{
-    align-items:center !important;
-  }
-
-  .translator-kr{
-    text-align:center;
-  }
-}
-
-@media (min-width:761px){
-  .tab-panel > .app-card{
-    padding:24px !important;
-  }
-}
-</style>
-
-
-<style id="hanguk-dashboard-v2">
-/* ===== TABLEAU DE BORD — hiérarchie claire ===== */
-.dashboard-home{
-  display:grid;
-  gap:18px;
-}
-
-.dashboard-welcome{
-  position:relative;
-  overflow:hidden;
-  padding:26px !important;
-  border-radius:24px !important;
-  background:linear-gradient(135deg,#fff5f8 0%,#ffffff 62%,#f7f2ff 100%) !important;
-}
-
-.dashboard-welcome h1{
-  margin:0 0 7px;
-  font-size:clamp(1.65rem,4vw,2.35rem);
-  line-height:1.12;
-}
-
-.dashboard-welcome p{
-  margin:0;
-  color:#6b7280;
-}
-
-.dashboard-stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-.dashboard-stat{
-  padding:17px;
-  border:1px solid #eadfe5;
-  border-radius:18px;
-  background:#fff;
-  box-shadow:0 8px 24px rgba(54,35,45,.06);
-}
-
-.dashboard-stat .icon{
-  font-size:1.35rem;
-}
-
-.dashboard-stat .value{
-  display:block;
-  margin-top:5px;
-  font-size:1.35rem;
-  font-weight:800;
-}
-
-.dashboard-stat .label{
-  color:#77808f;
-  font-size:.8rem;
-}
-
-.dashboard-section-title{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:10px;
-  margin:4px 2px 8px;
-}
-
-.dashboard-section-title h2{
-  margin:0;
-  font-size:1.1rem;
-}
-
-.dashboard-section-title span{
-  color:#8a93a0;
-  font-size:.8rem;
-}
-
-.dashboard-continue{
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:center;
-  gap:18px;
-  padding:22px !important;
-  border-radius:22px !important;
-  border:1px solid #eddce4 !important;
-  background:#fff !important;
-  box-shadow:0 10px 28px rgba(54,35,45,.07) !important;
-}
-
-.dashboard-continue .continue-kicker{
-  color:#c83f70;
-  font-size:.76rem;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-
-.dashboard-continue h3{
-  margin:5px 0 5px;
-  font-size:1.4rem;
-}
-
-.dashboard-continue p{
-  margin:0;
-  color:#737c89;
-}
-
-.dashboard-progress{
-  height:8px;
-  margin-top:14px;
-  overflow:hidden;
-  border-radius:99px;
-  background:#f0e9ed;
-}
-
-.dashboard-progress > span{
-  display:block;
-  width:62%;
-  height:100%;
-  border-radius:inherit;
-  background:#e85b8a;
-}
-
-.dashboard-continue-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:150px;
-  min-height:48px;
-  padding:0 18px;
-  border:0;
-  border-radius:14px;
-  background:#e85b8a;
-  color:white !important;
-  font-weight:800;
-  cursor:pointer;
-  text-decoration:none;
-  box-shadow:0 8px 18px rgba(232,91,138,.22);
-}
-
-.dashboard-modules{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.dashboard-module{
-  padding:18px !important;
-  border-radius:18px !important;
-  transition:transform .18s ease, box-shadow .18s ease;
-  cursor:pointer;
-}
-
-.dashboard-module:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 28px rgba(54,35,45,.10) !important;
-}
-
-.dashboard-module .module-icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:42px;
-  height:42px;
-  margin-bottom:11px;
-  border-radius:13px;
-  background:#fff1f6;
-  font-size:1.35rem;
-}
-
-.dashboard-module h3{
-  margin:0 0 4px;
-  font-size:1rem;
-}
-
-.dashboard-module p{
-  margin:0;
-  color:#7a8390;
-  font-size:.82rem;
-  line-height:1.45;
-}
-
-@media(max-width:760px){
-  .dashboard-welcome{
-    padding:20px !important;
-  }
-
-  .dashboard-stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .dashboard-continue{
-    grid-template-columns:1fr;
-  }
-
-  .dashboard-continue-btn{
-    width:100%;
-  }
-
-  .dashboard-modules{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-@media(max-width:430px){
-  .dashboard-modules{
-    grid-template-columns:1fr;
-  }
-}
-</style>
-
-
-<style id="questions-lesson-v1">
-.question-lesson{overflow:hidden}
-.question-hero{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  gap:16px;
-  align-items:center;
-  margin:20px 0;
-  padding:20px;
-  border-radius:20px;
-  background:linear-gradient(135deg,#fff2f7,#fff);
-  border:1px solid #f2dbe5;
-}
-.question-hero-icon{
-  width:52px;height:52px;display:grid;place-items:center;
-  border-radius:15px;background:#ffe5ef;font-size:1.5rem;
-}
-.question-pattern{font-size:1.45rem;font-weight:800;margin-top:4px}
-.question-pattern span{font-size:.9rem;color:#c84f7b;font-weight:600;margin-left:8px}
-.question-meaning{color:#737b88;margin-top:3px}
-.lesson-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.lesson-card{
-  padding:18px;border:1px solid #eadfe5;border-radius:18px;
-  background:#fff;box-shadow:0 7px 20px rgba(54,35,45,.05);
-}
-.lesson-label{
-  color:#c83f70;text-transform:uppercase;font-size:.72rem;
-  font-weight:800;letter-spacing:.05em;margin-bottom:8px;
-}
-.lesson-card h3{margin:0 0 12px;font-size:1rem}
-.lesson-kr{font-size:1.45rem;font-weight:800}
-.lesson-rom{color:#c84f7b;font-size:.85rem;margin:5px 0}
-.lesson-fr{color:#707986;margin-bottom:12px}
-.lesson-explain{
-  margin-top:18px;padding:20px;border-radius:18px;
-  background:#faf8fa;border:1px solid #eee5e9;
-}
-.lesson-explain h3{margin-top:0}
-.formula-box{
-  padding:14px;border-radius:14px;background:#fff;
-  border-left:4px solid #e85b8a;margin:12px 0;
-}
-.formula-box span{display:block;font-weight:800}
-.formula-box small{color:#7a8390}
-.mini-table{display:grid;gap:8px}
-.mini-table div{
-  display:grid;grid-template-columns:90px 1fr 1.5fr;gap:10px;
-  padding:10px 12px;border-radius:10px;background:#fff;
-}
-.mini-table span{color:#7a8390}
-.lesson-tip{
-  margin-top:16px;padding:15px;border-radius:14px;
-  background:#fff6e8;border:1px solid #f5dfb5;color:#7b5720;
-}
-@media(max-width:850px){.lesson-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){
-  .question-hero{grid-template-columns:auto 1fr}
-  .question-hero .mini-action{grid-column:1/-1;width:100%}
-  .lesson-grid{grid-template-columns:1fr}
-  .mini-table div{grid-template-columns:1fr}
-}
-</style>
-
-<style id="wide-modern-refactor">
-:root{--wm-pink:#ec4899;--wm-pink2:#be185d;--wm-bg:#f7f8fc;--wm-border:#e7e9ef;--wm-shadow:0 14px 40px rgba(30,41,59,.08)}
-body{background:radial-gradient(500px 260px at 0 0,rgba(236,72,153,.10),transparent 70%),radial-gradient(500px 260px at 100% 18%,rgba(139,92,246,.09),transparent 70%),var(--wm-bg)!important;padding:22px 18px 70px!important}.app-container{max-width:1440px!important;gap:16px!important}.tab-panel{animation:wmIn .35s ease both}.app-card,.category-card,.progress-main,.progress-side,.phrase-card,.review-card,.achievement-card,.level-card{box-shadow:var(--wm-shadow)!important}@keyframes wmIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.wm-home{display:grid;grid-template-columns:1.05fr 1.7fr .95fr;gap:16px;margin-bottom:16px}.wm-card{background:rgba(255,255,255,.92);border:1px solid var(--wm-border);border-radius:24px;padding:22px;box-shadow:var(--wm-shadow);position:relative;overflow:hidden}.wm-card:before{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-65px;top:-70px;background:rgba(236,72,153,.06)}.wm-kicker{font-size:.7rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--wm-pink)}.wm-card h2{font-size:1.45rem;letter-spacing:-.04em;margin:6px 0}.wm-card p{color:#7a8394;line-height:1.5}.wm-continue{margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px;border-radius:17px;background:linear-gradient(135deg,#fff1f6,#f6f2ff)}.wm-main{border:0;border-radius:13px;padding:13px 17px;background:var(--wm-pink);color:#fff;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #c94270;transition:.16s}.wm-main:hover{transform:translateY(-2px)}.wm-main:active{transform:translateY(2px);box-shadow:0 2px 0 #c94270}.wm-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}.wm-actions button{border:1px solid var(--wm-border);background:#fff;border-radius:15px;padding:13px 8px;font-weight:800;cursor:pointer;transition:.18s}.wm-actions button:hover{transform:translateY(-3px);box-shadow:0 9px 20px rgba(30,41,59,.08);border-color:#f1a9c5}.wm-actions span{display:block;font-size:1.4rem;margin-bottom:5px}.wm-statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:15px}.wm-stat{background:#f8fafc;border-radius:15px;padding:13px;text-align:center}.wm-stat strong{display:block;font-size:1.2rem;color:var(--wm-pink2)}.wm-stat small{color:#7a8394;font-weight:700}.wm-ring{width:112px;height:112px;border-radius:50%;margin:8px auto 13px;display:grid;place-items:center;background:conic-gradient(#53c777 0 72%,#edf0f4 72%);position:relative}.wm-ring:after{content:"72%";width:82px;height:82px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:900;font-size:1.15rem}.wm-featuregrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.wm-feature{min-height:155px;cursor:pointer;transition:transform .2s,box-shadow .2s!important}.wm-feature:hover{transform:translateY(-4px)!important;box-shadow:0 18px 38px rgba(30,41,59,.11)!important}.wm-icon{width:45px;height:45px;border-radius:13px;background:#f4f5fa;display:grid;place-items:center;font-size:1.4rem;margin-bottom:12px}.wm-feature h3{margin:0 0 5px}.wm-feature p{font-size:.82rem;margin:0}@media(max-width:1050px){.wm-home{grid-template-columns:1fr 1.3fr}.wm-home .wm-goal{display:none}}@media(max-width:760px){body{padding:10px 8px 80px!important}.wm-home{grid-template-columns:1fr}.wm-featuregrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.wm-featuregrid{grid-template-columns:1fr}.wm-actions button{font-size:.72rem;padding:10px 5px}}
-</style></head>
+</head>
 <body>
 
 <div class="app-container">
@@ -3360,7 +2860,7 @@ body{background:radial-gradient(500px 260px at 0 0,rgba(236,72,153,.10),transpar
     </div>
   </header>
 
-  <div class="korean-decoration"><span class="motif"><i>✦</i> 한글 <b>·</b> 한국어 <b>·</b> 한국 <i>✦</i></span></div>
+  <div class="korean-decoration"><span class="motif"><i>✦</i> Made by Picore <i>✦</i></span></div>
 
   <nav>
     <button class="nav-btn active" onclick="showTab('quiz')">🎯 Mode Quiz</button>
@@ -3373,7 +2873,6 @@ body{background:radial-gradient(500px 260px at 0 0,rgba(236,72,153,.10),transpar
     <button class="nav-btn" onclick="showTab('dashboard')">📊 Progression</button>
     <button class="nav-btn" onclick="showTab('phrases')">💬 Phrases</button>
     <button class="nav-btn" onclick="showTab('numbers')">🔢 Nombres</button>
-    <button class="nav-btn" onclick="showTab('questions')">❓ Poser une question</button>
 
   </nav>
 
@@ -3579,7 +3078,7 @@ body{background:radial-gradient(500px 260px at 0 0,rgba(236,72,153,.10),transpar
   <div id="panel-vocab" class="tab-panel">
     <div class="app-card">
       <div class="search-box-wrapper">
-        <input type="text" id="vocab-search-field" class="search-bar-input" placeholder="🔍 Rechercher un mot en français… (ex. chien, eau, aimer)" oninput="handleVocabSearch()">
+        <input type="text" id="vocab-search-field" class="search-bar-input" placeholder="🔍 Cherche un mot en français (ex: métro, eau, aimer, grand, ami)..." oninput="handleVocabSearch()">
       </div>
 
       <!-- CARTE DE TRADUCTION DYNAMIQUE EN DIRECT -->
@@ -3588,7 +3087,7 @@ body{background:radial-gradient(500px 260px at 0 0,rgba(236,72,153,.10),transpar
         <div class="translator-body">
           <div>
             <div id="trans-kr" class="translator-kr">...</div>
-            <div id="trans-rom" class="translator-rom">Écriture romaine : ...</div>
+            <div id="trans-rom" class="translator-rom">Romanisation : ...</div>
             <div id="trans-fr" class="translator-fr">...</div>
           </div>
           <button type="button" id="trans-audio-btn" class="btn-speaker" title="Écouter la prononciation coréenne">🔊 Prononciation</button>
@@ -3596,7 +3095,7 @@ body{background:radial-gradient(500px 260px at 0 0,rgba(236,72,153,.10),transpar
       </div>
 
       <div class="vocab-learning-tip">
-        💡 <strong>Astuce :</strong> l’écriture romaine (romanisation) est affichée sous le Hangeul pour faciliter les débuts.
+        💡 <strong>Astuce :</strong> la romanisation est affichée sous le Hangeul pour faciliter les débuts.
         Essaie progressivement de lire le Hangeul directement, puis utilise la romanisation seulement comme aide.
       </div>
       <div id="vocab-accordion"></div>
@@ -3857,109 +3356,6 @@ body{background:radial-gradient(500px 260px at 0 0,rgba(236,72,153,.10),transpar
 </div>
 
 <!-- SÉLECTEUR DE FONDS -->
-
-  <!-- ONGLET : LEÇON — POSER DES QUESTIONS -->
-  <div id="panel-questions" class="tab-panel">
-    <div class="app-card question-lesson">
-      <div class="setup-title section-title-accent">❓ Poser des questions en coréen</div>
-      <div class="setup-desc">
-        Une mini-leçon pratique pour demander son chemin, trouver les toilettes,
-        commander et obtenir une information simplement.
-      </div>
-
-      <div class="question-hero">
-        <div class="question-hero-icon">🗣️</div>
-        <div>
-          <strong>La formule à retenir</strong>
-          <div class="question-pattern">어디예요? <span>eo-di-ye-yo?</span></div>
-          <div class="question-meaning">« Où est-ce ? / Où se trouve… ? »</div>
-        </div>
-        <button class="mini-action" onclick="speakKorean('어디예요?')">🔊 Écouter</button>
-      </div>
-
-      <div class="lesson-grid">
-        <article class="lesson-card">
-          <div class="lesson-label">🚻 Situation 1</div>
-          <h3>Où sont les toilettes ?</h3>
-          <div class="lesson-kr">화장실이 어디예요?</div>
-          <div class="lesson-rom">hwa-jang-si-ri eo-di-ye-yo?</div>
-          <div class="lesson-fr">Où sont les toilettes ?</div>
-          <button class="mini-action" onclick="speakKorean('화장실이 어디예요?')">🔊 Écouter</button>
-        </article>
-
-        <article class="lesson-card">
-          <div class="lesson-label">📍 Situation 2</div>
-          <h3>Où est la station ?</h3>
-          <div class="lesson-kr">역이 어디예요?</div>
-          <div class="lesson-rom">yeo-gi eo-di-ye-yo?</div>
-          <div class="lesson-fr">Où est la station ?</div>
-          <button class="mini-action" onclick="speakKorean('역이 어디예요?')">🔊 Écouter</button>
-        </article>
-
-        <article class="lesson-card">
-          <div class="lesson-label">🍽️ Situation 3</div>
-          <h3>Où est le restaurant ?</h3>
-          <div class="lesson-kr">식당이 어디예요?</div>
-          <div class="lesson-rom">sik-ttang-i eo-di-ye-yo?</div>
-          <div class="lesson-fr">Où est le restaurant ?</div>
-          <button class="mini-action" onclick="speakKorean('식당이 어디예요?')">🔊 Écouter</button>
-        </article>
-
-        <article class="lesson-card">
-          <div class="lesson-label">🛒 Situation 4</div>
-          <h3>Combien ça coûte ?</h3>
-          <div class="lesson-kr">얼마예요?</div>
-          <div class="lesson-rom">eol-ma-ye-yo?</div>
-          <div class="lesson-fr">Combien ça coûte ?</div>
-          <button class="mini-action" onclick="speakKorean('얼마예요?')">🔊 Écouter</button>
-        </article>
-
-        <article class="lesson-card">
-          <div class="lesson-label">🙏 Situation 5</div>
-          <h3>Comment dit-on ça en coréen ?</h3>
-          <div class="lesson-kr">한국어로 뭐예요?</div>
-          <div class="lesson-rom">han-gu-geo-ro mwo-ye-yo?</div>
-          <div class="lesson-fr">Comment dit-on ça en coréen ?</div>
-          <button class="mini-action" onclick="speakKorean('한국어로 뭐예요?')">🔊 Écouter</button>
-        </article>
-
-        <article class="lesson-card">
-          <div class="lesson-label">🧭 Situation 6</div>
-          <h3>Comment aller à… ?</h3>
-          <div class="lesson-kr">어떻게 가요?</div>
-          <div class="lesson-rom">eo-tteo-ke ga-yo?</div>
-          <div class="lesson-fr">Comment y aller ?</div>
-          <button class="mini-action" onclick="speakKorean('어떻게 가요?')">🔊 Écouter</button>
-        </article>
-      </div>
-
-      <div class="lesson-explain">
-        <h3>🧩 Construire ta propre question</h3>
-        <p>
-          Pour demander où se trouve quelque chose, place le nom avant
-          <strong>이/가 어디예요?</strong>.
-        </p>
-        <div class="formula-box">
-          <span>［Lieu / objet］ + 이/가 + 어디예요?</span>
-          <small>« Où est ［lieu / objet］ ? »</small>
-        </div>
-
-        <div class="mini-table">
-          <div><strong>화장실</strong><span>toilettes</span><b>화장실이 어디예요?</b></div>
-          <div><strong>은행</strong><span>banque</span><b>은행이 어디예요?</b></div>
-          <div><strong>호텔</strong><span>hôtel</span><b>호텔이 어디예요?</b></div>
-          <div><strong>역</strong><span>station</span><b>역이 어디예요?</b></div>
-        </div>
-      </div>
-
-      <div class="lesson-tip">
-        💡 <strong>Astuce :</strong> en voyage, retiens d'abord
-        <strong>화장실이 어디예요?</strong>, <strong>얼마예요?</strong> et
-        <strong>어디예요?</strong>. Avec seulement ces quelques structures,
-        tu peux déjà poser beaucoup de questions.
-      </div>
-    </div>
-  </div>
 
   <!-- ONGLET : NOMBRES CORÉENS -->
   <div id="panel-numbers" class="tab-panel">
@@ -4803,73 +4199,26 @@ function getOrderedCategories() {
 // Romanisation algorithmique basée sur la romanisation révisée.
 // Elle sert de filet de sécurité pour tout Hangeul sans champ "rom".
 const RR_INITIALS = [
-  "g","kk","n","d","tt","r","m","b","pp","s","ss","",
-  "j","jj","ch","k","t","p","h"
+  "g","kk","n","d","tt","r","m","b","pp","s","ss","ng","j","jj","ch","k","t","p","h"
 ];
-
 const RR_VOWELS = [
-  "a","ae","ya","yae","eo","e","yeo","ye","o","wa","wae","oe",
-  "yo","u","weo","we","wi","yu","eu","ui","i"
+  "a","ae","ya","yae","eo","e","yeo","ye","o","wa","wae","oe","yo",
+  "u","weo","we","wi","yu","eu","ui","i"
 ];
-
 const RR_FINALS = [
-  "",   // 0
-  "k",  // ㄱ
-  "k",  // ㄲ
-  "ks", // ㄳ
-  "n",  // ㄴ
-  "nj", // ㄵ
-  "nh", // ㄶ
-  "t",  // ㄷ
-  "l",  // ㄹ
-  "lk", // ㄺ
-  "lm", // ㄻ
-  "lp", // ㄼ
-  "ls", // ㄽ
-  "lt", // ㄾ
-  "lp", // ㄿ
-  "lh", // ㅀ
-  "m",  // ㅁ
-  "p",  // ㅂ
-  "ps", // ㅄ
-  "t",  // ㅅ
-  "t",  // ㅆ
-  "ng", // ㅇ
-  "t",  // ㅈ
-  "t",  // ㅊ
-  "k",  // ㅋ
-  "t",  // ㅌ
-  "p",  // ㅍ
-  "h"   // ㅎ
+  "","k","k","ks","n","nj","nh","t","l","lk","lm","lp","ls","lt","lh",
+  "m","p","ps","t","t","ng","t","ch","k","t","p","h"
 ];
 
-/*
- * Romanisation révisée (RR) :
- * - ㅇ initial = muet : 오 -> o, 어 -> eo, 화 -> hwa
- * - ㅇ final = ng : 장 -> jang, 공 -> gong
- * - ㅈ initial = j : 장 -> jang
- * - ㅊ initial = ch : 차 -> cha
- * - ㄹ final = l : 실 -> sil
- *
- * On garde un espace entre les syllabes pour que l'écriture
- * soit facile à lire : 화장실 -> hwa jang sil.
- */
 function romanizeHangul(text) {
   return String(text).replace(/[\uAC00-\uD7A3]+/g, block => {
     return [...block].map(ch => {
       const code = ch.charCodeAt(0) - 0xAC00;
-
       if (code < 0 || code > 11171) return ch;
-
       const initial = Math.floor(code / 588);
       const vowel = Math.floor((code % 588) / 28);
       const final = code % 28;
-
-      const initialRom = RR_INITIALS[initial];
-      const vowelRom = RR_VOWELS[vowel];
-      const finalRom = RR_FINALS[final];
-
-      return initialRom + vowelRom + finalRom;
+      return RR_INITIALS[initial] + RR_VOWELS[vowel] + RR_FINALS[final];
     }).join(" ");
   });
 }
@@ -5658,57 +5007,9 @@ function submitAnswer(e) {
 }
 
 function skipQuestion() {
-  if (waitingNext || sessionPool.length === 0 || !currentItem) return;
-
-  // "Passer" révèle volontairement la réponse sans la compter comme une erreur.
-  // La question est validée comme réussie afin qu'un trou de mémoire
-  // n'empêche pas de terminer/réussir la session.
-  answered++;
-  score++;
-  streak++;
-
-  if (currentAudioMode === 'sound') {
-    playTone(true);
-  } else {
-    speakKorean(currentItem.kr);
-  }
-
-  const cleanKr = currentItem.kr.replace(/'/g, "\\'");
-
-  resultBox.style.display = "block";
-  resultBox.className = "result-sheet success";
-  resultBox.innerHTML = `
-    <div class="result-header">💡 Réponse affichée !</div>
-    <div class="result-data">
-      <span class="k-tag">Hangeul :</span>
-      <div class="k-val-kr">
-        ${currentItem.kr}
-        <button type="button" class="btn-speaker" onclick="speakKorean('${cleanKr}')">🔊 Écouter</button>
-      </div>
-      <span class="k-tag">Alphabet latin :</span>
-      <span class="k-val-rom">${getRom(currentItem)}</span>
-      <span class="k-tag">Signification :</span>
-      <span>${currentItem.fr}</span>
-      <div class="k-expl-box">💡 <strong>Astuce :</strong> ${addRomanizationToKoreanText(currentItem.expl || "Aucune note.")}</div>
-    </div>
-  `;
-
-  // La question est retirée de la session après affichage de la réponse.
-  sessionPool = sessionPool.filter(i => i !== currentItem);
-
-  waitingNext = true;
-  answerInput.disabled = true;
-  btnValidate.textContent = "Suivant ➔";
-  updateStatsDisplay();
-
-  requestAnimationFrame(() => {
-    resultBox.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest'
-    });
-  });
-
-  btnValidate.focus({ preventScroll: true });
+  if (waitingNext || sessionPool.length === 0) return;
+  answerInput.value = "";
+  submitAnswer(new Event('submit'));
 }
 
 function updateStatsDisplay() {
@@ -5736,8 +5037,7 @@ function showTab(id) {
       (id === 'grammar' && i === 6) ||
       (id === 'dashboard' && i === 7) ||
       (id === 'phrases' && i === 8) ||
-      (id === 'numbers' && i === 9) ||
-      (id === 'questions' && i === 10)
+      (id === 'numbers' && i === 9)
     );
   });
 
@@ -6174,17 +5474,7 @@ function handleVocabSearch() {
   let matchFound = false;
 
   rows.forEach(r => {
-    // On recherche uniquement dans les vraies données du mot :
-    // Hangeul, romanisation et traduction française.
-    // On ignore la colonne "Explication" pour éviter les faux positifs
-    // (ex. "chien" apparaissait dans l'explication de ㅍ).
-    const cells = Array.from(r.querySelectorAll("td"));
-    const searchableText = cells
-      .slice(0, 3)
-      .map(cell => cell.textContent || "")
-      .join(" ");
-    const text = clean(searchableText);
-
+    const text = clean(r.textContent);
     if (text.includes(query)) {
       r.style.display = "";
       matchFound = true;
@@ -6222,126 +5512,50 @@ async function fetchOnlineTranslation(word) {
   translatorCard.style.display = "block";
   transKr.textContent = "Traduction en cours...";
   transRom.textContent = "";
-  transFr.textContent = `Recherche hors dictionnaire pour : "${word}"`;
-  transBtn.disabled = true;
-  transBtn.onclick = null;
+  transFr.textContent = `Recherche pour : "${word}"`;
 
   try {
-    /*
-      Traduction gratuite côté navigateur.
-      Cette route publique de Google Translate n'est pas une API
-      officielle destinée aux développeurs : elle peut donc changer
-      ou être limitée à l'avenir. Elle ne nécessite aucune clé API.
-    */
-    const googleUrl =
-      "https://translate.googleapis.com/translate_a/single?" +
-      new URLSearchParams({
-        client: "gtx",
-        sl: "fr",
-        tl: "ko",
-        dt: "t",
-        q: word
-      });
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=fr|ko`;
+    const res = await fetch(url);
+    const result = await res.json();
 
-    const res = await fetch(googleUrl, {
-      method: "GET",
-      headers: { "Accept": "application/json" }
-    });
-
-    if (!res.ok) throw new Error(`Google Translate HTTP ${res.status}`);
-
-    const data = await res.json();
-
-    // Format habituel :
-    // [[["앵무새","perroquet",...]], ...]
-    const translated = Array.isArray(data?.[0])
-      ? data[0]
-          .map(part => Array.isArray(part) ? String(part[0] || "") : "")
-          .join("")
-          .replace(/<[^>]*>/g, "")
-          .trim()
-      : "";
-
-    if (!translated) throw new Error("Aucune traduction");
-
-    // Certains textes sont composés de plusieurs segments.
-    // On évite de répéter deux fois la même traduction.
-    const alternatives = Array.isArray(data?.[5])
-      ? data[5]
-          .map(v => Array.isArray(v) ? String(v[0] || "") : "")
-          .filter(Boolean)
-          .filter(v => v !== translated)
-          .slice(0, 3)
-      : [];
-
-    const romanized = romanizeHangul(translated);
-
-    transKr.textContent = translated;
-    transRom.textContent = romanized
-      ? `Écriture romaine : ${romanized}`
-      : "Écriture romaine : indisponible";
-    transFr.textContent = `Traduction de « ${word} »`;
-
-    transBtn.disabled = false;
-    transBtn.onclick = () => speakKorean(translated);
-
-    transRom.style.cursor = "pointer";
-    transRom.title = "Clique pour écouter la prononciation coréenne";
-    transRom.onclick = () => speakKorean(translated);
-
-    if (alternatives.length) {
-      transFr.textContent =
-        `Traduction de « ${word} » · autres possibilités : ${alternatives.join(" · ")}`;
-    }
-
-  } catch (googleError) {
-    // Secours gratuit : MyMemory.
-    // Cela permet au dictionnaire de continuer à fonctionner si la
-    // route Google publique est temporairement indisponible.
-    try {
-      const fallbackUrl =
-        "https://api.mymemory.translated.net/get?" +
-        new URLSearchParams({
-          q: word,
-          langpair: "fr|ko"
-        });
-
-      const fallbackRes = await fetch(fallbackUrl);
-      if (!fallbackRes.ok) throw new Error("MyMemory indisponible");
-
-      const fallbackData = await fallbackRes.json();
-      const translated = String(
-        fallbackData?.responseData?.translatedText || ""
-      )
-        .replace(/<[^>]*>/g, "")
+    if (result && result.responseData && result.responseData.translatedText) {
+      // Traduction hors dictionnaire : on affiche toujours les 3 informations
+      // utiles pour apprendre : Hangeul + romanisation + traduction française.
+      const translated = String(result.responseData.translatedText)
+        .replace(/<[^>]*>/g, '')
         .trim();
-
-      if (!translated) throw new Error("Aucune traduction");
-
       const romanized = romanizeHangul(translated);
 
-      transKr.textContent = translated;
+      transKr.textContent = translated || "Non trouvé";
       transRom.textContent = romanized
-        ? `Écriture romaine : ${romanized}`
-        : "Écriture romaine : indisponible";
+        ? `Romanisation : ${romanized}`
+        : "Romanisation : indisponible";
       transFr.textContent = `Traduction de « ${word} »`;
 
-      transBtn.disabled = false;
+      // Le bouton lit le coréen natif : la romanisation reste une aide visuelle.
+      transBtn.disabled = !translated;
       transBtn.onclick = () => speakKorean(translated);
 
-      transRom.style.cursor = "pointer";
-      transRom.title = "Clique pour écouter la prononciation coréenne";
-      transRom.onclick = () => speakKorean(translated);
-
-    } catch (fallbackError) {
-      transKr.textContent = "Traduction indisponible";
-      transRom.textContent = "Écriture romaine : indisponible";
-      transFr.textContent =
-        "Le service de traduction gratuit est momentanément indisponible.";
+      // Cliquer sur la romanisation permet aussi d'entendre immédiatement le mot.
+      transRom.style.cursor = translated ? "pointer" : "default";
+      transRom.title = translated
+        ? "Clique pour écouter la prononciation coréenne"
+        : "";
+      transRom.onclick = translated ? () => speakKorean(translated) : null;
+    } else {
+      transKr.textContent = "Mot non trouvé";
+      transRom.textContent = "Romanisation : indisponible";
+      transFr.textContent = `Impossible de traduire « ${word} » pour le moment.`;
       transBtn.disabled = true;
-      transBtn.onclick = null;
       transRom.onclick = null;
     }
+  } catch (err) {
+    transKr.textContent = "Traduction indisponible";
+    transRom.textContent = "Romanisation : indisponible";
+    transFr.textContent = "Vérifie ta connexion puis réessaie.";
+    transBtn.disabled = true;
+    transRom.onclick = null;
   }
 }
 
@@ -6583,165 +5797,7 @@ body.quiz-mode .k-expl-box{
 }
 </style>
 
-
-<script id="hanguk-dashboard-inject-v2">
-document.addEventListener("DOMContentLoaded", () => {
-  const panel = document.getElementById("panel-dashboard");
-  if (!panel) return;
-
-  // On conserve le contenu existant et on ajoute une zone de pilotage
-  // au-dessus : aucune fonctionnalité existante n'est supprimée.
-  const existing = panel.innerHTML;
-
-  const dashboard = document.createElement("div");
-  dashboard.className = "dashboard-home";
-  dashboard.innerHTML = `
-    <section class="app-card dashboard-welcome">
-      <h1>🇰🇷 Continue ton apprentissage</h1>
-      <p>Choisis une activité et avance à ton rythme.</p>
-    </section>
-
-    <section class="dashboard-stats" aria-label="Résumé de progression">
-      <div class="dashboard-stat">
-        <span class="icon">🔥</span>
-        <span class="value" id="dash-streak">0</span>
-        <span class="label">jours de série</span>
-      </div>
-      <div class="dashboard-stat">
-        <span class="icon">⭐</span>
-        <span class="value" id="dash-xp">0</span>
-        <span class="label">XP</span>
-      </div>
-      <div class="dashboard-stat">
-        <span class="icon">📚</span>
-        <span class="value" id="dash-words">0</span>
-        <span class="label">mots appris</span>
-      </div>
-      <div class="dashboard-stat">
-        <span class="icon">🎯</span>
-        <span class="value" id="dash-accuracy">0%</span>
-        <span class="label">réussite quiz</span>
-      </div>
-    </section>
-
-    <div class="dashboard-section-title">
-      <h2>Continuer</h2>
-      <span>Ton apprentissage</span>
-    </div>
-
-    <section class="dashboard-continue">
-      <div>
-        <div class="continue-kicker">À reprendre</div>
-        <h3>🎯 Faire un quiz</h3>
-        <p>Révise tes mots et teste ce que tu connais déjà.</p>
-        <div class="dashboard-progress"><span id="dash-progress"></span></div>
-      </div>
-      <button class="dashboard-continue-btn" type="button"
-              onclick="showTab('quiz')">
-        Commencer →
-      </button>
-    </section>
-
-    <div class="dashboard-section-title">
-      <h2>Apprendre</h2>
-      <span>Accès rapide</span>
-    </div>
-
-    <section class="dashboard-modules">
-      <article class="app-card dashboard-module" onclick="showTab('alphabet')">
-        <div class="module-icon">🔤</div>
-        <h3>Alphabet</h3>
-        <p>Hangeul, lecture et prononciation.</p>
-      </article>
-
-      <article class="app-card dashboard-module" onclick="showTab('draw')">
-        <div class="module-icon">✍️</div>
-        <h3>Écriture</h3>
-        <p>Trace les caractères et vérifie ton tracé.</p>
-      </article>
-
-      <article class="app-card dashboard-module" onclick="showTab('vocab')">
-        <div class="module-icon">📖</div>
-        <h3>Dictionnaire</h3>
-        <p>Recherche un mot et écoute sa prononciation.</p>
-      </article>
-
-      <article class="app-card dashboard-module" onclick="showTab('grammar')">
-        <div class="module-icon">🧠</div>
-        <h3>Grammaire</h3>
-        <p>Comprends les structures essentielles.</p>
-      </article>
-
-      <article class="app-card dashboard-module" onclick="showTab('phrases')">
-        <div class="module-icon">💬</div>
-        <h3>Phrases</h3>
-        <p>Apprends des phrases prêtes à utiliser.</p>
-      </article>
-
-      <article class="app-card dashboard-module" onclick="showTab('numbers')">
-        <div class="module-icon">🔢</div>
-        <h3>Nombres</h3>
-        <p>Travaille les nombres coréens.</p>
-      </article>
-    </section>
-  `;
-
-  panel.innerHTML = "";
-  panel.appendChild(dashboard);
-
-  // Le reste du dashboard original reste accessible dans le DOM
-  // via un bouton discret "Détails" ajouté à la fin.
-  const details = document.createElement("details");
-  details.style.marginTop = "18px";
-  details.innerHTML = `
-    <summary style="cursor:pointer;font-weight:700;padding:12px 4px">
-      ⚙️ Afficher les détails avancés
-    </summary>
-    <div style="margin-top:12px">${existing}</div>
-  `;
-  panel.appendChild(details);
-
-  function refreshDashboardStats(){
-    try{
-      const raw = localStorage.getItem("hangukshatta-v4-state");
-      if(!raw) return;
-      const state = JSON.parse(raw);
-
-      const xp = Number(state.xp || 0);
-      const learned = Number(state.learnedWords || 0);
-      const total = Number(state.totalAnswered || 0);
-      const correct = Number(state.totalCorrect || 0);
-      const streak = Number(state.streak || 0);
-
-      const el = id => document.getElementById(id);
-      el("dash-xp").textContent = xp.toLocaleString("fr-FR");
-      el("dash-words").textContent = learned;
-      el("dash-streak").textContent = streak;
-      el("dash-accuracy").textContent =
-        total ? Math.round((correct / total) * 100) + "%" : "0%";
-
-      const pct = Math.max(0, Math.min(100,
-        total ? Math.round((correct / total) * 100) : 0
-      ));
-      el("dash-progress").style.width = pct + "%";
-    }catch(e){}
-  }
-
-  refreshDashboardStats();
-  setInterval(refreshDashboardStats, 1200);
-});
-</script>
-
-
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(console.warn);
-  });
-}
-</script>
-
-<script id="wide-modern-home">document.addEventListener("DOMContentLoaded",()=>{const p=document.getElementById("panel-dashboard");if(!p||p.dataset.wmDone)return;p.dataset.wmDone="1";const old=p.innerHTML,w=document.createElement("div");w.className="wm-home";w.innerHTML=`<section class="wm-card"><div class="wm-kicker">Hanguk'Shatta</div><h2>Prêt à apprendre ? 🇰🇷</h2><p>Continue ton apprentissage directement depuis ici.</p><div class="wm-continue"><div><b>🎯 Quiz</b><br><small style="color:#7a8394">Révision rapide</small></div><button class="wm-main" onclick="showTab('quiz')">Continuer</button></div><div class="wm-statgrid"><div class="wm-stat"><strong>🔥</strong><small>Série</small></div><div class="wm-stat"><strong>⭐</strong><small>XP</small></div></div></section><section class="wm-card"><div class="wm-kicker">Accès rapide</div><h2>Apprendre</h2><p>Choisis une activité.</p><div class="wm-actions"><button onclick="showTab('alphabet')"><span>🔤</span>Hangeul</button><button onclick="showTab('vocab')"><span>📖</span>Dico</button><button onclick="showTab('grammar')"><span>🧠</span>Grammaire</button><button onclick="showTab('draw')"><span>✍️</span>Écriture</button><button onclick="showTab('questions')"><span>❓</span>Questions</button><button onclick="showTab('phrases')"><span>💬</span>Phrases</button></div></section><section class="wm-card wm-goal" style="text-align:center"><div class="wm-kicker">Objectif du jour</div><div class="wm-ring"></div><b>Encore un petit effort !</b><p style="font-size:.8rem;margin-top:5px">Ton objectif est presque atteint.</p></section>`;const f=document.createElement("div");f.className="wm-featuregrid";f.innerHTML=`<article class="app-card wm-card wm-feature" onclick="showTab('quiz')"><div class="wm-icon">🎯</div><h3>Quiz</h3><p>Teste tes connaissances et révise tes erreurs.</p></article><article class="app-card wm-card wm-feature" onclick="showTab('vocab')"><div class="wm-icon">🔎</div><h3>Dictionnaire</h3><p>Recherche, romanisation et prononciation.</p></article><article class="app-card wm-card wm-feature" onclick="showTab('questions')"><div class="wm-icon">🗣️</div><h3>Questions</h3><p>Les phrases utiles pour voyager en Corée.</p></article><article class="app-card wm-card wm-feature" onclick="showTab('numbers')"><div class="wm-icon">🔢</div><h3>Nombres</h3><p>Apprends à compter et à les prononcer.</p></article><article class="app-card wm-card wm-feature" onclick="showTab('draw')"><div class="wm-icon">✍️</div><h3>Écriture</h3><p>Travaille le tracé des caractères.</p></article><article class="app-card wm-card wm-feature" onclick="showTab('progress')"><div class="wm-icon">📈</div><h3>Progression</h3><p>Consulte tes progrès et tes statistiques.</p></article>`;p.innerHTML="";p.append(w,f);const d=document.createElement("details");d.style.marginTop="16px";d.innerHTML=`<summary style="cursor:pointer;padding:10px;color:#7a8394;font-weight:800">⚙️ Ancien tableau de bord</summary><div style="margin-top:10px">${old}</div>`;p.appendChild(d)});</script></body>
+</body>
 </html>
 <style id="hanguk-official-logo-v12">
   .hanguk-official-logo {
