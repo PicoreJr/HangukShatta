@@ -2820,6 +2820,18 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 @media(max-width:900px){nav{grid-template-columns:repeat(5,minmax(0,1fr));}}
 @media(max-width:640px){nav{grid-template-columns:repeat(2,1fr);}}
 </style>
+
+<style id="picore-favorites-v2">
+.fav-word-btn{border:1px solid #f0d7e2!important;background:#fff!important;border-radius:12px!important;padding:8px 11px!important;cursor:pointer!important;font-weight:800!important;transition:.16s!important}
+.fav-word-btn:hover{transform:translateY(-2px);border-color:#ec4899!important}
+.fav-word-btn.is-fav{background:#fff0f6!important;border-color:#ec4899!important;color:#be185d!important}
+.fav-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fav-item{padding:17px;border:1px solid #e7e9ef;border-radius:18px;background:#fff;box-shadow:0 8px 22px rgba(30,41,59,.06)}
+.fav-korean{font-size:1.5rem;font-weight:900}.fav-roman{color:#ec4899;font-weight:800;margin-top:4px}.fav-fr{color:#7a8394;margin-top:3px}
+.fav-empty{padding:28px;text-align:center;color:#7a8394}
+@media(max-width:650px){.fav-list{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 
@@ -5796,6 +5808,81 @@ body.quiz-mode .k-expl-box{
   body.quiz-mode .quiz-active-view{padding:14px 12px 12px;border-radius:16px;}
 }
 </style>
+
+
+<script id="picore-favorites-v2">
+(function(){
+ const KEY="hangukshatta-favorites";
+ const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+ const get=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}};
+ const save=a=>localStorage.setItem(KEY,JSON.stringify(a));
+
+ window.isFavorite=k=>get().some(x=>x.korean===k);
+ window.toggleFavorite=function(w){
+   if(!w||!w.korean)return;
+   let a=get(),i=a.findIndex(x=>x.korean===w.korean);
+   if(i>=0)a.splice(i,1);else a.push({korean:w.korean,roman:w.roman||w.romanization||"",french:w.french||w.translation||"",pronunciation:w.pronunciation||""});
+   save(a); updateButtons(w.korean); renderFavorites();
+ };
+ function updateButtons(k){
+   document.querySelectorAll("[data-favorite-korean]").forEach(b=>{
+     if(k && b.dataset.favoriteKorean!==k)return;
+     const yes=isFavorite(b.dataset.favoriteKorean);
+     b.classList.toggle("is-fav",yes);b.textContent=yes?"★ Favori":"☆ Favori";
+   });
+ }
+ window.addFavoriteButton=function(holder,w){
+   if(!holder||!w?.korean)return;
+   holder.querySelector("[data-favorite-korean]")?.remove();
+   const b=document.createElement("button");b.type="button";b.className="fav-word-btn";
+   b.dataset.favoriteKorean=w.korean;b.textContent=isFavorite(w.korean)?"★ Favori":"☆ Favori";
+   b.onclick=()=>toggleFavorite(w);holder.appendChild(b);
+ };
+ window.renderFavorites=function(){
+   const box=document.getElementById("favorites-content");if(!box)return;
+   const a=get();
+   if(!a.length){box.innerHTML='<div class="fav-empty">⭐ Aucun mot favori.<br><small>Ajoute des mots depuis le dictionnaire.</small></div>';return}
+   box.innerHTML='<div class="fav-list">'+a.map(w=>`<article class="fav-item"><div class="fav-korean">${esc(w.korean)}</div><div class="fav-roman">${esc(w.roman)}</div><div class="fav-fr">${esc(w.french)}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="fav-word-btn is-fav" onclick="toggleFavorite(${JSON.stringify(w).replace(/"/g,'&quot;')})">★ Retirer</button>${w.pronunciation?`<button class="fav-word-btn" onclick="speakKorean(${JSON.stringify(w.pronunciation).replace(/"/g,'&quot;')})">🔊 Écouter</button>`:""}</div></article>`).join("")+'</div>';
+ };
+ function addPanel(){
+   if(document.getElementById("panel-favorites"))return;
+   const p=document.createElement("section");p.id="panel-favorites";p.className="tab-panel";p.style.display="none";
+   p.innerHTML='<div class="app-card" style="padding:22px"><h2 style="margin-top:0">⭐ Mes favoris</h2><p style="color:#7a8394">Les mots enregistrés depuis le dictionnaire sont conservés sur cet appareil.</p><div id="favorites-content"></div></div>';
+   (document.querySelector(".tab-panels")||document.querySelector("main")||document.body).appendChild(p);
+ }
+ function addTab(){
+   const nav=document.querySelector("nav");if(!nav||nav.querySelector("[data-favorites-tab]"))return;
+   const b=document.createElement("button");b.className="nav-btn";b.dataset.favoritesTab="1";b.textContent="⭐ Favoris";b.onclick=()=>showTab("favorites");nav.appendChild(b);
+ }
+ const oldShow=window.showTab;
+ window.showTab=function(name){
+   if(typeof oldShow==="function")oldShow.apply(this,arguments);
+   if(name==="favorites")setTimeout(()=>{document.querySelectorAll(".tab-panel").forEach(x=>{if(x.id!=="panel-favorites")x.style.display="none"});const p=document.getElementById("panel-favorites");if(p)p.style.display="";renderFavorites()},30);
+ };
+ document.addEventListener("DOMContentLoaded",()=>{addPanel();addTab();renderFavorites()});
+})();
+</script>
+
+
+<script id="picore-dictionary-favorite-bridge-v2">
+document.addEventListener("DOMContentLoaded",()=>{
+ const ob=new MutationObserver(()=>{
+   document.querySelectorAll("h1,h2,h3,.korean,.hangul").forEach(el=>{
+     const korean=el.textContent.trim();
+     if(!/^[가-힣\s]+$/.test(korean)||korean.length>40)return;
+     const card=el.closest(".app-card,.category-card,.phrase-card,div");if(!card)return;
+     if(!/AUTOMATIQUE|Traduction|Écriture romaine|Romanisation/i.test(card.innerText||""))return;
+     if(card.querySelector("[data-favorite-korean]"))return;
+     const holder=document.createElement("div");holder.style.cssText="margin-top:10px";
+     card.appendChild(holder);
+     const roman=(card.innerText.match(/(?:Écriture romaine|Romanisation)\s*[:\-]\s*([^\n]+)/i)||[])[1]||"";
+     const french=(card.innerText.match(/Traduction de [«\"]?([^»\"\n]+)[»\"]?/i)||[])[1]||"";
+     addFavoriteButton(holder,{korean,roman,french});
+   });
+ });
+ ob.observe(document.body,{childList:true,subtree:true});
+});
+</script>
 
 </body>
 </html>
