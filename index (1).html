@@ -4218,7 +4218,13 @@ function romanizeHangul(text) {
       const initial = Math.floor(code / 588);
       const vowel = Math.floor((code % 588) / 28);
       const final = code % 28;
-      return RR_INITIALS[initial] + RR_VOWELS[vowel] + RR_FINALS[final];
+
+      // ㅇ (initial index 11) est muet au début d'une syllabe.
+      // Il se prononce "ng" uniquement comme consonne finale.
+      // Sans cette règle, 오 devient "ngo", 아이 devient "ngai", etc.
+      const initialRom = initial === 11 ? "" : RR_INITIALS[initial];
+
+      return initialRom + RR_VOWELS[vowel] + RR_FINALS[final];
     }).join(" ");
   });
 }
@@ -5474,7 +5480,17 @@ function handleVocabSearch() {
   let matchFound = false;
 
   rows.forEach(r => {
-    const text = clean(r.textContent);
+    // On recherche uniquement dans les vraies données du mot :
+    // Hangeul, romanisation et traduction française.
+    // On ignore la colonne "Explication" pour éviter les faux positifs
+    // (ex. "chien" apparaissait dans l'explication de ㅍ).
+    const cells = Array.from(r.querySelectorAll("td"));
+    const searchableText = cells
+      .slice(0, 3)
+      .map(cell => cell.textContent || "")
+      .join(" ");
+    const text = clean(searchableText);
+
     if (text.includes(query)) {
       r.style.display = "";
       matchFound = true;
@@ -5512,7 +5528,7 @@ async function fetchOnlineTranslation(word) {
   translatorCard.style.display = "block";
   transKr.textContent = "Traduction en cours...";
   transRom.textContent = "";
-  transFr.textContent = `Recherche pour : "${word}"`;
+  transFr.textContent = `Recherche hors dictionnaire pour : "${word}"`;
   transBtn.disabled = true;
   transBtn.onclick = null;
 
