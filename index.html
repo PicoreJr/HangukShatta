@@ -4109,9 +4109,11 @@ function getOrderedCategories() {
 }
 
 // Romanisation algorithmique basée sur la romanisation révisée.
-// Elle sert de filet de sécurité pour tout Hangeul sans champ "rom".
+// Point important : ㅇ est muet EN DÉBUT de syllabe,
+// mais devient "ng" EN FIN de syllabe.
+// Exemple : 아이 = ai, 안 = an, 강 = gang.
 const RR_INITIALS = [
-  "g","kk","n","d","tt","r","m","b","pp","s","ss","ng","j","jj","ch","k","t","p","h"
+  "g","kk","n","d","tt","r","m","b","pp","s","ss","","j","jj","ch","k","t","p","h"
 ];
 const RR_VOWELS = [
   "a","ae","ya","yae","eo","e","yeo","ye","o","wa","wae","oe","yo",
