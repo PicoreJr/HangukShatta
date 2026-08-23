@@ -3418,6 +3418,26 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
   </div>
 
   <!-- ONGLET NOMBRES -->
+  <div id="panel-phrases" class="tab-panel">
+    <div class="app-card">
+      <div class="setup-title section-title-accent">💬 Phrases utiles</div>
+      <div class="setup-desc">
+        Des phrases prêtes à utiliser dans les situations courantes en Corée.
+        Écoute-les et regarde leur romanisation pour apprendre à les prononcer.
+      </div>
+
+      <div class="phrase-filter" role="tablist" aria-label="Catégories de phrases">
+        <button class="active" type="button" onclick="filterPhrases('all', this)">✨ Toutes</button>
+        <button type="button" onclick="filterPhrases('cafe', this)">☕ Café</button>
+        <button type="button" onclick="filterPhrases('travel', this)">🗺️ Déplacements</button>
+        <button type="button" onclick="filterPhrases('daily', this)">💬 Quotidien</button>
+        <button type="button" onclick="filterPhrases('shopping', this)">🛍️ Shopping</button>
+      </div>
+
+      <div id="phrases-grid" class="phrase-layout"></div>
+    </div>
+  </div>
+
   <div id="panel-numbers" class="tab-panel">
     <div class="app-card">
       <div class="setup-title section-title-accent">🔢 Nombres coréens — natifs & sino-coréens</div>
@@ -4677,22 +4697,23 @@ function renderPhrases(filter='all') {
   const grid = document.getElementById('phrases-grid');
   if (!grid) return;
 
-  const s = getLearningState();
   const items = phraseData.filter(p => filter === 'all' || p.cat === filter);
 
-  grid.innerHTML = items.map(p => {return `<article class="phrase-card">
+  grid.innerHTML = items.map(p => {
+    const kr = JSON.stringify(p.kr).replace(/</g, '\\u003c');
+    const note = JSON.stringify('🧩 ' + p.note).replace(/</g, '\\u003c');
+    return `<article class="phrase-card">
       <div class="phrase-category">${p.title}</div>
       <div class="phrase-kr">${p.kr}</div>
       <div class="phrase-rom">${p.rom}</div>
       <div class="phrase-fr">${p.fr}</div>
       <div class="phrase-tools">
-        <button class="mini-action" onclick="speakKorean('${p.kr.replace(/'/g,"\\'")}')">🔊 Écouter</button>
-        <button class="mini-action" onclick="alert('🧩 ${p.note.replace(/'/g,"\\'")}')">🧩 Grammaire</button>
+        <button class="mini-action" type="button" onclick='speakKorean(${kr})'>🔊 Écouter</button>
+        <button class="mini-action" type="button" onclick='alert(${note})'>🧩 Grammaire</button>
       </div>
     </article>`;
   }).join('');
 }
-
 function filterPhrases(filter, btn) {
   document.querySelectorAll('.phrase-filter button').forEach(b=>b.classList.remove('active'));
   if (btn) btn.classList.add('active');
