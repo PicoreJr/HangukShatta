@@ -1160,7 +1160,7 @@ header {
 nav {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 5px;
   padding: 5px;
 }
@@ -2824,18 +2824,18 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 
 
 
-<style id="korea-practical-links-css">
-.korea-links-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
-.korea-link-card{display:flex;align-items:center;gap:12px;min-height:88px;padding:15px;border:1px solid var(--border);border-radius:17px;background:rgba(255,255,255,.9);color:#1e293b;text-decoration:none;box-shadow:0 7px 20px rgba(15,23,42,.05);transition:transform .18s,box-shadow .18s,border-color .18s}
-.korea-link-card:hover{transform:translateY(-3px);border-color:#f9a8d4;box-shadow:0 13px 28px rgba(15,23,42,.10)}
-.korea-link-icon{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:13px;background:#fff1f2;font-size:1.4rem}
-.korea-link-card span:nth-child(2){min-width:0;flex:1}
-.korea-link-card strong{display:block;font-size:.88rem;color:#9d174d;line-height:1.25}
-.korea-link-card small{display:block;margin-top:4px;color:#64748b;font-size:.72rem;line-height:1.35}
-.korea-link-card b{color:#94a3b8;font-size:1rem}
-@media(max-width:900px){.korea-links-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.korea-links-grid{grid-template-columns:1fr}}
+<style id="korea-practical-v2">
+.kr-practical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.kr-practical-card{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid #f0d7e2;border-radius:16px;background:#fff;text-decoration:none;color:inherit;transition:.18s ease}
+.kr-practical-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(190,24,93,.10);border-color:#f3a6c5}
+.kr-practical-icon{font-size:25px;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#fff5f9;flex:none}
+.kr-practical-card strong{display:block;font-size:15px;margin-bottom:3px}
+.kr-practical-card small{display:block;color:#7b8190;line-height:1.35}
+.kr-practical-arrow{margin-left:auto;color:#a0a5af;font-size:18px}
+@media(max-width:900px){.kr-practical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.kr-practical-grid{grid-template-columns:1fr}}
 </style>
+
 </head>
 <body>
 
@@ -2879,17 +2879,17 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
   <div class="korean-decoration"><span class="motif"><i>✦</i> Made by Picore <i>✦</i></span></div>
 
   <nav>
-    <button class="nav-btn active" onclick="showTab('quiz')">🎯 Mode Quiz</button>
-    <button class="nav-btn" onclick="showTab('map')">🗺️ Carte de Corée</button>
-    <button class="nav-btn" onclick="showTab('alphabet')">🔤 Alphabet</button>
-    <button class="nav-btn" onclick="showTab('draw')">✍️ Atelier d'écriture</button>
-    <button class="nav-btn" onclick="showTab('vocab')">📖 Dictionnaire</button>
-    <button class="nav-btn" onclick="showTab('pronouns')">👤 Pronoms</button>
-    <button class="nav-btn" onclick="showTab('grammar')">🧠 Grammaire</button>
-    <button class="nav-btn" onclick="showTab('dashboard')">📊 Progression</button>
-    <button class="nav-btn" onclick="showTab('phrases')">💬 Phrases</button>
-    <button class="nav-btn" onclick="showTab('numbers')">🔢 Nombres</button>
-
+    <button class="nav-btn active" data-tab="quiz" onclick="showTab('quiz')">🎯 Mode Quiz</button>
+    <button class="nav-btn" data-tab="map" onclick="showTab('map')">🗺️ Carte de Corée</button>
+    <button class="nav-btn" data-tab="alphabet" onclick="showTab('alphabet')">🔤 Alphabet</button>
+    <button class="nav-btn" data-tab="draw" onclick="showTab('draw')">✍️ Atelier d'écriture</button>
+    <button class="nav-btn" data-tab="vocab" onclick="showTab('vocab')">📖 Dictionnaire</button>
+    <button class="nav-btn" data-tab="pronouns" onclick="showTab('pronouns')">👤 Pronoms</button>
+    <button class="nav-btn" data-tab="grammar" onclick="showTab('grammar')">🧠 Grammaire</button>
+    <button class="nav-btn" data-tab="practical" onclick="showTab('practical')">🇰🇷 Pratique</button>
+    <button class="nav-btn" data-tab="dashboard" onclick="showTab('dashboard')">📊 Progression</button>
+    <button class="nav-btn" data-tab="phrases" onclick="showTab('phrases')">💬 Phrases</button>
+    <button class="nav-btn" data-tab="numbers" onclick="showTab('numbers')">🔢 Nombres</button>
   </nav>
 
   <div class="stats-bar">
@@ -2911,8 +2911,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
     </div>
   </div>
 
-  <!-- ONGLET 1 : QUIZ -->
-  <div id="panel-quiz" class="tab-panel active">
+  <!-- ONGLET 1 : QUIZ --><div id="panel-quiz" class="tab-panel active">
     
     <!-- 1. CONFIGURATION DU QUIZ -->
     <div id="quiz-setup-card" class="app-card">
@@ -3291,8 +3290,8 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
         <button class="home-launch" onclick="showTab('vocab')"><span>📖</span><strong>Dictionnaire</strong><small>Votre dictionnaire</small></button>
         <button class="home-launch" onclick="showTab('phrases')"><span>💬</span><strong>Phrases</strong><small>Phrases utiles</small></button>
         <button class="home-launch" onclick="showTab('pronouns')"><span>●</span><strong>Pronoms</strong><small>Pronoms coréens</small></button>
-        <button class="home-launch" onclick="showTab('practical')"><span>🇰🇷</span><strong>Pratique</strong><small>Liens utiles pour la Corée</small></button>
         <button class="home-launch" onclick="showTab('grammar')"><span>☷</span><strong>Grammaire</strong><small>Règles & structures</small></button>
+        <button class="home-launch" onclick="showTab('practical')"><span>🇰🇷</span><strong>Pratique</strong><small>Liens utiles pour la Corée</small></button>
       </div>
 
       <div class="setup-title home-progress-title">📊 Ma progression</div>
@@ -3372,32 +3371,63 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 </div>
 
 <!-- SÉLECTEUR DE FONDS -->
-
-
-  <!-- ONGLET 11 : PRATIQUE EN CORÉE -->
+  <!-- ONGLET : PRATIQUE EN CORÉE -->
   <div id="panel-practical" class="tab-panel">
-    <div class="app-card">
-      <div class="setup-title">🇰🇷 Liens pratiques pour la Corée</div>
-      <div class="setup-desc">Les services les plus utiles pour voyager, se déplacer, traduire et préparer ton séjour en Corée du Sud.</div>
-      <div class="korea-links-grid">
-        <a class="korea-link-card" href="https://map.naver.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🗺️</span><span><strong>Naver Map</strong><small>Cartes, itinéraires et transports</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://map.kakao.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">📍</span><span><strong>Kakao Map</strong><small>Navigation et lieux en Corée</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://www.kakaocorp.com/page/service/service/KakaoTalk" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">💬</span><span><strong>KakaoTalk</strong><small>Messagerie très utilisée en Corée</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://papago.naver.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🌐</span><span><strong>Papago</strong><small>Traduction coréen et conversation</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://www.k-eta.go.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🛂</span><span><strong>K-ETA</strong><small>Autorisation électronique de voyage</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://english.visitkorea.or.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🏯</span><span><strong>Visit Korea</strong><small>Guide touristique officiel</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://www.airport.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">✈️</span><span><strong>Incheon Airport</strong><small>Informations et services de l'aéroport</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://www.arex.or.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🚆</span><span><strong>AREX</strong><small>Train entre Incheon et Séoul</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://english.seoul.go.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🏙️</span><span><strong>Seoul</strong><small>Informations officielles de la ville</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://www.t-money.co.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">💳</span><span><strong>T-money</strong><small>Transports et carte de paiement</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://www.korail.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🚄</span><span><strong>KORAIL</strong><small>Trains et trajets longue distance</small></span><b>↗</b></a>
-        <a class="korea-link-card" href="https://www.weather.go.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🌦️</span><span><strong>Météo coréenne</strong><small>Prévisions officielles</small></span><b>↗</b></a>
+    <div class="app-card" style="padding:24px">
+      <div class="setup-title section-title-accent">🇰🇷 Pratique en Corée</div>
+      <div class="setup-desc">Les liens utiles pour voyager, se déplacer et communiquer en Corée du Sud.</div>
+
+      <div class="kr-practical-grid">
+        <a class="kr-practical-card" href="https://map.naver.com/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">🗺️</span>
+          <span><strong>Naver Map</strong><small>Cartes, itinéraires et transports</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://map.kakao.com/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">📍</span>
+          <span><strong>Kakao Map</strong><small>Navigation et recherche de lieux</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://www.kakaocorp.com/page/service/service/KakaoTalk" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">💬</span>
+          <span><strong>KakaoTalk</strong><small>Messagerie en Corée</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://papago.naver.com/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">🌐</span>
+          <span><strong>Papago</strong><small>Traduction coréen</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://www.k-eta.go.kr/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">🛂</span>
+          <span><strong>K-ETA</strong><small>Autorisation de voyage</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://english.visitkorea.or.kr/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">🏯</span>
+          <span><strong>Visit Korea</strong><small>Guide touristique officiel</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://www.airport.kr/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">✈️</span>
+          <span><strong>Incheon Airport</strong><small>Informations aéroport</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://www.arex.or.kr/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">🚆</span>
+          <span><strong>AREX</strong><small>Train Incheon ↔ Séoul</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
+        <a class="kr-practical-card" href="https://www.letskorail.com/" target="_blank" rel="noopener noreferrer">
+          <span class="kr-practical-icon">🚄</span>
+          <span><strong>KORAIL</strong><small>Trains et réservations</small></span>
+          <span class="kr-practical-arrow">↗</span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- ONGLET : NOMBRES CORÉENS -->
-  <div id="panel-numbers" class="tab-panel">
+<div id="panel-numbers" class="tab-panel">
     <div class="app-card">
       <div class="setup-title section-title-accent">🔢 Nombres coréens — natifs & sino-coréens</div>
       <div class="setup-desc">
@@ -4502,21 +4532,6 @@ function speakKorean(text) {
   window.speechSynthesis.speak(u);
 }
 
-function togglePhraseFavorite(id, btn) {
-  const s = getLearningState();
-  const index = s.favorites.indexOf(id);
-  if (index >= 0) {
-    s.favorites.splice(index,1);
-    btn.textContent = '☆ Favori';
-  } else {
-    s.favorites.push(id);
-    btn.textContent = '★ Favori';
-    s.xp += 2;
-  }
-  saveLearningState(s);
-  updateLearningUI();
-}
-
 function renderPhrases(filter='all') {
   const grid = document.getElementById('phrases-grid');
   if (!grid) return;
@@ -4524,16 +4539,13 @@ function renderPhrases(filter='all') {
   const s = getLearningState();
   const items = phraseData.filter(p => filter === 'all' || p.cat === filter);
 
-  grid.innerHTML = items.map(p => {
-    const fav = s.favorites.includes(p.id);
-    return `<article class="phrase-card">
+  grid.innerHTML = items.map(p => {return `<article class="phrase-card">
       <div class="phrase-category">${p.title}</div>
       <div class="phrase-kr">${p.kr}</div>
       <div class="phrase-rom">${p.rom}</div>
       <div class="phrase-fr">${p.fr}</div>
       <div class="phrase-tools">
         <button class="mini-action" onclick="speakKorean('${p.kr.replace(/'/g,"\\'")}')">🔊 Écouter</button>
-        <button class="mini-action" onclick="togglePhraseFavorite('${p.id}', this)">${fav ? '★ Favori' : '☆ Favori'}</button>
         <button class="mini-action" onclick="alert('🧩 ${p.note.replace(/'/g,"\\'")}')">🧩 Grammaire</button>
       </div>
     </article>`;
@@ -5065,20 +5077,9 @@ function updateStatsDisplay() {
 function showTab(id) {
   if (id !== 'quiz') document.body.classList.remove('quiz-mode');
   document.body.classList.toggle('home-mode', id === 'dashboard');
-  document.querySelectorAll('.nav-btn').forEach((b, i) => {
-    b.classList.toggle('active', 
-      (id === 'quiz' && i === 0) || 
-      (id === 'map' && i === 1) || 
-      (id === 'alphabet' && i === 2) || 
-      (id === 'draw' && i === 3) || 
-      (id === 'vocab' && i === 4) ||
-      (id === 'pronouns' && i === 5) ||
-      (id === 'grammar' && i === 6) ||
-      (id === 'dashboard' && i === 7) ||
-      (id === 'phrases' && i === 8) ||
-      (id === 'numbers' && i === 9) ||
-      (id === 'practical' && i === 10)
-    );
+
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-tab') === id);
   });
 
   if (id === 'quiz') {
@@ -5090,7 +5091,9 @@ function showTab(id) {
   }
 
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById(`panel-${id}`).classList.add('active');
+  const panel = document.getElementById(`panel-${id}`);
+  if (!panel) return;
+  panel.classList.add('active');
 
   if (id === 'map') {
     setTimeout(() => {
@@ -5117,9 +5120,7 @@ function buildVocabAccordion() {
       const rom = getRom(item);
       const expl = addRomanizationToKoreanText(item.expl || "");
       const safeKr = item.kr.replace(/'/g, "\\'");
-      const fav = window.isDictionaryFavorite ? window.isDictionaryFavorite(item.kr) : false;
-      const favLabel = fav ? '★ Favori' : '☆ Favori';
-      return `
+return `
       <tr class="v-row">
         <td class="kr">
           <div class="korean-with-rom">
@@ -5130,7 +5131,6 @@ function buildVocabAccordion() {
         <td class="pron-cell">
           <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;">
             <button class="btn-speaker" type="button" onclick="speakKorean('${safeKr}')">🔊 Écouter</button>
-            <button class="fav-word-btn ${fav ? 'is-fav' : ''}" type="button" data-dictionary-favorite="${item.kr.replace(/"/g,'&quot;')}" onclick="toggleDictionaryFavorite('${safeKr}', '${String(rom).replace(/'/g,"\\'")}', '${String(item.fr).replace(/'/g,"\\'")}')">${favLabel}</button>
           </div>
         </td>
         <td><strong>${item.fr}</strong></td>
@@ -5581,15 +5581,6 @@ async function fetchOnlineTranslation(word) {
       // Le bouton lit le coréen natif : la romanisation reste une aide visuelle.
       transBtn.disabled = !translated;
       transBtn.onclick = () => speakKorean(translated);
-
-      const transActions = transBtn.parentElement;
-      if (transActions && !transActions.querySelector('[data-auto-favorite]')) {
-        const fav = document.createElement('button');
-        fav.type = 'button'; fav.className = 'fav-word-btn'; fav.dataset.autoFavorite = '1';
-        fav.textContent = (window.isDictionaryFavorite && isDictionaryFavorite(translated)) ? '★ Favori' : '☆ Favori';
-        fav.onclick = () => { toggleDictionaryFavorite(translated, romanized, word); fav.textContent = isDictionaryFavorite(translated) ? '★ Favori' : '☆ Favori'; };
-        transActions.appendChild(fav);
-      }
 
       // Cliquer sur la romanisation permet aussi d'entendre immédiatement le mot.
       transRom.style.cursor = translated ? "pointer" : "default";
