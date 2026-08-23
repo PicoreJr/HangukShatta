@@ -1,0 +1,11 @@
+{
+  "name": "Hanguk'Shatta — 한국어 학습",
+  "short_name": "Hanguk'Shatta",
+  "description": "Apprendre le coréen avec quiz, dictionnaire, alphabet et romanisation.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff5f7",
+  "theme_color": "#ec4899"
+}
