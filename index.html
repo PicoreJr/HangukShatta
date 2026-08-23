@@ -4988,12 +4988,15 @@ function submitAnswer(e) {
   const isMatch = (user === rom) || (user === kr);
   answered++;
 
-  // Application dynamique du choix audio selon le paramètre sélectionné
+  // Audio après chaque réponse : le mot/phrase coréen est toujours lu à voix haute.
+  // Le son de réussite/erreur reste disponible en complément si le mode sonore est activé.
   if (currentAudioMode === 'sound') {
     playTone(isMatch);
-  } else {
-    speakKorean(currentItem.kr);
   }
+  // Petit délai pour laisser la validation visuelle s'afficher avant la prononciation.
+  window.setTimeout(() => {
+    speakKorean(currentItem.kr);
+  }, 180);
 
   resultBox.style.display = "block";
   const cleanKr = currentItem.kr.replace(/'/g, "\\'");
