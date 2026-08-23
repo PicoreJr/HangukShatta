@@ -2911,6 +2911,40 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 }
 </style>
 
+
+<style id="home-return-button-style">
+#home-return-button{
+  position:fixed;
+  left:18px;
+  top:18px;
+  z-index:10000;
+  border:1px solid rgba(244,114,182,.28);
+  background:rgba(255,255,255,.94);
+  color:#9d174d;
+  padding:9px 13px;
+  border-radius:12px;
+  font-weight:800;
+  font-size:.82rem;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(15,23,42,.10);
+  backdrop-filter:blur(10px);
+  transition:.18s ease;
+}
+#home-return-button:hover{
+  background:#ec4899;
+  color:#fff;
+  transform:translateY(-1px);
+}
+@media(max-width:640px){
+  #home-return-button{
+    left:9px;
+    top:9px;
+    padding:8px 10px;
+    font-size:.76rem;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -2923,6 +2957,10 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 
 
 <div class="app-container">
+<button id="home-return-button" type="button" onclick="goHome()" aria-label="Revenir à l'accueil">
+  🏠 Accueil
+</button>
+
   
   <header class="hero-header">
     <div class="hero-side hero-side-left">
@@ -5170,6 +5208,34 @@ function updateStatsDisplay() {
   quizProgressFill.style.width = `${progress}%`;
 }
 
+function goHome() {
+  // L'accueil du site correspond au panneau Quiz avant le lancement d'un quiz.
+  // On remet aussi l'état visuel du quiz à zéro pour éviter de revenir
+  // sur une question ou un écran intermédiaire.
+  try {
+    if (typeof quizActiveView !== 'undefined' && quizActiveView) {
+      quizActiveView.style.display = 'none';
+    }
+    if (typeof quizSetupCard !== 'undefined' && quizSetupCard) {
+      quizSetupCard.style.display = 'block';
+    }
+    document.body.classList.remove('quiz-mode', 'quiz-focus-mode');
+
+    if (typeof catCheckboxContainer !== 'undefined' && catCheckboxContainer) {
+      catCheckboxContainer.querySelectorAll("input[type='checkbox']").forEach(cb => {
+        cb.checked = false;
+      });
+    }
+    if (typeof updateLimitOptions === 'function') updateLimitOptions();
+  } catch (e) {
+    console.warn('Retour accueil :', e);
+  }
+
+  // "quiz" est le vrai panneau d'accueil du fichier.
+  showTab('quiz');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function showTab(id) {
   if (id !== 'quiz') document.body.classList.remove('quiz-mode');
 
@@ -5178,7 +5244,7 @@ function showTab(id) {
   });
 
   if (id === 'quiz') {
-    document.body.classList.remove('quiz-mode');
+    document.body.classList.remove('quiz-mode', 'quiz-focus-mode');
     quizActiveView.style.display = 'none';
     quizSetupCard.style.display = 'block';
     catCheckboxContainer.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
