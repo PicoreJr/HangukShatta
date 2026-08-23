@@ -1160,7 +1160,7 @@ header {
 nav {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(11, minmax(0, 1fr));
   gap: 5px;
   padding: 5px;
 }
@@ -2821,17 +2821,21 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 @media(max-width:640px){nav{grid-template-columns:repeat(2,1fr);}}
 </style>
 
-<style id="picore-favorites-v2">
-.fav-word-btn{border:1px solid #f0d7e2!important;background:#fff!important;border-radius:12px!important;padding:8px 11px!important;cursor:pointer!important;font-weight:800!important;transition:.16s!important}
-.fav-word-btn:hover{transform:translateY(-2px);border-color:#ec4899!important}
-.fav-word-btn.is-fav{background:#fff0f6!important;border-color:#ec4899!important;color:#be185d!important}
-.fav-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.fav-item{padding:17px;border:1px solid #e7e9ef;border-radius:18px;background:#fff;box-shadow:0 8px 22px rgba(30,41,59,.06)}
-.fav-korean{font-size:1.5rem;font-weight:900}.fav-roman{color:#ec4899;font-weight:800;margin-top:4px}.fav-fr{color:#7a8394;margin-top:3px}
-.fav-empty{padding:28px;text-align:center;color:#7a8394}
-@media(max-width:650px){.fav-list{grid-template-columns:1fr}}
-</style>
 
+
+
+<style id="korea-practical-links-css">
+.korea-links-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.korea-link-card{display:flex;align-items:center;gap:12px;min-height:88px;padding:15px;border:1px solid var(--border);border-radius:17px;background:rgba(255,255,255,.9);color:#1e293b;text-decoration:none;box-shadow:0 7px 20px rgba(15,23,42,.05);transition:transform .18s,box-shadow .18s,border-color .18s}
+.korea-link-card:hover{transform:translateY(-3px);border-color:#f9a8d4;box-shadow:0 13px 28px rgba(15,23,42,.10)}
+.korea-link-icon{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:13px;background:#fff1f2;font-size:1.4rem}
+.korea-link-card span:nth-child(2){min-width:0;flex:1}
+.korea-link-card strong{display:block;font-size:.88rem;color:#9d174d;line-height:1.25}
+.korea-link-card small{display:block;margin-top:4px;color:#64748b;font-size:.72rem;line-height:1.35}
+.korea-link-card b{color:#94a3b8;font-size:1rem}
+@media(max-width:900px){.korea-links-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.korea-links-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
@@ -3287,7 +3291,7 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
         <button class="home-launch" onclick="showTab('vocab')"><span>📖</span><strong>Dictionnaire</strong><small>Votre dictionnaire</small></button>
         <button class="home-launch" onclick="showTab('phrases')"><span>💬</span><strong>Phrases</strong><small>Phrases utiles</small></button>
         <button class="home-launch" onclick="showTab('pronouns')"><span>●</span><strong>Pronoms</strong><small>Pronoms coréens</small></button>
-        <button class="home-launch" onclick="showTab('dashboard')"><span>♥</span><strong>Favoris</strong><small>Vos favoris</small></button>
+        <button class="home-launch" onclick="showTab('practical')"><span>🇰🇷</span><strong>Pratique</strong><small>Liens utiles pour la Corée</small></button>
         <button class="home-launch" onclick="showTab('grammar')"><span>☷</span><strong>Grammaire</strong><small>Règles & structures</small></button>
       </div>
 
@@ -3368,6 +3372,29 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
 </div>
 
 <!-- SÉLECTEUR DE FONDS -->
+
+
+  <!-- ONGLET 11 : PRATIQUE EN CORÉE -->
+  <div id="panel-practical" class="tab-panel">
+    <div class="app-card">
+      <div class="setup-title">🇰🇷 Liens pratiques pour la Corée</div>
+      <div class="setup-desc">Les services les plus utiles pour voyager, se déplacer, traduire et préparer ton séjour en Corée du Sud.</div>
+      <div class="korea-links-grid">
+        <a class="korea-link-card" href="https://map.naver.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🗺️</span><span><strong>Naver Map</strong><small>Cartes, itinéraires et transports</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://map.kakao.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">📍</span><span><strong>Kakao Map</strong><small>Navigation et lieux en Corée</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://www.kakaocorp.com/page/service/service/KakaoTalk" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">💬</span><span><strong>KakaoTalk</strong><small>Messagerie très utilisée en Corée</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://papago.naver.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🌐</span><span><strong>Papago</strong><small>Traduction coréen et conversation</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://www.k-eta.go.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🛂</span><span><strong>K-ETA</strong><small>Autorisation électronique de voyage</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://english.visitkorea.or.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🏯</span><span><strong>Visit Korea</strong><small>Guide touristique officiel</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://www.airport.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">✈️</span><span><strong>Incheon Airport</strong><small>Informations et services de l'aéroport</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://www.arex.or.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🚆</span><span><strong>AREX</strong><small>Train entre Incheon et Séoul</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://english.seoul.go.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🏙️</span><span><strong>Seoul</strong><small>Informations officielles de la ville</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://www.t-money.co.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">💳</span><span><strong>T-money</strong><small>Transports et carte de paiement</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://www.korail.com/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🚄</span><span><strong>KORAIL</strong><small>Trains et trajets longue distance</small></span><b>↗</b></a>
+        <a class="korea-link-card" href="https://www.weather.go.kr/" target="_blank" rel="noopener noreferrer"><span class="korea-link-icon">🌦️</span><span><strong>Météo coréenne</strong><small>Prévisions officielles</small></span><b>↗</b></a>
+      </div>
+    </div>
+  </div>
 
   <!-- ONGLET : NOMBRES CORÉENS -->
   <div id="panel-numbers" class="tab-panel">
@@ -5049,7 +5076,8 @@ function showTab(id) {
       (id === 'grammar' && i === 6) ||
       (id === 'dashboard' && i === 7) ||
       (id === 'phrases' && i === 8) ||
-      (id === 'numbers' && i === 9)
+      (id === 'numbers' && i === 9) ||
+      (id === 'practical' && i === 10)
     );
   });
 
@@ -5824,103 +5852,11 @@ body.quiz-mode .k-expl-box{
 </style>
 
 
-<script id="picore-dictionary-favorites-api">
-(function(){
-  const KEY="hangukshatta-dictionary-favorites";
-  function get(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
-  function save(a){localStorage.setItem(KEY,JSON.stringify(a))}
-  window.isDictionaryFavorite=function(k){return get().some(x=>x.korean===k)};
-  window.toggleDictionaryFavorite=function(korean,roman,french){
-    let a=get(),i=a.findIndex(x=>x.korean===korean);
-    if(i>=0)a.splice(i,1);else a.push({korean,roman,french,pronunciation:korean});
-    save(a);
-    document.querySelectorAll('[data-dictionary-favorite]').forEach(btn=>{
-      if(btn.dataset.dictionaryFavorite!==korean)return;
-      const yes=isDictionaryFavorite(korean);btn.classList.toggle('is-fav',yes);btn.textContent=yes?'★ Favori':'☆ Favori';
-    });
-    if(typeof window.renderDictionaryFavorites==='function')window.renderDictionaryFavorites();
-  };
-  window.renderDictionaryFavorites=function(){
-    const box=document.getElementById('favorites-content');if(!box)return;
-    const a=get();
-    if(!a.length){box.innerHTML='<div class="fav-empty">⭐ Aucun mot du dictionnaire dans tes favoris.<br><small>Utilise « ☆ Favori » dans le dictionnaire pour en ajouter.</small></div>';return;}
-    box.innerHTML='<div class="fav-list">'+a.map(x=>`<article class="fav-item"><div class="fav-korean">${escapeHTML(x.korean)}</div><div class="fav-roman">${escapeHTML(x.roman)}</div><div class="fav-fr">${escapeHTML(x.french)}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="fav-word-btn is-fav" onclick="toggleDictionaryFavorite(${JSON.stringify(x.korean)},${JSON.stringify(x.roman)},${JSON.stringify(x.french)})">★ Retirer</button><button class="fav-word-btn" onclick="speakKorean(${JSON.stringify(x.korean)})">🔊 Écouter</button></div></article>`).join('')+'</div>';
-  };
-})();
-</script>
-<script id="picore-favorites-v2">
-(function(){
- const KEY="hangukshatta-favorites";
- const esc=s=>String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
- const get=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}};
- const save=a=>localStorage.setItem(KEY,JSON.stringify(a));
-
- window.isFavorite=k=>get().some(x=>x.korean===k);
- window.toggleFavorite=function(w){
-   if(!w||!w.korean)return;
-   let a=get(),i=a.findIndex(x=>x.korean===w.korean);
-   if(i>=0)a.splice(i,1);else a.push({korean:w.korean,roman:w.roman||w.romanization||"",french:w.french||w.translation||"",pronunciation:w.pronunciation||""});
-   save(a); updateButtons(w.korean); renderFavorites();
- };
- function updateButtons(k){
-   document.querySelectorAll("[data-favorite-korean]").forEach(b=>{
-     if(k && b.dataset.favoriteKorean!==k)return;
-     const yes=isFavorite(b.dataset.favoriteKorean);
-     b.classList.toggle("is-fav",yes);b.textContent=yes?"★ Favori":"☆ Favori";
-   });
- }
- window.addFavoriteButton=function(holder,w){
-   if(!holder||!w?.korean)return;
-   holder.querySelector("[data-favorite-korean]")?.remove();
-   const b=document.createElement("button");b.type="button";b.className="fav-word-btn";
-   b.dataset.favoriteKorean=w.korean;b.textContent=isFavorite(w.korean)?"★ Favori":"☆ Favori";
-   b.onclick=()=>toggleFavorite(w);holder.appendChild(b);
- };
- window.renderFavorites=function(){
-   const box=document.getElementById("favorites-content");if(!box)return;
-   const a=get();
-   if(!a.length){box.innerHTML='<div class="fav-empty">⭐ Aucun mot favori.<br><small>Ajoute des mots depuis le dictionnaire.</small></div>';return}
-   box.innerHTML='<div class="fav-list">'+a.map(w=>`<article class="fav-item"><div class="fav-korean">${esc(w.korean)}</div><div class="fav-roman">${esc(w.roman)}</div><div class="fav-fr">${esc(w.french)}</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="fav-word-btn is-fav" onclick="toggleFavorite(${JSON.stringify(w).replace(/"/g,'&quot;')})">★ Retirer</button>${w.pronunciation?`<button class="fav-word-btn" onclick="speakKorean(${JSON.stringify(w.pronunciation).replace(/"/g,'&quot;')})">🔊 Écouter</button>`:""}</div></article>`).join("")+'</div>';
- };
- function addPanel(){
-   if(document.getElementById("panel-favorites"))return;
-   const p=document.createElement("section");p.id="panel-favorites";p.className="tab-panel";p.style.display="none";
-   p.innerHTML='<div class="app-card" style="padding:22px"><h2 style="margin-top:0">⭐ Mes favoris</h2><p style="color:#7a8394">Les mots enregistrés depuis le dictionnaire sont conservés sur cet appareil.</p><div id="favorites-content"></div></div>';
-   (document.querySelector(".tab-panels")||document.querySelector("main")||document.body).appendChild(p);
- }
- function addTab(){
-   const nav=document.querySelector("nav");if(!nav||nav.querySelector("[data-favorites-tab]"))return;
-   const b=document.createElement("button");b.className="nav-btn";b.dataset.favoritesTab="1";b.textContent="⭐ Favoris";b.onclick=()=>showTab("favorites");nav.appendChild(b);
- }
- const oldShow=window.showTab;
- window.showTab=function(name){
-   if(typeof oldShow==="function")oldShow.apply(this,arguments);
-   if(name==="favorites")setTimeout(()=>{document.querySelectorAll(".tab-panel").forEach(x=>{if(x.id!=="panel-favorites")x.style.display="none"});const p=document.getElementById("panel-favorites");if(p)p.style.display="";renderFavorites(); if(typeof renderDictionaryFavorites==='function') renderDictionaryFavorites()},30);
- };
- document.addEventListener("DOMContentLoaded",()=>{addPanel();addTab();renderFavorites(); if(typeof renderDictionaryFavorites==='function') renderDictionaryFavorites(); if(typeof buildVocabAccordion==='function') buildVocabAccordion();});
-})();
-</script>
 
 
-<script id="picore-dictionary-favorite-bridge-v2">
-document.addEventListener("DOMContentLoaded",()=>{
- const ob=new MutationObserver(()=>{
-   document.querySelectorAll("h1,h2,h3,.korean,.hangul").forEach(el=>{
-     const korean=el.textContent.trim();
-     if(!/^[가-힣\s]+$/.test(korean)||korean.length>40)return;
-     const card=el.closest(".app-card,.category-card,.phrase-card,div");if(!card)return;
-     if(!/AUTOMATIQUE|Traduction|Écriture romaine|Romanisation/i.test(card.innerText||""))return;
-     if(card.querySelector("[data-favorite-korean]"))return;
-     const holder=document.createElement("div");holder.style.cssText="margin-top:10px";
-     card.appendChild(holder);
-     const roman=(card.innerText.match(/(?:Écriture romaine|Romanisation)\s*[:\-]\s*([^\n]+)/i)||[])[1]||"";
-     const french=(card.innerText.match(/Traduction de [«\"]?([^»\"\n]+)[»\"]?/i)||[])[1]||"";
-     addFavoriteButton(holder,{korean,roman,french});
-   });
- });
- ob.observe(document.body,{childList:true,subtree:true});
-});
-</script>
+
+
+
 
 </body>
 </html>
