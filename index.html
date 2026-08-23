@@ -871,6 +871,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
+    }
+
+    .translator-rom {
+      transition: color .15s, opacity .15s;
+    }
+
+    .translator-rom:hover {
+      color: var(--primary);
+    }
+
+    #trans-audio-btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
     }
 
     .translator-kr {
@@ -1710,6 +1724,17 @@ nav {
   font-size:.66rem;
   font-weight:900;
   color:#94a3b8;
+  white-space:nowrap;
+}
+
+.translator-rom {
+  color:#d97706;
+  font-size:.82rem;
+  font-weight:800;
+  margin-top:3px;
+}
+
+.pron-cell {
   white-space:nowrap;
 }
 
@@ -3062,9 +3087,10 @@ nav{grid-template-columns:repeat(5,minmax(0,1fr));}
         <div class="translator-body">
           <div>
             <div id="trans-kr" class="translator-kr">...</div>
+            <div id="trans-rom" class="translator-rom">Romanisation : ...</div>
             <div id="trans-fr" class="translator-fr">...</div>
           </div>
-          <button type="button" id="trans-audio-btn" class="btn-speaker">🔊 Écouter</button>
+          <button type="button" id="trans-audio-btn" class="btn-speaker" title="Écouter la prononciation coréenne">🔊 Prononciation</button>
         </div>
       </div>
 
@@ -5056,11 +5082,12 @@ function buildVocabAccordion() {
         <td class="kr">
           <div class="korean-with-rom">
             <span>${item.kr}</span>
-            <span class="roman-helper">${rom}</span>
           </div>
-          <button class="btn-speaker" onclick="speakKorean('${safeKr}')">🔊</button>
         </td>
         <td class="rom">${rom}</td>
+        <td class="pron-cell">
+          <button class="btn-speaker" type="button" onclick="speakKorean('${safeKr}')">🔊 Écouter</button>
+        </td>
         <td><strong>${item.fr}</strong></td>
         <td style="color:#64748b; font-size:0.82rem;">${expl}</td>
       </tr>
@@ -5076,8 +5103,9 @@ function buildVocabAccordion() {
         <table class="term-table">
           <thead>
             <tr>
-              <th>Hangeul + lecture</th>
+              <th>Hangeul</th>
               <th>Romanisation</th>
+              <th>Prononciation</th>
               <th>Français</th>
               <th>Explication</th>
             </tr>
@@ -5477,11 +5505,13 @@ function handleVocabSearch() {
 async function fetchOnlineTranslation(word) {
   const translatorCard = document.getElementById("live-translator");
   const transKr = document.getElementById("trans-kr");
+  const transRom = document.getElementById("trans-rom");
   const transFr = document.getElementById("trans-fr");
   const transBtn = document.getElementById("trans-audio-btn");
 
   translatorCard.style.display = "block";
   transKr.textContent = "Traduction en cours...";
+  transRom.textContent = "";
   transFr.textContent = `Recherche pour : "${word}"`;
 
   try {
@@ -5490,15 +5520,42 @@ async function fetchOnlineTranslation(word) {
     const result = await res.json();
 
     if (result && result.responseData && result.responseData.translatedText) {
-      const translated = result.responseData.translatedText;
-      transKr.textContent = translated;
-      transFr.textContent = `Traduction directe de "${word}"`;
+      // Traduction hors dictionnaire : on affiche toujours les 3 informations
+      // utiles pour apprendre : Hangeul + romanisation + traduction française.
+      const translated = String(result.responseData.translatedText)
+        .replace(/<[^>]*>/g, '')
+        .trim();
+      const romanized = romanizeHangul(translated);
+
+      transKr.textContent = translated || "Non trouvé";
+      transRom.textContent = romanized
+        ? `Romanisation : ${romanized}`
+        : "Romanisation : indisponible";
+      transFr.textContent = `Traduction de « ${word} »`;
+
+      // Le bouton lit le coréen natif : la romanisation reste une aide visuelle.
+      transBtn.disabled = !translated;
       transBtn.onclick = () => speakKorean(translated);
+
+      // Cliquer sur la romanisation permet aussi d'entendre immédiatement le mot.
+      transRom.style.cursor = translated ? "pointer" : "default";
+      transRom.title = translated
+        ? "Clique pour écouter la prononciation coréenne"
+        : "";
+      transRom.onclick = translated ? () => speakKorean(translated) : null;
     } else {
-      transKr.textContent = "Non trouvé";
+      transKr.textContent = "Mot non trouvé";
+      transRom.textContent = "Romanisation : indisponible";
+      transFr.textContent = `Impossible de traduire « ${word} » pour le moment.`;
+      transBtn.disabled = true;
+      transRom.onclick = null;
     }
   } catch (err) {
-    transKr.textContent = "Erreur de connexion";
+    transKr.textContent = "Traduction indisponible";
+    transRom.textContent = "Romanisation : indisponible";
+    transFr.textContent = "Vérifie ta connexion puis réessaie.";
+    transBtn.disabled = true;
+    transRom.onclick = null;
   }
 }
 
