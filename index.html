@@ -2908,6 +2908,22 @@ img.logo,
   }
 }
 
+
+/* Masquage des éléments de progression demandés */
+.xp-badge, .xp-track, .xp-fill, .level-row, .metric-grid, .daily-goal, .goal-ring, .quick-actions, .streak-flame, .achievement-grid, .achievement-card { display:none !important; }
+
+
+/* COMPTEURS DU QUOTIDIEN */
+.counter-section{margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.counter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.counter-card{background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:0 4px 14px rgba(236,72,153,.05);transition:.18s}
+.counter-card:hover{transform:translateY(-2px);border-color:var(--primary);box-shadow:0 8px 20px rgba(236,72,153,.12)}
+.counter-kr{font-family:'Noto Sans KR',sans-serif;color:#be185d;font-size:1.35rem;font-weight:900}
+.counter-rom{color:#d97706;font-size:.76rem;font-weight:800;margin:2px 0 7px}
+.counter-card strong{display:block;color:#334155;font-size:.85rem;line-height:1.3}
+.counter-card span{display:block;color:var(--subtext);font-size:.74rem;margin-top:5px;line-height:1.4}
+@media(max-width:900px){.counter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.counter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <style id="v11-nav-fix">
 nav{grid-template-columns:repeat(5,minmax(0,1fr));}
@@ -3223,16 +3239,6 @@ body { background-attachment: fixed !important; }
 
   
   <header class="hero-header">
-    <div class="hero-side hero-side-left">
-      <div class="hero-mini-card">
-        <span class="hero-mini-icon">🔥</span>
-        <div><strong id="header-streak">0</strong><small>Streak</small></div>
-      </div>
-      <div class="hero-mini-card">
-        <span class="hero-mini-icon">⭐</span>
-        <div><strong id="header-xp">0</strong><small>XP</small></div>
-      </div>
-    </div>
 
     <div class="hero-brand">
       <div class="brand-icon">
@@ -3245,14 +3251,6 @@ body { background-attachment: fixed !important; }
     </div>
 
     <div class="hero-side hero-side-right">
-      <div class="hero-mini-card">
-        <span class="hero-mini-icon">🏆</span>
-        <div><strong id="header-success">0</strong><small>Succès</small></div>
-      </div>
-      <div class="hero-mini-card">
-        <span class="hero-mini-icon">📅</span>
-        <div><strong id="header-goal">0</strong><small>Objectif</small></div>
-      </div>
       <div class="course-pill">🇰🇷 <span>Parcours coréen</span>⌄</div>
     </div>
   </header>
@@ -3283,10 +3281,6 @@ body { background-attachment: fixed !important; }
     <div class="stat-pill">
       <div class="title">Score Session</div>
       <div class="value" id="stat-score">0 / 0</div>
-    </div>
-    <div class="stat-pill">
-      <div class="title">Série (Streak)</div>
-      <div class="value" id="stat-streak">🔥 0</div>
     </div>
     <div class="stat-pill">
       <div class="title">Restants</div>
@@ -3997,6 +3991,29 @@ body { background-attachment: fixed !important; }
           <div class="numbers-example wide"><span class="kr">만 이천</span><span class="rom">man i-cheon</span><span>12 000</span></div>
           <div class="numbers-example wide"><span class="kr">삼억 오천만</span><span class="rom">sam-eok o-cheon-man</span><span>350 000 000</span></div>
         </div>
+      </div>
+
+      <div class="counter-section">
+        <div class="section-label"><span>🧺 Compteurs utiles au quotidien</span><span class="number-subtitle">pour compter naturellement</span></div>
+        <div class="counter-grid">
+          <div class="counter-card"><div class="counter-kr">인분</div><div class="counter-rom">inbun</div><strong>portions</strong><span>삼 인분 — trois portions</span></div>
+          <div class="counter-card"><div class="counter-kr">상자</div><div class="counter-rom">sangja</div><strong>boîtes</strong><span>두 상자 — deux boîtes</span></div>
+          <div class="counter-card"><div class="counter-kr">병</div><div class="counter-rom">byeong</div><strong>bouteilles</strong><span>세 병 — trois bouteilles</span></div>
+          <div class="counter-card"><div class="counter-kr">잔</div><div class="counter-rom">jan</div><strong>verres / tasses</strong><span>두 잔 — deux verres</span></div>
+          <div class="counter-card"><div class="counter-kr">봉지</div><div class="counter-rom">bongji</div><strong>sacs / sachets</strong><span>한 봉지 — un sachet</span></div>
+          <div class="counter-card"><div class="counter-kr">장</div><div class="counter-rom">jang</div><strong>feuilles / billets / objets plats</strong><span>세 장 — trois feuilles</span></div>
+          <div class="counter-card"><div class="counter-kr">권</div><div class="counter-rom">gwon</div><strong>livres</strong><span>두 권 — deux livres</span></div>
+          <div class="counter-card"><div class="counter-kr">명</div><div class="counter-rom">myeong</div><strong>personnes</strong><span>네 명 — quatre personnes</span></div>
+          <div class="counter-card"><div class="counter-kr">마리</div><div class="counter-rom">mari</div><strong>animaux</strong><span>두 마리 — deux animaux</span></div>
+          <div class="counter-card"><div class="counter-kr">벌</div><div class="counter-rom">beol</div><strong>vêtements</strong><span>두 벌 — deux tenues</span></div>
+          <div class="counter-card"><div class="counter-kr">대</div><div class="counter-rom">dae</div><strong>machines / véhicules</strong><span>세 대 — trois voitures</span></div>
+          <div class="counter-card"><div class="counter-kr">켤레</div><div class="counter-rom">kyeolle</div><strong>paires</strong><span>한 켤레 — une paire</span></div>
+          <div class="counter-card"><div class="counter-kr">송이</div><div class="counter-rom">song-i</div><strong>fleurs</strong><span>세 송이 — trois fleurs</span></div>
+          <div class="counter-card"><div class="counter-kr">그릇</div><div class="counter-rom">geureut</div><strong>bols de nourriture</strong><span>두 그릇 — deux bols</span></div>
+          <div class="counter-card"><div class="counter-kr">접시</div><div class="counter-rom">jeopsi</div><strong>assiettes / plats</strong><span>세 접시 — trois assiettes</span></div>
+          <div class="counter-card"><div class="counter-kr">통</div><div class="counter-rom">tong</div><strong>contenants / boîtes</strong><span>한 통 — un contenant</span></div>
+        </div>
+        <div class="numbers-memory-box"><strong>💡 À retenir</strong><span>Le nombre vient avant le compteur : <b>한 인분</b> = une portion, <b>두 상자</b> = deux boîtes, <b>세 병</b> = trois bouteilles.</span></div>
       </div>
 
       <div id="numbers-compare" class="number-system-panel">
