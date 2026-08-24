@@ -7082,6 +7082,20 @@ function nextQuestion() {
   updateStatsDisplay();
 }
 
+// Permet d'utiliser la touche Entrée comme le bouton « Valider »,
+// y compris après une validation à la souris lorsque le bouton devient « Suivant ».
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter') return;
+  if (!quizActiveView || quizActiveView.style.display === 'none') return;
+
+  // Ne pas interférer avec les champs qui ont leur propre comportement clavier.
+  const target = event.target;
+  if (target && (target.tagName === 'TEXTAREA' || target.tagName === 'SELECT')) return;
+
+  event.preventDefault();
+  submitAnswer(event);
+});
+
 function submitAnswer(e) {
   e.preventDefault();
 
