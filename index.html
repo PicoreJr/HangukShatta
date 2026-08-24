@@ -1048,6 +1048,100 @@
       animation: fadeIn .2s ease;
     }
 
+
+
+/* ===== ONGLET VERBES DE BASE ===== */
+.verb-intro {
+  background: linear-gradient(135deg,#fff7ed,#fff1f2);
+  border: 1px solid #fed7aa;
+  border-radius: 15px;
+  padding: 13px 15px;
+  color: #7c2d12;
+  font-size: .84rem;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.verb-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+}
+.verb-card {
+  background: rgba(255,255,255,.9);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 17px;
+  box-shadow: 0 5px 16px rgba(236,72,153,.05);
+  transition: .18s;
+}
+.verb-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+.verb-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+.verb-kr {
+  font-family:'Noto Sans KR',sans-serif;
+  color:#9d174d;
+  font-size:1.45rem;
+  font-weight:900;
+}
+.verb-rom {
+  color:#d97706;
+  font-size:.78rem;
+  font-weight:800;
+  margin-top:2px;
+}
+.verb-fr {
+  color:#334155;
+  font-weight:800;
+  font-size:.9rem;
+  margin-top:3px;
+}
+.verb-example {
+  margin-top:13px;
+  padding:12px;
+  background:#f8fafc;
+  border-radius:12px;
+  border-left:3px solid var(--primary);
+}
+.verb-example-kr {
+  font-family:'Noto Sans KR',sans-serif;
+  color:#334155;
+  font-size:1rem;
+  font-weight:800;
+}
+.verb-example-rom {
+  color:#d97706;
+  font-size:.74rem;
+  font-weight:700;
+  margin-top:3px;
+}
+.verb-example-fr {
+  color:#64748b;
+  font-size:.82rem;
+  font-weight:600;
+  margin-top:4px;
+}
+.verb-speak {
+  flex:none;
+  border:1px solid #e2e8f0;
+  background:#fff;
+  border-radius:9px;
+  padding:7px 9px;
+  cursor:pointer;
+  font-size:.75rem;
+  font-weight:800;
+}
+.verb-speak:hover { background:var(--primary-light); border-color:var(--primary); }
+@media (max-width:640px) {
+  .verb-grid { grid-template-columns:1fr; }
+}
+
     /* =========================
        CHANGEMENT DE FOND
        ========================= */
@@ -3178,6 +3272,7 @@ body { background-attachment: fixed !important; }
     <button class="nav-btn" data-tab="restaurant" onclick="showTab('restaurant')">🍜 Commander au restaurant</button>
     <button class="nav-btn" data-tab="phrases" onclick="showTab('phrases')">💬 Phrases</button>
     <button class="nav-btn" data-tab="numbers" onclick="showTab('numbers')">🔢 Nombres</button>
+    <button class="nav-btn" data-tab="verbs" onclick="showTab('verbs')">🔤 Verbes de base</button>
   </nav>
 
   <div class="stats-bar">
@@ -3792,6 +3887,23 @@ body { background-attachment: fixed !important; }
       </div>
 
       <div id="phrases-grid" class="phrase-layout"></div>
+    </div>
+  </div>
+
+  
+
+  <div id="panel-verbs" class="tab-panel">
+    <div class="app-card">
+      <div class="setup-title section-title-accent">🔤 Verbes de base</div>
+      <div class="setup-desc">
+        Une sélection d'environ 30 verbes très fréquents pour construire tes premières phrases.
+        Chaque fiche donne le verbe à la forme dictionnaire, sa romanisation, sa traduction et une phrase exemple.
+      </div>
+      <div class="verb-intro">
+        💡 <strong>Astuce :</strong> apprends d'abord le sens du verbe, puis lis la phrase à voix haute.
+        Le bouton 🔊 permet d'écouter la prononciation de la phrase coréenne.
+      </div>
+      <div id="verbs-grid" class="verb-grid"></div>
     </div>
   </div>
 
@@ -5706,6 +5818,65 @@ function goHome() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+
+// --- Verbes de base ---
+const BASE_VERBS = [
+    {kr:'하다', rom:'hada', fr:'faire', ex:'오늘 공부를 해요.', exRom:'oneul gongbureul haeyo.', exFr:"Je fais des études aujourd'hui."},
+    {kr:'가다', rom:'gada', fr:'aller', ex:'학교에 가요.', exRom:'hakgyoe gayo.', exFr:"Je vais à l'école."},
+    {kr:'오다', rom:'oda', fr:'venir', ex:'친구가 집에 와요.', exRom:'chinguga jibe wayo.', exFr:'Mon ami vient à la maison.'},
+    {kr:'먹다', rom:'meokda', fr:'manger', ex:'저는 아침을 먹어요.', exRom:'jeoneun achimeul meogeoyo.', exFr:'Je prends mon petit-déjeuner.'},
+    {kr:'마시다', rom:'masida', fr:'boire', ex:'물을 많이 마셔요.', exRom:'mureul mani masyeoyo.', exFr:"Je bois beaucoup d'eau."},
+    {kr:'보다', rom:'boda', fr:'voir / regarder', ex:'저는 영화를 봐요.', exRom:'jeoneun yeonghwareul bwayo.', exFr:'Je regarde un film.'},
+    {kr:'듣다', rom:'deutda', fr:'écouter / entendre', ex:'음악을 들어요.', exRom:'eumageul deureoyo.', exFr:"J'écoute de la musique."},
+    {kr:'읽다', rom:'ikda', fr:'lire', ex:'매일 책을 읽어요.', exRom:'maeil chaegeul ilgeoyo.', exFr:'Je lis un livre tous les jours.'},
+    {kr:'쓰다', rom:'sseuda', fr:'écrire', ex:'한국어로 편지를 써요.', exRom:'hangugeoro pyeonjireul sseoyo.', exFr:"J'écris une lettre en coréen."},
+    {kr:'배우다', rom:'baeuda', fr:'apprendre', ex:'한국어를 배워요.', exRom:'hangugeoreul baewoyo.', exFr:"J'apprends le coréen."},
+    {kr:'공부하다', rom:'gongbuhada', fr:'étudier', ex:'도서관에서 공부해요.', exRom:'doseogwaneseo gongbuhaeyo.', exFr:"J'étudie à la bibliothèque."},
+    {kr:'일하다', rom:'ilhada', fr:'travailler', ex:'월요일에 일해요.', exRom:'woryoire ilhaeyo.', exFr:'Je travaille le lundi.'},
+    {kr:'자다', rom:'jada', fr:'dormir', ex:'밤 열한 시에 자요.', exRom:'bam yeolhan sie jayo.', exFr:'Je dors à onze heures du soir.'},
+    {kr:'일어나다', rom:'ireonada', fr:'se lever', ex:'아침 일곱 시에 일어나요.', exRom:'achim ilgop sie ireonayo.', exFr:'Je me lève à sept heures du matin.'},
+    {kr:'만나다', rom:'mannada', fr:'rencontrer / voir', ex:'주말에 친구를 만나요.', exRom:'jumare chingureul mannayo.', exFr:'Je vois un ami le week-end.'},
+    {kr:'사다', rom:'sada', fr:'acheter', ex:'빵을 사요.', exRom:'ppangeul sayo.', exFr:"J'achète du pain."},
+    {kr:'주다', rom:'juda', fr:'donner', ex:'친구에게 선물을 줘요.', exRom:'chinguege seonmureul jwoyo.', exFr:'Je donne un cadeau à mon ami.'},
+    {kr:'받다', rom:'batda', fr:'recevoir', ex:'선물을 받아요.', exRom:'seonmureul badayo.', exFr:'Je reçois un cadeau.'},
+    {kr:'좋아하다', rom:'joahada', fr:'aimer / apprécier', ex:'한국 음식을 좋아해요.', exRom:'hanguk eumsigeul joahaeyo.', exFr:"J'aime la cuisine coréenne."},
+    {kr:'싫어하다', rom:'sireohada', fr:'ne pas aimer / détester', ex:'매운 음식을 싫어해요.', exRom:'maeun eumsigeul sireohaeyo.', exFr:"Je n'aime pas les plats épicés."},
+    {kr:'알다', rom:'alda', fr:'savoir / connaître', ex:'그 사람을 알아요.', exRom:'geu sarameul arayo.', exFr:'Je connais cette personne.'},
+    {kr:'모르다', rom:'moreuda', fr:'ne pas savoir / ne pas connaître', ex:'잘 모르겠어요.', exRom:'jal moreugesseoyo.', exFr:'Je ne sais pas très bien.'},
+    {kr:'살다', rom:'salda', fr:'vivre / habiter', ex:'서울에 살아요.', exRom:'seoure sarayo.', exFr:"J'habite à Séoul."},
+    {kr:'있다', rom:'itda', fr:'avoir / être / se trouver', ex:'시간이 있어요.', exRom:'sigani isseoyo.', exFr:"J'ai du temps."},
+    {kr:'없다', rom:'eopda', fr:'ne pas avoir / ne pas être', ex:'시간이 없어요.', exRom:'sigani eopseoyo.', exFr:"Je n'ai pas le temps."},
+    {kr:'만들다', rom:'mandeulda', fr:'faire / fabriquer', ex:'김밥을 만들어요.', exRom:'gimbabeul mandeureoyo.', exFr:'Je fais des kimbaps.'},
+    {kr:'열다', rom:'yeolda', fr:'ouvrir', ex:'창문을 열어요.', exRom:'changmuneul yeoreoyo.', exFr:"J'ouvre la fenêtre."},
+    {kr:'닫다', rom:'datda', fr:'fermer', ex:'문을 닫아요.', exRom:'muneul dadayo.', exFr:'Je ferme la porte.'},
+    {kr:'기다리다', rom:'gidarida', fr:'attendre', ex:'여기에서 기다려요.', exRom:'yeogieseo gidaryeoyo.', exFr:"J'attends ici."},
+    {kr:'말하다', rom:'malhada', fr:'parler / dire', ex:'한국어로 말해요.', exRom:'hangugeoro malhaeyo.', exFr:'Je parle en coréen.'}
+];
+
+function buildBaseVerbs() {
+  const container = document.getElementById('verbs-grid');
+  if (!container) return;
+  container.innerHTML = BASE_VERBS.map(v => {
+    const safe = v.ex.replace(/'/g, "\\'");
+    return `
+      <article class="verb-card">
+        <div class="verb-head">
+          <div>
+            <div class="verb-kr">${v.kr}</div>
+            <div class="verb-rom">${v.rom}</div>
+            <div class="verb-fr">${v.fr}</div>
+          </div>
+          <button class="verb-speak" type="button" onclick="speakKorean('${safe}')">🔊</button>
+        </div>
+        <div class="verb-example">
+          <div class="verb-example-kr">${v.ex}</div>
+          <div class="verb-example-rom">${v.exRom}</div>
+          <div class="verb-example-fr">🇫🇷 ${v.exFr}</div>
+        </div>
+      </article>`;
+  }).join('');
+}
+
 function showTab(id) {
   if (id !== 'quiz') document.body.classList.remove('quiz-mode');
 
@@ -5725,6 +5896,8 @@ function showTab(id) {
   const panel = document.getElementById(`panel-${id}`);
   if (!panel) return;
   panel.classList.add('active');
+
+  if (id === 'verbs') buildBaseVerbs();
 
   if (id === 'map') {
     setTimeout(() => {
