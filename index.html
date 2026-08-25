@@ -2839,6 +2839,41 @@ img.logo,
 .counter-card span{display:block;color:var(--subtext);font-size:.74rem;margin-top:5px;line-height:1.4}
 @media(max-width:900px){.counter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:640px){.counter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* === Construire une phrase === */
+.sentence-builder-panel { overflow: hidden; }
+.sentence-builder-card { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:20px; }
+.sentence-step { display:flex; gap:12px; align-items:flex-start; padding:16px; border:1px solid var(--border); border-radius:16px; background:var(--card-sub); }
+.sentence-step > span { min-width:32px; height:32px; display:grid; place-items:center; border-radius:50%; background:var(--primary); color:#fff; font-weight:800; }
+.sentence-step label { display:block; font-size:.82rem; font-weight:800; margin-bottom:7px; color:var(--subtext); }
+.sentence-step select { width:100%; border:1px solid var(--border); border-radius:12px; padding:11px 12px; background:#fff; color:var(--text); font:inherit; }
+.sentence-result-card { margin-top:18px; padding:22px; border-radius:18px; background:linear-gradient(135deg,#fff,#fdf2f8); border:1px solid var(--border); text-align:center; }
+.sentence-result-label { font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; font-weight:800; color:var(--subtext); }
+.sentence-result-kr { font-family:'Noto Sans KR',sans-serif; font-size:2rem; font-weight:800; margin:8px 0; }
+.sentence-result-rom { color:var(--subtext); font-style:italic; }
+.sentence-result-fr { margin:7px 0 12px; font-weight:700; }
+.sentence-rules { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-top:16px; }
+.sentence-rule { padding:12px; border-radius:14px; background:var(--primary-light); text-align:center; }
+.sentence-rule strong { display:block; font-family:'Noto Sans KR',sans-serif; font-size:1.05rem; }
+.sentence-rule span { display:block; font-size:.72rem; color:var(--subtext); margin-top:3px; }
+.sentence-course-details { margin-top:20px; border:1px solid var(--border); border-radius:18px; background:var(--card-bg); overflow:hidden; }
+.sentence-course-details summary { cursor:pointer; padding:18px 20px; font-weight:800; font-size:1.05rem; background:var(--primary-light); }
+.sentence-course { padding:20px; }
+.sentence-course h2 { margin:28px 0 10px; color:var(--text); }
+.sentence-course h3 { margin:20px 0 8px; color:var(--text); }
+.sentence-course p { line-height:1.7; margin:8px 0; color:var(--text); }
+.sentence-course blockquote { margin:12px 0; padding:12px 16px; border-left:4px solid var(--primary); background:var(--primary-light); border-radius:0 12px 12px 0; font-family:'Noto Sans KR',sans-serif; }
+.sentence-course ul,.sentence-course ol { padding-left:24px; margin:8px 0 14px; line-height:1.7; }
+.sentence-course code { background:var(--primary-light); padding:2px 6px; border-radius:6px; }
+.sentence-table-wrap { overflow-x:auto; margin:12px 0 18px; }
+.sentence-table { width:100%; border-collapse:collapse; font-size:.9rem; }
+.sentence-table th,.sentence-table td { padding:10px 12px; border:1px solid var(--border); text-align:left; vertical-align:top; }
+.sentence-table th { background:var(--primary-light); font-weight:800; }
+@media (max-width: 760px) {
+  .sentence-builder-card,.sentence-rules { grid-template-columns:1fr; }
+  .sentence-result-kr { font-size:1.5rem; }
+}
 </style>
 <style id="v11-nav-fix">
 nav{grid-template-columns:repeat(5,minmax(0,1fr));}
@@ -4839,6 +4874,7 @@ body.spa-home-active .spa-home-grid.spa-enter-right {
 <button class="nav-btn" data-tab="practical" onclick="showTab('practical')">🇰🇷 Pratique</button>
 <button class="nav-btn" data-tab="restaurant" onclick="showTab('restaurant')">🍜 Commander au restaurant</button>
 <button class="nav-btn" data-tab="phrases" onclick="showTab('phrases')">💬 Phrases</button>
+<button class="nav-btn" data-tab="sentence" onclick="showTab('sentence')">🧩 Construire une phrase</button>
 <button class="nav-btn" data-tab="numbers" onclick="showTab('numbers')">🔢 Nombres</button>
 <button class="nav-btn" data-tab="verbs" onclick="showTab('verbs')">🔤 Verbes de base</button>
 </nav>
@@ -4901,6 +4937,9 @@ body.spa-home-active .spa-home-grid.spa-enter-right {
 </button>
 <button class="spa-module-card" data-spa-target="phrases" type="button">
 <span class="spa-module-icon">💬</span><span class="spa-module-copy"><strong>Phrases utiles</strong><small>Des expressions prêtes à utiliser.</small></span><span class="spa-module-arrow">→</span>
+</button>
+<button class="spa-module-card" data-spa-target="sentence" type="button">
+<span class="spa-module-icon">🧩</span><span class="spa-module-copy"><strong>Construire une phrase</strong><small>Assemble sujet, lieu, objet et verbe en coréen.</small></span><span class="spa-module-arrow">→</span>
 </button>
 <button class="spa-module-card" data-spa-target="numbers" type="button">
 <span class="spa-module-icon">🔢</span><span class="spa-module-copy"><strong>Nombres</strong><small>Natifs et sino-coréens, avec exemples.</small></span><span class="spa-module-arrow">→</span>
@@ -5411,6 +5450,419 @@ body.spa-home-active .spa-home-grid.spa-enter-right {
 <div><span>Plat</span> + <b>안 맵게 해 주세요</b> = « Pas épicé, s'il vous plaît. »</div>
 <div><span>계산해 주세요</span> = « L'addition, s'il vous plaît. »</div>
 </div>
+</div>
+</div>
+
+<!-- ONGLET : CONSTRUIRE UNE PHRASE -->
+<div class="tab-panel" id="panel-sentence">
+<div class="app-card sentence-builder-panel">
+  <div class="setup-title section-title-accent">🧩 Construire une phrase</div>
+  <div class="setup-desc">Assemble ta phrase étape par étape. La logique de base est : <strong>Sujet → contexte/lieu → objet → verbe</strong>. Le verbe est généralement placé à la fin.</div>
+
+  <div class="sentence-builder-card">
+    <div class="sentence-step"><span>1</span><div><label for="sb-subject">Sujet / thème</label><select id="sb-subject">
+      <option value="저는">저는 — je, moi</option><option value="친구가">친구가 — mon ami</option><option value="제가">제가 — c'est moi qui…</option><option value="고양이가">고양이가 — un chat</option>
+    </select></div></div>
+    <div class="sentence-step"><span>2</span><div><label for="sb-place">Lieu / contexte</label><select id="sb-place">
+      <option value="">Aucun</option><option value="학교에서">학교에서 — à l'école (action)</option><option value="집에서">집에서 — à la maison (action)</option><option value="카페에서">카페에서 — au café (action)</option><option value="학교에">학교에 — à l'école (destination/position)</option><option value="집에">집에 — à la maison (destination/position)</option><option value="한국에">한국에 — en Corée (destination)</option>
+    </select></div></div>
+    <div class="sentence-step"><span>3</span><div><label for="sb-object">Objet</label><select id="sb-object">
+      <option value="">Aucun</option><option value="사과를">사과를 — une pomme</option><option value="밥을">밥을 — du riz / un repas</option><option value="커피를">커피를 — du café</option><option value="영화를">영화를 — un film</option><option value="한국어를">한국어를 — le coréen</option><option value="음악을">음악을 — la musique</option><option value="고양이를">고양이를 — les chats</option>
+    </select></div></div>
+    <div class="sentence-step"><span>4</span><div><label for="sb-verb">Verbe</label><select id="sb-verb">
+      <option value="먹어요">먹어요 — manger</option><option value="마셔요">마셔요 — boire</option><option value="봐요">봐요 — regarder / voir</option><option value="좋아해요">좋아해요 — aimer</option><option value="공부해요">공부해요 — étudier</option><option value="가요">가요 — aller</option><option value="와요">와요 — venir</option><option value="있어요">있어요 — être / avoir</option><option value="없어요">없어요 — ne pas avoir</option>
+    </select></div></div>
+  </div>
+
+  <div class="sentence-result-card">
+    <div class="sentence-result-label">Ta phrase</div>
+    <div class="sentence-result-kr" id="sb-result">저는 사과를 먹어요.</div>
+    <div class="sentence-result-rom" id="sb-rom">Jeoneun sagwareul meogeoyo.</div>
+    <div class="sentence-result-fr" id="sb-fr">→ Je mange une pomme.</div>
+    <button class="mini-action" id="sb-speak" type="button">🔊 Écouter</button>
+  </div>
+
+  <div class="sentence-rules">
+    <div class="sentence-rule"><strong>은 / 는</strong><span>thème · « quant à… »</span></div>
+    <div class="sentence-rule"><strong>이 / 가</strong><span>sujet · « c'est X qui… »</span></div>
+    <div class="sentence-rule"><strong>을 / 를</strong><span>objet</span></div>
+    <div class="sentence-rule"><strong>에</strong><span>destination / position</span></div>
+    <div class="sentence-rule"><strong>에서</strong><span>lieu où l'action se déroule</span></div>
+  </div>
+</div>
+
+<details class="sentence-course-details" open>
+  <summary>📚 Cours complet — construire une phrase en coréen</summary>
+  <div class="sentence-course">
+    <h2>1. La structure générale d&#x27;une phrase</h2>
+<p>La grande différence avec le français :</p>
+<h3>🇫🇷 Français</h3>
+<p><strong>Sujet → Verbe → Objet</strong></p>
+<blockquote>Je mange une pomme.</blockquote>
+<h3>🇰🇷 Coréen</h3>
+<p><strong>Sujet → Objet → Verbe</strong></p>
+<blockquote>저는 사과를 먹어요.<br><br><em>Jeoneun sagwareul meogeoyo.</em><br><br>→ Je mange une pomme.</blockquote>
+<h3>Décomposition</h3>
+<ul><li><strong>저</strong> (<em>jeo</em>) = je / moi </li><li><strong>는</strong> (<em>neun</em>) = particule du thème </li><li><strong>사과</strong> (<em>sagwa</em>) = pomme </li><li><strong>를</strong> (<em>reul</em>) = particule de l&#x27;objet </li><li><strong>먹어요</strong> (<em>meogeoyo</em>) = manger </li></ul>
+<p>👉 <strong>Le verbe est généralement placé à la fin.</strong></p>
+<p>---</p>
+<h1>2. Les particules coréennes</h1>
+<p>Les particules sont de petits éléments placés après les noms. Elles indiquent leur <strong>fonction dans la phrase</strong>.</p>
+<p>Exemple :</p>
+<blockquote>저는 사과를 먹어요.<br><br><em>Jeoneun sagwareul meogeoyo.</em></blockquote>
+<p><strong>는</strong> indique le thème.</p>
+<p><strong>를</strong> indique l&#x27;objet.</p>
+<p>---</p>
+<h2>2.1 은 / 는 — le thème</h2>
+<p><strong>은/는</strong> signifie approximativement :</p>
+<blockquote>« quant à… », « en ce qui concerne… »</blockquote>
+<h3>는</h3>
+<p>Après une voyelle :</p>
+<blockquote>저<strong>는</strong><br><br><em>jeoneun</em><br><br>→ moi, je</blockquote>
+<h3>은</h3>
+<p>Après une consonne :</p>
+<blockquote>학생<strong>은</strong><br><br><em>haksaengeun</em><br><br>→ l&#x27;étudiant, lui…</blockquote>
+<h3>Exemple</h3>
+<blockquote>저는 학생이에요.<br><br><em>Jeoneun haksaeng-ieyo.</em><br><br>→ Je suis étudiant(e).</blockquote>
+<h3>À retenir</h3>
+<p><strong>Voyelle → 는</strong></p>
+<p><strong>Consonne → 은</strong></p>
+<p>---</p>
+<h1>3. 이 / 가 — le sujet</h1>
+<p><strong>이/가</strong> indique le sujet de la phrase.</p>
+<h3>가</h3>
+<p>Après une voyelle :</p>
+<blockquote>친구<strong>가</strong><br><br><em>chinguga</em><br><br>→ l&#x27;ami…</blockquote>
+<h3>이</h3>
+<p>Après une consonne :</p>
+<blockquote>학생<strong>이</strong><br><br><em>haksaengi</em><br><br>→ l&#x27;étudiant…</blockquote>
+<h3>Exemples</h3>
+<blockquote>친구가 와요.<br><br><em>Chinguga wayo.</em><br><br>→ Mon ami vient.</blockquote>
+<blockquote>고양이가 있어요.<br><br><em>Goyangiga isseoyo.</em><br><br>→ Il y a un chat / J&#x27;ai un chat.</blockquote>
+<h3>À retenir</h3>
+<p><strong>Voyelle → 가</strong></p>
+<p><strong>Consonne → 이</strong></p>
+<p>---</p>
+<h1>4. 은/는 vs 이/가</h1>
+<p>C&#x27;est une distinction importante.</p>
+<h3>은/는 → thème</h3>
+<blockquote>저는 학생이에요.<br><br><em>Jeoneun haksaeng-ieyo.</em><br><br>→ Moi, je suis étudiant.</blockquote>
+<h3>이/가 → sujet mis en évidence</h3>
+<blockquote>제가 학생이에요.<br><br><em>Jega haksaeng-ieyo.</em><br><br>→ C&#x27;est moi qui suis étudiant.</blockquote>
+<p>Pour débuter :</p>
+<p><strong>은/는</strong> → « quant à… »</p>
+<p><strong>이/가</strong> → « c&#x27;est X qui… »</p>
+<p>La différence réelle dépend du contexte, mais cette approximation permet de commencer sans se perdre.</p>
+<p>---</p>
+<h1>5. 을 / 를 — l&#x27;objet</h1>
+<p><strong>을/를</strong> indique ce qui reçoit l&#x27;action.</p>
+<p>Par exemple :</p>
+<blockquote>Je mange <strong>une pomme</strong>.</blockquote>
+<p>« Une pomme » est l&#x27;objet de l&#x27;action « manger ».</p>
+<h3>를</h3>
+<p>Après une voyelle :</p>
+<blockquote>사과<strong>를</strong><br><br><em>sagwareul</em></blockquote>
+<h3>을</h3>
+<p>Après une consonne :</p>
+<blockquote>밥<strong>을</strong><br><br><em>babeul</em></blockquote>
+<h3>Exemples</h3>
+<blockquote>사과를 먹어요.<br><br><em>Sagwareul meogeoyo.</em><br><br>→ Je mange une pomme.</blockquote>
+<blockquote>밥을 먹어요.<br><br><em>Babeul meogeoyo.</em><br><br>→ Je mange.</blockquote>
+<blockquote>영화를 봐요.<br><br><em>Yeonghwareul bwayo.</em><br><br>→ Je regarde un film.</blockquote>
+<h3>À retenir</h3>
+<p><strong>Voyelle → 를</strong></p>
+<p><strong>Consonne → 을</strong></p>
+<p>---</p>
+<h1>6. 에 — à / vers / dans</h1>
+<p><strong>에</strong> est utilisé notamment pour une destination ou une position.</p>
+<h3>Destination</h3>
+<blockquote>학교에 가요.<br><br><em>Hakgyoe gayo.</em><br><br>→ Je vais à l&#x27;école.</blockquote>
+<blockquote>한국에 가요.<br><br><em>Hangug-e gayo.</em><br><br>→ Je vais en Corée.</blockquote>
+<h3>Position</h3>
+<blockquote>집에 있어요.<br><br><em>Jibe isseoyo.</em><br><br>→ Je suis à la maison.</blockquote>
+<p>---</p>
+<h1>7. 에서 — lieu où se déroule une action</h1>
+<p><strong>에서</strong> indique généralement l&#x27;endroit où une action se déroule.</p>
+<blockquote>학교에서 공부해요.<br><br><em>Hakgyoeseo gongbuhaeyo.</em><br><br>→ J&#x27;étudie à l&#x27;école.</blockquote>
+<blockquote>집에서 먹어요.<br><br><em>Jibeseo meogeoyo.</em><br><br>→ Je mange à la maison.</blockquote>
+<blockquote>카페에서 커피를 마셔요.<br><br><em>Kapeeseo keopireul masyeoyo.</em><br><br>→ Je bois du café au café.</blockquote>
+<h3>에 vs 에서</h3>
+<blockquote>학교<strong>에</strong> 가요.<br><br><em>Hakgyoe gayo.</em><br><br>→ Je vais <strong>à l&#x27;école</strong>.</blockquote>
+<blockquote>학교<strong>에서</strong> 공부해요.<br><br><em>Hakgyoeseo gongbuhaeyo.</em><br><br>→ J&#x27;étudie <strong>à l&#x27;école</strong>.</blockquote>
+<p><strong>에</strong> → destination / position</p>
+<p><strong>에서</strong> → lieu où l&#x27;action se déroule</p>
+<p>---</p>
+<h1>8. 도 — aussi</h1>
+<p><strong>도</strong> signifie <strong>« aussi »</strong>.</p>
+<blockquote>저도 학생이에요.<br><br><em>Jeodo haksaeng-ieyo.</em><br><br>→ Moi aussi, je suis étudiant.</blockquote>
+<blockquote>저도 커피를 좋아해요.<br><br><em>Jeodo keopireul joahaeyo.</em><br><br>→ Moi aussi, j&#x27;aime le café.</blockquote>
+<h3>Important</h3>
+<p><strong>도</strong> peut remplacer certaines particules comme <strong>은/는, 이/가, 을/를</strong> selon la phrase.</p>
+<p>---</p>
+<h1>9. 의 — de / possession</h1>
+<p><strong>의</strong> indique une relation ou une possession.</p>
+<blockquote>저의 책<br><br><em>jeoui chaek</em><br><br>→ mon livre</blockquote>
+<p>Littéralement :</p>
+<p><strong>저</strong> = moi</p>
+<p><strong>의</strong> = de</p>
+<p><strong>책</strong> = livre</p>
+<p>La forme courante de <strong>저의</strong> est <strong>제</strong>.</p>
+<blockquote>제 책이에요.<br><br><em>Je chaeg-ieyo.</em><br><br>→ C&#x27;est mon livre.</blockquote>
+<p>---</p>
+<h1>10. 와 / 과 — et / avec</h1>
+<p>Ces particules servent notamment à relier des noms.</p>
+<h3>와</h3>
+<p>Après une voyelle :</p>
+<blockquote>사과<strong>와</strong> 바나나<br><br><em>sagwawa banana</em><br><br>→ pommes et bananes</blockquote>
+<h3>과</h3>
+<p>Après une consonne :</p>
+<blockquote>밥<strong>과</strong> 김치<br><br><em>bapgwa gimchi</em><br><br>→ riz et kimchi</blockquote>
+<p>Exemple :</p>
+<blockquote>사과와 바나나를 먹어요.<br><br><em>Sagwawa bananareul meogeoyo.</em><br><br>→ Je mange des pommes et des bananes.</blockquote>
+<p>---</p>
+<h1>11. 하고 — et / avec</h1>
+<p><strong>하고</strong> est une autre manière très courante de dire « et » ou « avec ».</p>
+<blockquote>친구하고 가요.<br><br><em>Chinguhago gayo.</em><br><br>→ Je vais avec mon ami.</blockquote>
+<blockquote>친구하고 영화를 봐요.<br><br><em>Chinguhago yeonghwareul bwayo.</em><br><br>→ Je regarde un film avec mon ami.</blockquote>
+<blockquote>사과하고 바나나<br><br><em>Sagwahago banana</em><br><br>→ pommes et bananes</blockquote>
+<p>---</p>
+<h1>12. 한테 — à quelqu&#x27;un</h1>
+<p><strong>한테</strong> s&#x27;utilise notamment lorsqu&#x27;une action est dirigée vers une personne.</p>
+<blockquote>친구한테 줘요.<br><br><em>Chinguhante jwoyo.</em><br><br>→ Je le donne à mon ami.</blockquote>
+<blockquote>친구한테 전화해요.<br><br><em>Chinguhante jeonhwahaeyo.</em><br><br>→ J&#x27;appelle mon ami.</blockquote>
+<p>---</p>
+<h1>13. 부터 / 까지 — de… à…</h1>
+<h3>부터</h3>
+<p>\= depuis / à partir de</p>
+<h3>까지</h3>
+<p>\= jusqu&#x27;à</p>
+<blockquote>9시부터 5시까지<br><br><em>ahopsibuteo daseot-kkaji</em><br><br>→ de 9 h à 17 h</blockquote>
+<p>Exemple :</p>
+<blockquote>9시부터 5시까지 일해요.<br><br><em>Ahopsibuteo daseot-kkaji ilhaeyo.</em><br><br>→ Je travaille de 9 h à 17 h.</blockquote>
+<p>---</p>
+<h1>14. Dire « je suis… »</h1>
+<p>Pour identifier quelqu&#x27;un ou quelque chose, on utilise <strong>이에요 / 예요</strong>.</p>
+<h3>이에요</h3>
+<p>Après une consonne :</p>
+<blockquote>학생이에요.<br><br><em>Haksaeng-ieyo.</em><br><br>→ Je suis étudiant.</blockquote>
+<h3>예요</h3>
+<p>Après une voyelle :</p>
+<blockquote>의사예요.<br><br><em>Uisa-yeyo.</em><br><br>→ Je suis médecin.</blockquote>
+<h3>Structure</h3>
+<blockquote><strong>저는 + nom + 이에요/예요</strong></blockquote>
+<p>Exemples :</p>
+<blockquote>저는 학생이에요.<br><br><em>Jeoneun haksaeng-ieyo.</em><br><br>→ Je suis étudiant(e).</blockquote>
+<blockquote>저는 의사예요.<br><br><em>Jeoneun uisa-yeyo.</em><br><br>→ Je suis médecin.</blockquote>
+<blockquote>저는 프랑스 사람이에요.<br><br><em>Jeoneun peurangseu saram-ieyo.</em><br><br>→ Je suis français(e).</blockquote>
+<p>---</p>
+<h1>15. Dire « j&#x27;aime… »</h1>
+<p>Le verbe <strong>좋아하다</strong> signifie « aimer / apprécier ».</p>
+<p>Forme polie courante :</p>
+<blockquote>좋아해요<br><br><em>joahaeyo</em><br><br>→ aimer</blockquote>
+<p>Exemple :</p>
+<blockquote>저는 사과를 좋아해요.<br><br><em>Jeoneun sagwareul joahaeyo.</em><br><br>→ J&#x27;aime les pommes.</blockquote>
+<p>Autres exemples :</p>
+<blockquote>저는 커피를 좋아해요.<br><br><em>Jeoneun keopireul joahaeyo.</em><br><br>→ J&#x27;aime le café.</blockquote>
+<blockquote>저는 음악을 좋아해요.<br><br><em>Jeoneun eumageul joahaeyo.</em><br><br>→ J&#x27;aime la musique.</blockquote>
+<blockquote>저는 고양이를 좋아해요.<br><br><em>Jeoneun goyangireul joahaeyo.</em><br><br>→ J&#x27;aime les chats.</blockquote>
+<p>---</p>
+<h1>16. Dire « je n&#x27;aime pas »</h1>
+<p><strong>안</strong> signifie « ne… pas ».</p>
+<p>On le place généralement avant le verbe.</p>
+<blockquote>저는 커피를 안 좋아해요.<br><br><em>Jeoneun keopireul an joahaeyo.</em><br><br>→ Je n&#x27;aime pas le café.</blockquote>
+<blockquote>저는 생선을 안 좋아해요.<br><br><em>Jeoneun saengseoneul an joahaeyo.</em><br><br>→ Je n&#x27;aime pas le poisson.</blockquote>
+<p>---</p>
+<h1>17. Les verbes essentiels</h1>
+<div class="sentence-table-wrap"><table class="sentence-table"><thead><tr><th>CoréenRomanisationFrançais</th><th></th><th></th></tr></thead><tbody>
+<tr><td>먹어요</td><td>meogeoyo</td><td>manger</td></tr>
+<tr><td>마셔요</td><td>masyeoyo</td><td>boire</td></tr>
+<tr><td>가요</td><td>gayo</td><td>aller</td></tr>
+<tr><td>와요</td><td>wayo</td><td>venir</td></tr>
+<tr><td>봐요</td><td>bwayo</td><td>regarder / voir</td></tr>
+<tr><td>해요</td><td>haeyo</td><td>faire</td></tr>
+<tr><td>공부해요</td><td>gongbuhaeyo</td><td>étudier</td></tr>
+<tr><td>좋아해요</td><td>joahaeyo</td><td>aimer</td></tr>
+<tr><td>있어요</td><td>isseoyo</td><td>être / avoir</td></tr>
+<tr><td>없어요</td><td>eopseoyo</td><td>ne pas avoir</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h1>18. Dire « je mange / je bois / je regarde »</h1>
+<h3>Je mange une pomme</h3>
+<blockquote>저는 사과를 먹어요.<br><br><em>Jeoneun sagwareul meogeoyo.</em></blockquote>
+<h3>Je bois du café</h3>
+<blockquote>저는 커피를 마셔요.<br><br><em>Jeoneun keopireul masyeoyo.</em></blockquote>
+<h3>Je regarde un film</h3>
+<blockquote>저는 영화를 봐요.<br><br><em>Jeoneun yeonghwareul bwayo.</em></blockquote>
+<h3>Structure</h3>
+<blockquote><strong>Sujet + objet + 을/를 + verbe</strong></blockquote>
+<p>---</p>
+<h1>19. Dire « je vais à… »</h1>
+<blockquote>저는 학교에 가요.<br><br><em>Jeoneun hakgyoe gayo.</em><br><br>→ Je vais à l&#x27;école.</blockquote>
+<blockquote>저는 한국에 가요.<br><br><em>Jeoneun Hangug-e gayo.</em><br><br>→ Je vais en Corée.</blockquote>
+<blockquote>저는 집에 가요.<br><br><em>Jeoneun jibe gayo.</em><br><br>→ Je vais à la maison.</blockquote>
+<h3>Structure</h3>
+<blockquote><strong>Sujet + lieu + 에 + 가요</strong></blockquote>
+<p>---</p>
+<h1>20. Dire « je suis à… »</h1>
+<blockquote>저는 집에 있어요.<br><br><em>Jeoneun jibe isseoyo.</em><br><br>→ Je suis à la maison.</blockquote>
+<blockquote>저는 학교에 있어요.<br><br><em>Jeoneun hakgyoe isseoyo.</em><br><br>→ Je suis à l&#x27;école.</blockquote>
+<p>---</p>
+<h1>21. Dire « j&#x27;étudie / je mange à… »</h1>
+<p>On utilise <strong>에서</strong>.</p>
+<blockquote>저는 학교에서 공부해요.<br><br><em>Jeoneun hakgyoeseo gongbuhaeyo.</em><br><br>→ J&#x27;étudie à l&#x27;école.</blockquote>
+<blockquote>저는 집에서 먹어요.<br><br><em>Jeoneun jibeseo meogeoyo.</em><br><br>→ Je mange à la maison.</blockquote>
+<blockquote>저는 카페에서 공부해요.<br><br><em>Jeoneun kapeeseo gongbuhaeyo.</em><br><br>→ J&#x27;étudie au café.</blockquote>
+<p>---</p>
+<h1>22. Dire « j&#x27;ai… »</h1>
+<p><strong>있어요</strong> peut exprimer la possession.</p>
+<blockquote>저는 고양이가 있어요.<br><br><em>Jeoneun goyangiga isseoyo.</em><br><br>→ J&#x27;ai un chat.</blockquote>
+<blockquote>저는 차가 있어요.<br><br><em>Jeoneun chaga isseoyo.</em><br><br>→ J&#x27;ai une voiture.</blockquote>
+<blockquote>저는 시간이 있어요.<br><br><em>Jeoneun sigani isseoyo.</em><br><br>→ J&#x27;ai du temps.</blockquote>
+<h3>Je n&#x27;ai pas</h3>
+<blockquote>저는 차가 없어요.<br><br><em>Jeoneun chaga eopseoyo.</em><br><br>→ Je n&#x27;ai pas de voiture.</blockquote>
+<p>---</p>
+<h1>23. Poser une question</h1>
+<p>Une phrase coréenne peut souvent devenir une question simplement grâce à l&#x27;intonation.</p>
+<h3>Affirmation</h3>
+<blockquote>커피를 좋아해요.<br><br><em>Keopireul joahaeyo.</em><br><br>→ J&#x27;aime le café.</blockquote>
+<h3>Question</h3>
+<blockquote>커피를 좋아해요?<br><br><em>Keopireul joahaeyo?</em><br><br>→ Tu aimes le café ?</blockquote>
+<p>Autres exemples :</p>
+<blockquote>한국어를 공부해요?<br><br><em>Hangugeoreul gongbuhaeyo?</em><br><br>→ Tu étudies le coréen ?</blockquote>
+<blockquote>한국에 가요?<br><br><em>Hangug-e gayo?</em><br><br>→ Tu vas en Corée ?</blockquote>
+<p>---</p>
+<h1>24. Les mots interrogatifs</h1>
+<div class="sentence-table-wrap"><table class="sentence-table"><thead><tr><th>CoréenRomanisationFrançais</th><th></th><th></th></tr></thead><tbody>
+<tr><td>누구</td><td>nugu</td><td>qui</td></tr>
+<tr><td>뭐</td><td>mwo</td><td>quoi</td></tr>
+<tr><td>어디</td><td>eodi</td><td>où</td></tr>
+<tr><td>언제</td><td>eonje</td><td>quand</td></tr>
+<tr><td>왜</td><td>wae</td><td>pourquoi</td></tr>
+<tr><td>어떻게</td><td>eotteoke</td><td>comment</td></tr>
+<tr><td>얼마</td><td>eolma</td><td>combien</td></tr>
+</tbody></table></div>
+<h3>Exemples</h3>
+<blockquote>누구예요?<br><br><em>Nuguyeyo?</em><br><br>→ Qui est-ce ?</blockquote>
+<blockquote>뭐 먹어요?<br><br><em>Mwo meogeoyo?</em><br><br>→ Qu&#x27;est-ce que tu manges ?</blockquote>
+<blockquote>어디에 가요?<br><br><em>Eodie gayo?</em><br><br>→ Où vas-tu ?</blockquote>
+<blockquote>언제 가요?<br><br><em>Eonje gayo?</em><br><br>→ Quand pars-tu ?</blockquote>
+<blockquote>왜 공부해요?<br><br><em>Wae gongbuhaeyo?</em><br><br>→ Pourquoi étudies-tu ?</blockquote>
+<p>---</p>
+<h1>25. Le passé</h1>
+<p>Une forme courante du passé utilise <strong>-았어요 / -었어요</strong>.</p>
+<h3>먹어요 → 먹었어요</h3>
+<blockquote>먹어요<br><br><em>meogeoyo</em><br><br>→ mange</blockquote>
+<blockquote>먹었어요<br><br><em>meogeosseoyo</em><br><br>→ a mangé / ai mangé</blockquote>
+<h3>Exemples</h3>
+<blockquote>밥을 먹었어요.<br><br><em>Babeul meogeosseoyo.</em><br><br>→ J&#x27;ai mangé.</blockquote>
+<blockquote>영화를 봤어요.<br><br><em>Yeonghwareul bwasseoyo.</em><br><br>→ J&#x27;ai regardé un film.</blockquote>
+<blockquote>한국에 갔어요.<br><br><em>Hangug-e gasseoyo.</em><br><br>→ Je suis allé(e) en Corée.</blockquote>
+<blockquote>어제 공부했어요.<br><br><em>Eoje gongbuhaesseoyo.</em><br><br>→ J&#x27;ai étudié hier.</blockquote>
+<p>---</p>
+<h1>26. Le futur</h1>
+<p>Une forme très courante est :</p>
+<p><strong>-(으)ㄹ 거예요</strong></p>
+<p>Elle exprime notamment « je vais… » ou « je ferai… ».</p>
+<blockquote>한국에 갈 거예요.<br><br><em>Hangug-e gal geoyeyo.</em><br><br>→ Je vais aller en Corée.</blockquote>
+<blockquote>영화를 볼 거예요.<br><br><em>Yeonghwareul bol geoyeyo.</em><br><br>→ Je vais regarder un film.</blockquote>
+<blockquote>공부할 거예요.<br><br><em>Gongbuhal geoyeyo.</em><br><br>→ Je vais étudier.</blockquote>
+<p>---</p>
+<h1>27. Les adjectifs</h1>
+<p>En coréen, les adjectifs se comportent souvent comme des verbes.</p>
+<div class="sentence-table-wrap"><table class="sentence-table"><thead><tr><th>CoréenRomanisationFrançais</th><th></th><th></th></tr></thead><tbody>
+<tr><td>맛있어요</td><td>masisseoyo</td><td>être délicieux</td></tr>
+<tr><td>예뻐요</td><td>yeppeoyo</td><td>être joli</td></tr>
+<tr><td>커요</td><td>keoyo</td><td>être grand</td></tr>
+<tr><td>작아요</td><td>jagayo</td><td>être petit</td></tr>
+<tr><td>재미있어요</td><td>jaemiisseoyo</td><td>être intéressant / amusant</td></tr>
+</tbody></table></div>
+<h3>Exemples</h3>
+<blockquote>한국 음식이 맛있어요.<br><br><em>Hanguk eumsigi masisseoyo.</em><br><br>→ La nourriture coréenne est délicieuse.</blockquote>
+<blockquote>이 영화가 재미있어요.<br><br><em>I yeonghwaga jaemiisseoyo.</em><br><br>→ Ce film est intéressant.</blockquote>
+<p>---</p>
+<h1>28. Exemple : construire une phrase complète</h1>
+<p>Prenons :</p>
+<blockquote><strong>저는 학교에서 사과를 먹어요.</strong><br><br><em>Jeoneun hakgyoeseo sagwareul meogeoyo.</em><br><br>→ Je mange une pomme à l&#x27;école.</blockquote>
+<p>On peut la construire morceau par morceau :</p>
+<h3>① Sujet</h3>
+<p><strong>저</strong></p>
+<p><em>jeo</em></p>
+<p>→ je / moi</p>
+<h3>② Thème</h3>
+<p><strong>저는</strong></p>
+<p><em>jeoneun</em></p>
+<p>→ moi, je…</p>
+<h3>③ Lieu</h3>
+<p><strong>학교</strong></p>
+<p><em>hakgyo</em></p>
+<p>→ école</p>
+<h3>④ Lieu de l&#x27;action</h3>
+<p><strong>학교에서</strong></p>
+<p><em>hakgyoeseo</em></p>
+<p>→ à l&#x27;école</p>
+<h3>⑤ Objet</h3>
+<p><strong>사과</strong></p>
+<p><em>sagwa</em></p>
+<p>→ pomme</p>
+<h3>⑥ Particule de l&#x27;objet</h3>
+<p><strong>사과를</strong></p>
+<p><em>sagwareul</em></p>
+<h3>⑦ Verbe</h3>
+<p><strong>먹어요</strong></p>
+<p><em>meogeoyo</em></p>
+<p>→ mange</p>
+<h3>Phrase finale</h3>
+<blockquote><strong>저는 학교에서 사과를 먹어요.</strong><br><br><em>Jeoneun hakgyoeseo sagwareul meogeoyo.</em></blockquote>
+<p>👉 <strong>Sujet + lieu + objet + verbe</strong></p>
+<p>---</p>
+<h1>📌 Tableau récapitulatif des particules</h1>
+<div class="sentence-table-wrap"><table class="sentence-table"><thead><tr><th>ParticuleRomanisationFonctionExemple</th><th></th><th></th><th></th></tr></thead><tbody>
+<tr><td>은 / 는</td><td>eun / neun</td><td>thème</td><td>저는 <em>jeoneun</em></td></tr>
+<tr><td>이 / 가</td><td>i / ga</td><td>sujet</td><td>친구가 <em>chinguga</em></td></tr>
+<tr><td>을 / 를</td><td>eul / reul</td><td>objet</td><td>사과를 <em>sagwareul</em></td></tr>
+<tr><td>에</td><td>e</td><td>destination / position</td><td>학교에 <em>hakgyoe</em></td></tr>
+<tr><td>에서</td><td>eseo</td><td>lieu de l&#x27;action</td><td>학교에서 <em>hakgyoeseo</em></td></tr>
+<tr><td>도</td><td>do</td><td>aussi</td><td>저도 <em>jeodo</em></td></tr>
+<tr><td>의</td><td>ui</td><td>possession / de</td><td>저의 <em>jeoui</em></td></tr>
+<tr><td>와 / 과</td><td>wa / gwa</td><td>et / avec</td><td>사과와 <em>sagwawa</em></td></tr>
+<tr><td>하고</td><td>hago</td><td>et / avec</td><td>친구하고 <em>chinguhago</em></td></tr>
+<tr><td>한테</td><td>hante</td><td>à quelqu&#x27;un</td><td>친구한테 <em>chinguhante</em></td></tr>
+<tr><td>부터</td><td>buteo</td><td>depuis / à partir de</td><td>9시부터 <em>ahopsibuteo</em></td></tr>
+<tr><td>까지</td><td>kkaji</td><td>jusqu&#x27;à</td><td>5시까지 <em>daseot-kkaji</em></td></tr>
+</tbody></table></div>
+<p>---</p>
+<h1>🧠 Les règles à mémoriser en premier</h1>
+<p>Si tu commences le coréen, concentre-toi d&#x27;abord sur ces <strong>5 particules</strong> :</p>
+<h3>① 은 / 는</h3>
+<p><strong>Thème</strong></p>
+<blockquote>저는<br><br><em>jeoneun</em><br><br>→ moi, je…</blockquote>
+<h3>② 이 / 가</h3>
+<p><strong>Sujet</strong></p>
+<blockquote>친구가<br><br><em>chinguga</em><br><br>→ mon ami…</blockquote>
+<h3>③ 을 / 를</h3>
+<p><strong>Objet</strong></p>
+<blockquote>사과를<br><br><em>sagwareul</em><br><br>→ une pomme…</blockquote>
+<h3>④ 에</h3>
+<p><strong>Destination / position</strong></p>
+<blockquote>학교에<br><br><em>hakgyoe</em><br><br>→ à l&#x27;école…</blockquote>
+<h3>⑤ 에서</h3>
+<p><strong>Lieu de l&#x27;action</strong></p>
+<blockquote>학교에서<br><br><em>hakgyoeseo</em><br><br>→ à l&#x27;école…</blockquote>
+<p>---</p>
+<h1>🧩 Le modèle ultime</h1>
+<p>Une fois ces éléments compris, tu peux construire des phrases comme :</p>
+<blockquote><strong>저는 + lieu + 에서 + objet + 를/을 + verbe</strong></blockquote>
+<p>Par exemple :</p>
+<blockquote><strong>저는 카페에서 커피를 마셔요.</strong><br><br><em>Jeoneun kapeeseo keopireul masyeoyo.</em><br><br>→ Je bois du café au café.</blockquote>
+<p>Ou :</p>
+<blockquote><strong>저는 집에서 영화를 봐요.</strong><br><br><em>Jeoneun jibeseo yeonghwareul bwayo.</em><br><br>→ Je regarde un film à la maison.</blockquote>
+<p>Ou :</p>
+<blockquote><strong>저는 학교에서 한국어를 공부해요.</strong><br><br><em>Jeoneun hakgyoeseo Hangugeoreul gongbuhaeyo.</em><br><br>→ J&#x27;étudie le coréen à l&#x27;école.</blockquote>
+<p><strong>La logique à retenir :</strong></p>
+<blockquote>🇰🇷 <strong>Sujet → contexte/lieu → objet → verbe</strong></blockquote>
+<p>et les particules te disent <strong>quel rôle joue chaque élément</strong> dans la phrase.</p>
+  </div>
+</details>
 </div>
 </div>
 <div class="tab-panel" id="panel-phrases">
@@ -7346,6 +7798,54 @@ function buildBaseVerbs() {
   }).join('');
 }
 
+
+// === CONSTRUIRE UNE PHRASE ===
+const SENTENCE_ROM = {
+  '저는':'Jeoneun','친구가':'Chinguga','제가':'Jega','고양이가':'Goyangiga',
+  '학교에서':'hakgyoeseo','집에서':'jibeseo','카페에서':'kapeeseo','학교에':'hakgyoe','집에':'jibe','한국에':'Hangug-e',
+  '사과를':'sagwareul','밥을':'babeul','커피를':'keopireul','영화를':'yeonghwareul','한국어를':'Hangugeoreul','음악을':'eumageul','고양이를':'goyangireul',
+  '먹어요':'meogeoyo','마셔요':'masyeoyo','봐요':'bwayo','좋아해요':'joahaeyo','공부해요':'gongbuhaeyo','가요':'gayo','와요':'wayo','있어요':'isseoyo','없어요':'eopseoyo'
+};
+const SENTENCE_FR = {
+  '먹어요':'Je mange.','마셔요':'Je bois.','봐요':'Je regarde.','좋아해요':"J'aime.",'공부해요':"J'étudie.",'가요':'Je vais.','와요':'Je viens.','있어요':"J'ai / je suis.",'없어요':"Je n'ai pas."
+};
+const SENTENCE_OBJECT_FR = {'사과를':'une pomme','밥을':'du riz / un repas','커피를':'du café','영화를':'un film','한국어를':'le coréen','음악을':'la musique','고양이를':'les chats'};
+const SENTENCE_PLACE_FR = {'학교에서':"à l'école",'집에서':'à la maison','카페에서':'au café','학교에':"à l'école",'집에':'à la maison','한국에':'en Corée'};
+function updateSentenceBuilder() {
+  const s=document.getElementById('sb-subject'), p=document.getElementById('sb-place'), o=document.getElementById('sb-object'), v=document.getElementById('sb-verb');
+  if(!s||!p||!o||!v)return;
+  const parts=[s.value,p.value,o.value,v.value].filter(Boolean);
+  const kr=parts.join(' ');
+  const rom=parts.map(x=>SENTENCE_ROM[x]||'').filter(Boolean).join(' ');
+  let fr=SENTENCE_FR[v.value]||'';
+  if(o.value) {
+    const obj=SENTENCE_OBJECT_FR[o.value]||'';
+    if(v.value==='좋아해요') fr="J'aime "+obj+".";
+    else if(v.value==='봐요') fr="Je regarde "+obj+".";
+    else if(v.value==='먹어요') fr="Je mange "+obj+".";
+    else if(v.value==='마셔요') fr="Je bois "+obj+".";
+    else if(v.value==='공부해요') fr="J'étudie "+obj+".";
+  }
+  if(p.value) {
+    const place=SENTENCE_PLACE_FR[p.value]||'';
+    if(v.value==='먹어요') fr="Je mange"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
+    else if(v.value==='마셔요') fr="Je bois"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
+    else if(v.value==='공부해요') fr="J'étudie"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
+    else if(v.value==='봐요') fr="Je regarde"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
+  }
+  if(v.value==='가요' && p.value) fr='Je vais '+(SENTENCE_PLACE_FR[p.value]||'')+'.';
+  if(v.value==='있어요' && p.value) fr='Je suis '+(SENTENCE_PLACE_FR[p.value]||'')+'.';
+  if(v.value==='없어요' && o.value) fr="Je n'ai pas "+(SENTENCE_OBJECT_FR[o.value]||'')+'.';
+  document.getElementById('sb-result').textContent=kr;
+  document.getElementById('sb-rom').textContent=rom;
+  document.getElementById('sb-fr').textContent='→ '+fr;
+}
+function initSentenceBuilder() {
+  ['sb-subject','sb-place','sb-object','sb-verb'].forEach(id=>document.getElementById(id)?.addEventListener('change',updateSentenceBuilder));
+  document.getElementById('sb-speak')?.addEventListener('click',()=>speakKorean(document.getElementById('sb-result').textContent));
+  updateSentenceBuilder();
+}
+
 function showTab(id, options = {}) {
   if (!id) {
     document.body.classList.add('spa-home-active');
@@ -7395,6 +7895,7 @@ function showTab(id, options = {}) {
   if (homeGrid) homeGrid.classList.remove('spa-enter-right');
 
   if (id === 'verbs') buildBaseVerbs();
+  if (id === 'sentence') initSentenceBuilder();
 
   if (id === 'map') {
     setTimeout(() => {
