@@ -4875,7 +4875,6 @@ body.spa-home-active .spa-home-grid.spa-enter-right {
 <button class="nav-btn" data-tab="restaurant" onclick="showTab('restaurant')">🍜 Commander au restaurant</button>
 <button class="nav-btn" data-tab="phrases" onclick="showTab('phrases')">💬 Phrases</button>
 <button class="nav-btn" data-tab="sentence" onclick="showTab('sentence')">🧩 Construire une phrase</button>
-<button class="nav-btn" data-tab="numbers" onclick="showTab('numbers')">🔢 Nombres</button>
 <button class="nav-btn" data-tab="verbs" onclick="showTab('verbs')">🔤 Verbes de base</button>
 </nav>
 <div class="stats-bar">
@@ -7812,31 +7811,84 @@ const SENTENCE_FR = {
 const SENTENCE_OBJECT_FR = {'사과를':'une pomme','밥을':'du riz / un repas','커피를':'du café','영화를':'un film','한국어를':'le coréen','음악을':'la musique','고양이를':'les chats'};
 const SENTENCE_PLACE_FR = {'학교에서':"à l'école",'집에서':'à la maison','카페에서':'au café','학교에':"à l'école",'집에':'à la maison','한국에':'en Corée'};
 function updateSentenceBuilder() {
-  const s=document.getElementById('sb-subject'), p=document.getElementById('sb-place'), o=document.getElementById('sb-object'), v=document.getElementById('sb-verb');
+  const s=document.getElementById('sb-subject');
+  const p=document.getElementById('sb-place');
+  const o=document.getElementById('sb-object');
+  const v=document.getElementById('sb-verb');
   if(!s||!p||!o||!v)return;
+
   const parts=[s.value,p.value,o.value,v.value].filter(Boolean);
   const kr=parts.join(' ');
   const rom=parts.map(x=>SENTENCE_ROM[x]||'').filter(Boolean).join(' ');
-  let fr=SENTENCE_FR[v.value]||'';
-  if(o.value) {
-    const obj=SENTENCE_OBJECT_FR[o.value]||'';
-    if(v.value==='좋아해요') fr="J'aime "+obj+".";
-    else if(v.value==='봐요') fr="Je regarde "+obj+".";
-    else if(v.value==='먹어요') fr="Je mange "+obj+".";
-    else if(v.value==='마셔요') fr="Je bois "+obj+".";
-    else if(v.value==='공부해요') fr="J'étudie "+obj+".";
+
+  const subjectFr = {
+    '저는': 'Je',
+    '친구가': 'Mon ami',
+    '제가': "C'est moi qui",
+    '고양이가': 'Le chat'
+  };
+
+  const objectFr = SENTENCE_OBJECT_FR[o.value] || '';
+  const placeFr = SENTENCE_PLACE_FR[p.value] || '';
+  const emphaticSubject = s.value === '제가';
+
+  // Conjugaisons françaises adaptées au sujet choisi.
+  const verbFr = {
+    '먹어요':  { '저는':'mange', '친구가':'mange', '제가':'mange', '고양이가':'mange' },
+    '마셔요':  { '저는':'bois',  '친구가':'boit',  '제가':'bois',  '고양이가':'boit' },
+    '봐요':    { '저는':'regarde','친구가':'regarde','제가':'regarde','고양이가':'regarde' },
+    '좋아해요':{ '저는':'aime',  '친구가':'aime',  '제가':'aime',  '고양이가':'aime' },
+    '공부해요':{ '저는':'étudie','친구가':'étudie','제가':'étudie','고양이가':'étudie' },
+    '가요':    { '저는':'vais',  '친구가':'va',     '제가':'vais',  '고양이가':'va' },
+    '와요':    { '저는':'viens', '친구가':'vient',  '제가':'viens', '고양이가':'vient' },
+    '있어요':  { '저는':'suis',  '친구가':'est',    '제가':'suis',  '고양이가':'est' },
+    '없어요':  { '저는':"n'ai pas", '친구가':"n'a pas", '제가':"n'ai pas", '고양이가':"n'a pas" }
+  };
+
+  const conjugation = verbFr[v.value]?.[s.value] || '';
+  let fr = '';
+
+  if (v.value === '가요' || v.value === '와요') {
+    fr = `${subjectFr[s.value] || 'Je'} ${conjugation}`;
+    if (placeFr) fr += ` ${placeFr}`;
+    fr += '.';
+  } else if (v.value === '있어요') {
+    fr = `${subjectFr[s.value] || 'Je'} ${conjugation}`;
+    if (placeFr) fr += ` ${placeFr}`;
+    else if (objectFr) fr += ` ${objectFr}`;
+    fr += '.';
+  } else if (v.value === '없어요') {
+    fr = `${subjectFr[s.value] || 'Je'} ${conjugation}`;
+    if (objectFr) fr += ` ${objectFr}`;
+    fr += '.';
+  } else {
+    fr = `${subjectFr[s.value] || 'Je'} ${conjugation}`;
+    if (objectFr) fr += ` ${objectFr}`;
+    if (placeFr) fr += ` ${placeFr}`;
+    fr += '.';
   }
-  if(p.value) {
-    const place=SENTENCE_PLACE_FR[p.value]||'';
-    if(v.value==='먹어요') fr="Je mange"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
-    else if(v.value==='마셔요') fr="Je bois"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
-    else if(v.value==='공부해요') fr="J'étudie"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
-    else if(v.value==='봐요') fr="Je regarde"+(o.value?' '+(SENTENCE_OBJECT_FR[o.value]||''):'')+" "+place+".";
+
+  // Avec 제가 (이/가), le français naturel est « C'est moi qui... »,
+  // et non « Je... ». Cela permet à la traduction de refléter réellement
+  // le choix fait dans le menu Sujet / thème.
+  if (emphaticSubject) {
+    if (v.value === '없어요') {
+      fr = `C'est moi qui n'ai pas${objectFr ? ' ' + objectFr : ''}.`;
+    } else if (v.value === '있어요') {
+      fr = `C'est moi qui suis${placeFr ? ' ' + placeFr : ''}.`;
+    } else if (v.value === '가요') {
+      fr = `C'est moi qui vais${placeFr ? ' ' + placeFr : ''}.`;
+    } else if (v.value === '와요') {
+      fr = `C'est moi qui viens${placeFr ? ' ' + placeFr : ''}.`;
+    } else {
+      fr = `C'est moi qui ${conjugation}`;
+      if (objectFr) fr += ` ${objectFr}`;
+      if (placeFr) fr += ` ${placeFr}`;
+      fr += '.';
+    }
   }
-  if(v.value==='가요' && p.value) fr='Je vais '+(SENTENCE_PLACE_FR[p.value]||'')+'.';
-  if(v.value==='있어요' && p.value) fr='Je suis '+(SENTENCE_PLACE_FR[p.value]||'')+'.';
-  if(v.value==='없어요' && o.value) fr="Je n'ai pas "+(SENTENCE_OBJECT_FR[o.value]||'')+'.';
-  document.getElementById('sb-result').textContent=kr;
+
+  document.getElementById('sb-result').textContent=kr+'.';
   document.getElementById('sb-rom').textContent=rom;
   document.getElementById('sb-fr').textContent='→ '+fr;
 }
@@ -9106,6 +9158,104 @@ body.night-mode .korean-decoration{color:#f9a8d4!important}
   document.addEventListener("DOMContentLoaded",function(){
     applyNightMode(localStorage.getItem(KEY)==="1");
   });
+})();
+</script>
+
+
+<script>
+(() => {
+  'use strict';
+  const IDS = ['lesson','native','sino','compare'];
+
+  function activateNumberPanel(id) {
+    if (!IDS.includes(id)) id = 'lesson';
+    const root = document.getElementById('panel-numbers');
+    if (!root) return;
+
+    root.querySelectorAll('.number-system-btn').forEach((btn, i) => {
+      const active = IDS[i] === id;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', String(active));
+    });
+
+    root.querySelectorAll('.number-system-panel').forEach(panel => {
+      const active = panel.id === 'numbers-' + id;
+      panel.classList.toggle('active', active);
+      panel.hidden = !active;
+    });
+
+    if ((id === 'native' || id === 'sino') &&
+        typeof window.buildNumberTables === 'function') {
+      window.buildNumberTables();
+    }
+  }
+
+  window.showNumberSystem = activateNumberPanel;
+
+  function initNumberTabs() {
+    const root = document.getElementById('panel-numbers');
+    if (!root) return;
+
+    root.querySelectorAll('.number-system-btn').forEach((btn, i) => {
+      btn.removeAttribute('onclick');
+      btn.type = 'button';
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        activateNumberPanel(IDS[i]);
+      });
+    });
+
+    const active = [...root.querySelectorAll('.number-system-btn')]
+      .findIndex(b => b.classList.contains('active'));
+    activateNumberPanel(IDS[active >= 0 ? active : 0]);
+  }
+
+  const oldShowTab = window.showTab;
+  if (typeof oldShowTab === 'function') {
+    window.showTab = function(id, options) {
+      const result = oldShowTab(id, options);
+      if (id === 'numbers') {
+        requestAnimationFrame(initNumberTabs);
+      }
+      return result;
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNumberTabs, {once:true});
+  } else {
+    initNumberTabs();
+  }
+})();
+</script>
+
+
+<script>
+(function () {
+  const originalShowTab = window.showTab;
+
+  window.showTab = function (id, options) {
+    const result = originalShowTab.apply(this, arguments);
+
+    if (id === 'practical') {
+      requestAnimationFrame(function () {
+        const numbers = document.getElementById('numbers-inline');
+        if (numbers) {
+          // Laisse le rendu de l'onglet se terminer, puis amène
+          // directement le module Nombres à l'écran.
+          setTimeout(function () {
+            numbers.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }, 80);
+        }
+      });
+    }
+
+    return result;
+  };
 })();
 </script>
 
